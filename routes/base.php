@@ -1,5 +1,9 @@
 <?php
 
+Route::get('/react', function () {
+    return view('react_sample');
+});
+
 Route::get('/', function () {
     return view('home.top_page');
 });
