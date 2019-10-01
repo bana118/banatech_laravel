@@ -21,7 +21,7 @@
                     </p>
                 </div>
                 <img class="card-img-right flex-auto d-none d-md-block" data-src="holder.js/200x250?theme=thumb" alt="Thumbnail [200x250]"
-                    style="width: 200px; height: 250px;" src="{% static 'sumnail/hakogucha.png' %}"
+                    style="width: 250px; height: 250px;" src="{{ asset('/img/sumnail/hakogucha.png') }}"
                     data-holder-rendered="true">
             </div>
         </div>
@@ -38,7 +38,7 @@
                     <a href="https://github.com/bana118/banaTECH/tree/master/banaTECH/reiwa">ソースコード</a>
                 </div>
                 <img class="card-img-right flex-auto d-none d-md-block" data-src="holder.js/300x300?theme=thumb" alt="Thumbnail [300x300]"
-                    style="width: 300px; height: 300px;" src="{% static 'sumnail/reiwa.png' %}"
+                    style="width: 250px; height: 250px;" src="{{ asset('/img/sumnail/reiwa.png') }}"
                     data-holder-rendered="true">
             </div>
         </div>
@@ -57,7 +57,7 @@
                     <a href="https://github.com/bana118/banaTECH/tree/master/banaTECH/kurukuru">ソースコード</a>
                 </div>
                 <img class="card-img-right flex-auto d-none d-md-block" data-src="holder.js/300x300?theme=thumb" alt="Thumbnail [300x300]"
-                    style="width: 300px; height: 300px;" src="{% static 'sumnail/kurukuru.png' %}"
+                    style="width: 300px; height: 300px;" src="{{ asset('/img/sumnail/kurukuru.png') }}"
                     data-holder-rendered="true">
             </div>
         </div>
@@ -74,7 +74,7 @@
                     <a href="https://github.com/bana118/banaTECH/tree/master/banaTECH/LaTeXEditor">ソースコード</a>
                 </div>
                 <img class="card-img-right flex-auto d-none d-md-block" data-src="holder.js/300x300?theme=thumb" alt="Thumbnail [300x300]"
-                    style="width: 300px; height: 300px;" src="{% static 'sumnail/LaTeXEditor.png' %}"
+                    style="width: 300px; height: 300px;" src="{{ asset('/img/sumnail/latex_editor.png') }}"
                     data-holder-rendered="true">
             </div>
         </div>
