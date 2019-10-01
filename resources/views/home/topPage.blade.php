@@ -1,8 +1,8 @@
-@extends('base')
+@extends('base.base')
 
 @section('title', 'ばなてっく｜工業大学生のポートフォリオ')
 @section('description', '工業大学生によるプログラミングやガジェットに関するブログ兼Webアプリケーション置き場')
-@include('head')
+@include('base.head')
 
 @section('content')
 <div class="container">
@@ -78,25 +78,6 @@
                     data-holder-rendered="true">
             </div>
         </div>
-    </div>
-    <div class="row mb-2">
-        <div class="col-md-6">
-            <div class="card flex-md-row mb-4 box-shadow h-md-300">
-                <div class="card-body d-flex flex-column align-items-start">
-                    <h3 class="mb-0">
-                        <a class="text-primary" href="/CSSFrameworks">CSSFrameworks</a>
-                    </h3>
-                    <div class="mb-1 text-muted">2019/2/20</div>
-                    <p class="card-text mb-auto">
-                        様々なCSSフレームワークを実際のコンポーネントを用いて比較
-                    </p>
-                    <a href="https://github.com/bana118/banaTECH/tree/master/banaTECH/CSSFrameworks">ソースコード</a>
-                </div>
-                <img class="card-img-right flex-auto d-none d-md-block" data-src="holder.js/300x300?theme=thumb" alt="Thumbnail [300x300]"
-                    style="width: 300px; height: 300px;" src="{% static 'sumnail/CSSFrameworks.png' %}"
-                    data-holder-rendered="true">
-            </div>
-        </div>        
     </div>
 </div>
 @endsection

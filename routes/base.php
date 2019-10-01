@@ -1,5 +1,5 @@
 <?php
 
 Route::get('/', function () {
-    return view('topPage');
+    return view('home.topPage');
 });
