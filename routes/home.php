@@ -1,9 +1,5 @@
 <?php
 
-Route::get('/uikit', function () {
-    return view('uikit_sample');
-});
-
 Route::get('/', function () {
     return view('home.top_page');
 });

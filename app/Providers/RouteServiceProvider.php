@@ -39,15 +39,15 @@ class RouteServiceProvider extends ServiceProvider
 
         //$this->mapWebRoutes();
 
-        $this->mapBaseRoutes();
+        $this->mapHomeRoutes();
         $this->mapBlogRoutes();
     }
 
-    protected function mapBaseRoutes()
+    protected function mapHomeRoutes()
     {
         Route::middleware('web')
              ->namespace($this->namespace)
-             ->group(base_path('routes/base.php'));
+             ->group(base_path('routes/home.php'));
     }
 
     protected function mapBlogRoutes()
