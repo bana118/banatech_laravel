@@ -1,65 +1,70 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     @yield('head')
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-        <a class="navbar-brand" href="/">banaTECH</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
-            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/">製作物 <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="/blog">ブログ</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="/privacy_policy">プライバシーポリシー</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="#profile" aria-hidden="true" data-toggle="popover" data-placement="bottom"
-                        data-content_div_id="profile_content">
-                        プロフィール
-                    </a>
-                </li>
-            </ul>
-            <div id="profile_content" style="display:none;">
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">ばな</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">某工業大学生</h6>
-                        <p class="card-text">学んだことをアウトプットする場所が欲しかったのでブログ開設しました。プログラミングや技術系のことを書いていく。</p>
-                        <a href="https://twitter.com/bana_tech">
-                            <i class="fab fa-twitter fa-lg fa-fw" style="color: white;"></i>
-                        </a>
-                        <a href="https://github.com/bana118">
-                            <i class="fab fa-github fa-lg fa-fw" style="color: white;"></i>
-                        </a>
-                    </div>
+    <div class="uk-offcanvas-content">
+        <!-- menu position. delete .uk-light to change black navbar to white (also you should change logo to dark one)-->
+        <nav class="uk-navbar-container uk-light" uk-navbar="mode: click"
+            uk-sticky="animation: uk-animation-slide-top; show-on-up: true">
+            <!-- logo or title-->
+            <div class="uk-navbar-left nav-overlay">
+                <a class="uk-navbar-item uk-logo" href="#">
+                    banaTECH
+                </a>
+            </div>
+            <!-- end logo or title-->
+            <!-- menu-->
+            <div class="uk-navbar-right nav-overlay">
+                <div class="uk-navbar-flip">
+                    <ul class="uk-navbar-nav uk-visible@s">
+                        <li class="uk-active"><a href="/">製作物</a></li>
+                        <li class="uk-active"><a href="/blog">ブログ</a></li>
+                        <li class="uk-active"><a href="/profile">プロフィール</a></li>
+                        <li class="uk-active"><a href="/privacy_policy">プライバシーポリシー</a></li>
+                    </ul>
+                    <ul class="uk-navbar-nav uk-hidden@s">
+                        <li><a class="uk-navbar-toggle" uk-navbar-toggle-icon uk-toggle="target: #mobile-navbar"></a>
+                        </li>
+                    </ul>
                 </div>
-
+            </div>
+            <!-- endmenu-->
+        </nav>
+        <!-- end menu position-->
+        <!-- off-canvas menu-->
+        <div id="mobile-navbar" uk-offcanvas="mode: slide; flip: false">
+            <div class="uk-offcanvas-bar">
+                <!-- off-canvas close button-->
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <!-- off-canvas close button-->
+                <ul class="uk-nav-default uk-nav-parent-icon" uk-nav>
+                    <!-- logo or title-->
+                    <li class="uk-text-center uk-logo" style="padding: 0 0 25px 0;">
+                        <a href="/">
+                            banaTECH
+                        </a></li>
+                    <!-- end logo or title-->
+                    <!-- menu-->
+                    <li>
+                        <hr>
+                    </li>
+                    <li class="uk-text-center">
+                        <h3>Menu</h3>
+                    </li>
+                    <li class="uk-active"><a href="/">製作物</a></li>
+                    <li class="uk-active"><a href="/blog">ブログ</a></li>
+                    <li class="uk-active"><a href="/profile">プロフィール</a></li>
+                    <li class="uk-active"><a href="/privacy_policy">プライバシーポリシー</a></li>
+                </ul>
             </div>
         </div>
-    </nav>
+        <!-- end off-canvas menu-->
+    </div>
     @yield('content')
-    <script>
-        $("[data-toggle=popover]").popover({
-            html: true,
-            container: 'body',
-            content: function () {
-                var contentDivId = '#' + $(this).data('content_div_id');
-                return $(contentDivId).html();
-            },
-            trigger: 'click',
-        });
-    </script>
 </body>
 
 </html>
