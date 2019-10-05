@@ -5,4 +5,7 @@
 
 @section('card_body')
 <a href="/blog/post">post</a>
+<div class="uk-card-body">
+        ほげ
+    </div>
 @endsection
