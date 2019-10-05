@@ -1,6 +1,7 @@
 <?php
 use Illuminate\Http\Request;
 use App\Article;
+use App\Category;
 
 Route::get('/blog', function () {
     $articles = Article::orderBy('created_at', 'asc')->get();
@@ -17,6 +18,7 @@ Route::get('/blog/post', function () {
 Route::post('/blog/posted', function (Request $request) {
     $validator = Validator::make($request->all(), [
         'title' => 'required|max:255',
+        'category' => 'required|max:255',
     ]);
 
     if ($validator->fails()) {
@@ -27,6 +29,20 @@ Route::post('/blog/posted', function (Request $request) {
     $article = new Article();
     $article->title = $request->title;
     $article->save();
+
+    $categorySplitSpace = explode(" ", $request->category);
+    foreach($categorySplitSpace as $category){
+        $categoryCount = \App\Category::where('name', $category)->count();
+        if($categoryCount == 0){
+            $newCategory = new Category();
+            $newCategory->name = $category;
+            $newCategory->save();
+            $article->categories()->attach($newCategory->id);
+        }else{
+            $categoryInDB = \App\Category::where('name', $category)->first();
+            $article->categories()->attach(1);
+        }
+    }
 
     $articles = Article::orderBy('created_at', 'asc')->get();
     

@@ -15,6 +15,9 @@
                 <input class="uk-input" type="text" name="title" id="article-title" placeholder="title">
             </div>
             <div class="uk-margin">
+                <input class="uk-input" type="text" name="category" id="article-category" placeholder="category">
+            </div>
+            <div class="uk-margin">
                 <button class="uk-button uk-button-primary">投稿</button>
             </div>
         </fieldset>

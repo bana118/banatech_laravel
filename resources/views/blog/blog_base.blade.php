@@ -10,6 +10,11 @@
             @foreach ($articles as $article)
             <li class="list-group">
                 <div>{{ $article->title }}</div>
+                <div>
+                    @foreach ($article->categories as $category)
+                        {{ $category->name }}
+                    @endforeach
+                </div>
             </li>
             @endforeach
         </ul>
