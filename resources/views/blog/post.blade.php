@@ -6,7 +6,7 @@
 @section('content')
 <div class="uk-container uk-container-center uk-background-default">
     @include('common.errors')
-    <form action="/blog/posted" method="POST">
+    <form action="/blog/posted" method="POST" enctype="multipart/form-data">
         @csrf
         <fieldset class="uk-fieldset">
             <legend class="uk-legend">Post</legend>
@@ -17,6 +17,13 @@
             <div class="uk-margin">
                 <input class="uk-input" type="text" name="category" id="article-category" placeholder="category">
             </div>
+            <div class="uk-margin">
+                <div uk-form-custom="target: true">
+                    <input type="file" name="mdfile" id="article-mdfile">
+                    <input class="uk-input uk-form-width-medium" type="text" placeholder="Select md file" disabled>
+                </div>
+            </div>
+
             <div class="uk-margin">
                 <button class="uk-button uk-button-primary">投稿</button>
             </div>

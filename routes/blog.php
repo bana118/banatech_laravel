@@ -28,6 +28,11 @@ Route::post('/blog/posted', function (Request $request) {
     }
     $article = new Article();
     $article->title = $request->title;
+    $article->md_file = "dummy";
+    $article->save();
+    $mdFile = $request->file('mdfile');
+    $mdFilePath = $mdFile->storeAs('article/'.$article->id,'article.md');
+    $article->md_file = $mdFilePath;
     $article->save();
 
     $categorySplitSpace = explode(" ", $request->category);
