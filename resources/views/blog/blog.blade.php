@@ -4,5 +4,5 @@
 @section('description', 'プログラミングやガジェットに関するブログ')
 
 @section('card_body')
-a
+<a href="/blog/post">post</a>
 @endsection
