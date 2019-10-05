@@ -28,6 +28,10 @@ Route::post('/blog/posted', function (Request $request) {
     $article->title = $request->title;
     $article->save();
 
-    return view('blog.blog');
+    $articles = Article::orderBy('created_at', 'asc')->get();
+    
+    return view('blog.blog', [
+        'articles' => $articles
+    ]);
 });
 

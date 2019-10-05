@@ -7,9 +7,11 @@
     <div class="uk-card uk-card-default">
         @yield('card_body')
         <ul class="uk-list uk-list-divider">
-            <li>List item 1</li>
-            <li>List item 2</li>
-            <li>List item 3</li>
+            @foreach ($articles as $article)
+            <li class="list-group">
+                <div>{{ $article->title }}</div>
+            </li>
+            @endforeach
         </ul>
     </div>
 </div>
