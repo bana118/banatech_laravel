@@ -14,9 +14,12 @@ Route::get('/blog', function () {
 Route::get('/blog/{articleId}', function ($articleId) {
     $articleCount = \App\Article::where('id', $articleId)->count();
     if($articleCount == 0){
-        $article = \App\Article::where('id', $articleId)->first();
+        return App::abort(404);
     }else{
-
+        $article = \App\Article::where('id', $articleId)->first();
+        return view('blog.view', [
+            'article' => $article
+        ]);
     }
 });
 

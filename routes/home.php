@@ -7,3 +7,8 @@ Route::get('/', function () {
 Route::get('privacy_policy', function () {
     return view('home.privacy_policy');
 });
+
+
+Route::get('/sample', function () { //TODO for debug
+    return view('home.sample');
+});

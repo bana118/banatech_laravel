@@ -14,4 +14,9 @@ require('./bootstrap');
 
 //require('./components/Example');
 
+//base
 require("uikit");
+
+//blog
+require("marked");
+require("highlightjs");
