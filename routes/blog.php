@@ -11,6 +11,15 @@ Route::get('/blog', function () {
     ]);
 });
 
+Route::get('/blog/{articleId}', function ($articleId) {
+    $articleCount = \App\Article::where('id', $articleId)->count();
+    if($articleCount == 0){
+        $article = \App\Article::where('id', $articleId)->first();
+    }else{
+
+    }
+});
+
 Route::get('/blog/post', function () {
     return view('blog.post');
 });
@@ -19,6 +28,7 @@ Route::post('/blog/posted', function (Request $request) {
     $validator = Validator::make($request->all(), [
         'title' => 'required|max:255',
         'category' => 'required|max:255',
+        'mdfile'=>'required',
     ]);
 
     if ($validator->fails()) {
@@ -34,6 +44,10 @@ Route::post('/blog/posted', function (Request $request) {
     $mdFilePath = $mdFile->storeAs('article/'.$article->id,'article.md');
     $article->md_file = $mdFilePath;
     $article->save();
+    foreach($request->file('img') as $img){
+        $imgName = $img->getClientOriginalName();
+        $img->storeAs('article/'.$article->id.'/image',$imgName);
+    }
 
     $categorySplitSpace = explode(" ", $request->category);
     foreach($categorySplitSpace as $category){

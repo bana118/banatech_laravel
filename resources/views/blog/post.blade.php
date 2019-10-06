@@ -19,8 +19,14 @@
             </div>
             <div class="uk-margin">
                 <div uk-form-custom="target: true">
-                    <input type="file" name="mdfile" id="article-mdfile">
+                    <input type="file" name="mdfile" id="article-mdfile" accept=".md">
                     <input class="uk-input uk-form-width-medium" type="text" placeholder="Select md file" disabled>
+                </div>
+            </div>
+            <div class="uk-margin">
+                <div uk-form-custom>
+                    <input type="file" name="img[]" id="article-img" multiple="multiple" accept="image/*">
+                    <button class="uk-button uk-button-default" type="button" tabindex="-1">Image</button>
                 </div>
             </div>
 
