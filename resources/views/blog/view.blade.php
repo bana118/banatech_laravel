@@ -29,7 +29,7 @@
         background: linear-gradient(transparent 70%, #a7d6ff 70%);
     }
 
-    h3 {
+    h3 { /*TODO change to work only relation article*/
         border-bottom: double 5px #FFC778;
     }
 
