@@ -83,8 +83,8 @@
         };
         renderer.image = function (href, title, text) {
             var fileName = href.split("/").pop();
-            var imgPath = "{{ asset('/item/article/{$article->id}/img/') }}"
-            return '<img src="'+imgPath+fileName+'" alt="' + text +
+            var imgPath = "{{ asset('/item/article/'.$article->id.'/image') }}"
+            return '<img src="'+imgPath+"/"+fileName+'" alt="' + text +
                 '" class="img-fluid">';
         }
 
