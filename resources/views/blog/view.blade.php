@@ -72,8 +72,8 @@
                 var lang = language.split(":")[0];
                 var fileName = language.split(":")[1].trim();
                 return '<pre>' +
-                    '<div class="card text-white bg-info" style="display: inline-block;"> <div class="card-body p-0" style="display: inline-block;">' +
-                    fileName + ' ' + '</div></div>' + '<code class="hljs">' + hljs.highlightAuto(code, [
+                    '<div class="uk-badge" style="display: inline-block;">' +
+                    fileName + ' ' + '</div>' + '<code class="hljs">' + hljs.highlightAuto(code, [
                         lang
                     ]).value + '</code></pre>';
             } else {
