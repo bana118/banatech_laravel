@@ -16,7 +16,3 @@ require('./bootstrap');
 
 //base
 require("uikit");
-
-//blog
-require("marked");
-require("highlightjs");
