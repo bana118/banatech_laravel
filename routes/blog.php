@@ -23,6 +23,14 @@ Route::get('/blog/{articleId}', function ($articleId) {
     }
 });
 
+Route::get('/blog/delete/{articleId}', function ($articleId) {
+    $article = \App\Article::where('id', $articleId)->first();
+    $deleteDirPath = "item/article/".$article->id;
+    File::deleteDirectory(public_path($deleteDirPath));
+    $article->delete();
+    return redirect('/blog');
+});
+
 Route::get('/blog/post', function () {
     return view('blog.post');
 });
@@ -62,7 +70,7 @@ Route::post('/blog/posted', function (Request $request) {
             $article->categories()->attach($newCategory->id);
         }else{
             $categoryInDB = \App\Category::where('name', $category)->first();
-            $article->categories()->attach(1);
+            $article->categories()->attach($categoryInDB->id);
         }
     }
 
@@ -71,5 +79,6 @@ Route::post('/blog/posted', function (Request $request) {
     return view('blog.blog', [
         'articles' => $articles
     ]);
+    
 });
 
