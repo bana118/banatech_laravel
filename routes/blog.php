@@ -12,7 +12,7 @@ Route::get('/blog', function () {
     ]);
 });
 
-Route::get('/blog/{articleId}', function ($articleId) {
+Route::get('/blog/view/{articleId}', function ($articleId) {
     $articleCount = \App\Article::where('id', $articleId)->count();
     if ($articleCount == 0) {
         return App::abort(404);
@@ -26,7 +26,7 @@ Route::get('/blog/{articleId}', function ($articleId) {
 
 Route::get('/blog/delete/{articleId}', function ($articleId) {
     $article = \App\Article::where('id', $articleId)->first();
-    $deleteDirPath = "item/article/" . $article->id;
+    $deleteDirPath = "item/article/".$article->id;
     File::deleteDirectory(public_path($deleteDirPath));
     $article->delete();
     return redirect('/blog');
@@ -34,7 +34,7 @@ Route::get('/blog/delete/{articleId}', function ($articleId) {
 
 Route::get('/blog/edit/{articleId}', function ($articleId) {
     $article = \App\Article::where('id', $articleId)->first();
-    $editPath = public_path(("item/" . $article->md_file));
+    $editPath = public_path(("item/".$article->md_file));
     $content = file_get_contents($editPath);
     return view('blog.edit', [
         'article' => $article,
