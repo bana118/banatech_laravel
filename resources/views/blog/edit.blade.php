@@ -10,12 +10,12 @@
     <form id="articleEdit" method="POST" action="/blog/edited/{{ $article->id }}" enctype="multipart/form-data">
         <div class="form-group">
             <label for="title">タイトル</label>
-            <input type="text" class="form-control" id="title" name="title" value="{{ article.title }}">
+            <input type="text" class="form-control" id="title" name="title" value="{{ $article->title }}">
         </div>
         <div class="form-group">
             <label for="category">カテゴリー</label>
             <input type="text" class="form-control" id="category" name="category"
-                value="{{ article.category_split_space }}">
+                value="{{ $article->category_split_space }}">
         </div>
         <div class="form-group">
             <label for="content">内容</label>
@@ -29,8 +29,8 @@
             <input type="radio" name="imgCheck" value="on">画像を変更する
             <input type="radio" name="imgCheck" value="off" checked>画像を変更しない
         </div>
-        {% csrf_token %}
         <button type="submit" class="btn btn-primary">更新</button>
+        @csrf
     </form>
 </div>
 @endsection
