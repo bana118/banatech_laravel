@@ -6,31 +6,37 @@
 
 @section('content')
 <div class="uk-container uk-container-center uk-background-default">
-    <h1>記事編集</h1>
     <form id="articleEdit" method="POST" action="/blog/edited/{{ $article->id }}" enctype="multipart/form-data">
-        <div class="form-group">
-            <label for="title">タイトル</label>
-            <input type="text" class="form-control" id="title" name="title" value="{{ $article->title }}">
-        </div>
-        <div class="form-group">
-            <label for="category">カテゴリー</label>
-            <input type="text" class="form-control" id="category" name="category"
-                value="{{ $article->category_split_space }}">
-        </div>
-        <div class="form-group">
-            <label for="content">内容</label>
-            <textarea class="form-control" id="content" name="content" rows="30">{{ $content }}</textarea>
-        </div>
-        <div class="form-group">
-            <label for="img">画像</label>
-            <input type="file" class="form-control-file" id="image" name="image" multiple="multiple" accept="image/*">
-        </div>
-        <div class="form-group form-check">
-            <input type="radio" name="imgCheck" value="on">画像を変更する
-            <input type="radio" name="imgCheck" value="off" checked>画像を変更しない
-        </div>
-        <button type="submit" class="btn btn-primary">更新</button>
-        @csrf
+        <fieldset class="uk-fieldset">
+            <legend class="uk-legend">記事編集</legend>
+            <div class="uk-margin">
+                <label for="title">タイトル</label>
+                <input class="uk-input" type="text" placeholder="Title" id="article-title" name="title"
+                    value="{{ $article->title }}">
+            </div>
+            <div class="uk-margin">
+                <label for="category">カテゴリー</label>
+                <input class="uk-input" type="text" placeholder="Category" id="article-category" name="category"
+                    value="{{ $article->category_split_space }}">
+            </div>
+            <div class="uk-margin">
+                <label for="content">内容</label>
+                <textarea class="uk-textarea" rows="30" placeholder="Content" id="article-content"
+                    name="content">{{ $content }}</textarea>
+            </div>
+            <div class="uk-margin">
+                <label for="img">画像</label>
+                <input type="file" name="img[]" id="article-img" multiple="multiple" accept="image/*">
+            </div>
+            <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+                <label><input class="uk-radio" type="radio" name="imgCheck" value="on">画像を変更する</label>
+                <label><input class="uk-radio" type="radio" name="imgCheck" value="off" checked>画像を変更しない</label>
+            </div>
+            <div class="uk-margin">
+                <button class="uk-button uk-button-primary">更新</button>
+            </div>
+            @csrf
+        </fieldset>
     </form>
 </div>
 @endsection
