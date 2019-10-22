@@ -4,8 +4,12 @@
 
 @section('content')
 <div class="uk-container uk-container-center uk-background-default">
-    <div class="uk-card uk-card-default">
+    <div class="uk-card uk-card-default uk-background-default">
         @yield('card_body')
+        <form class="uk-search uk-search-default" action="/blog/search">
+            <span uk-search-icon></span>
+            <input class="uk-search-input" type="search" placeholder="Search...">
+        </form>
         {{ $articles->links('vendor.pagination.uikit-3') }}
         <ul class="uk-list uk-list-divider">
             @foreach ($articles as $article)
@@ -14,7 +18,7 @@
                 <div>
                     @foreach ($article->categories as $category)
                     <button
-                        class="uk-button uk-button-primary uk-button-small uk-border-circle">{{$category->name}}</button>
+                        class="uk-button uk-button-primary uk-button-small uk-border-rounded">{{$category->name}}</button>
                     @endforeach
                 </div>
             </li>
