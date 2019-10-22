@@ -4,8 +4,8 @@
 @section('description', 'プログラミングやガジェットに関するブログ')
 
 @section('card_body')
-<a href="/blog/post">post</a>
+
 <div class="uk-card-body">
-    ほげ
+    プログラミングやガジェットに関するブログ
 </div>
 @endsection

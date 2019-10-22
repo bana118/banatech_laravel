@@ -5,8 +5,7 @@ use App\Article;
 use App\Category;
 
 Route::get('/blog', function () {
-    $articles = Article::orderBy('created_at', 'asc')->get();
-
+    $articles = Article::orderBy('created_at', 'asc')->paginate(20);
     return view('blog.blog', [
         'articles' => $articles
     ]);
