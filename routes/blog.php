@@ -4,8 +4,10 @@ use Illuminate\Http\Request;
 use App\Article;
 use App\Category;
 
+const ARTICLES_PER_PAGE = 20;
+
 Route::get('/blog', function () {
-    $articles = Article::orderBy('created_at', 'asc')->paginate(20);
+    $articles = Article::orderBy('created_at', 'asc')->paginate(ARTICLES_PER_PAGE);
     return view('blog.blog', [
         'articles' => $articles
     ]);
@@ -166,9 +168,18 @@ Route::post('/blog/search', function (Request $request) {
             }
         }
     }
-    $articles = Article::whereIn('id', $idArray)->orderBy('created_at', 'asc')->paginate(20);
+    $articles = Article::whereIn('id', $idArray)->orderBy('created_at', 'asc')->paginate(ARTICLES_PER_PAGE);
     return view('blog.search', [
         'searchWord' => $searchWord,
+        'articles' => $articles
+    ]);
+});
+
+Route::get('/blog/category/{categoryName}', function ($categoryName) {
+    $category = Category::where('name', $categoryName)->first();
+    $articles = $category->articles()->paginate(ARTICLES_PER_PAGE);
+    return view('blog.category', [
+        'categoryName' => $categoryName,
         'articles' => $articles
     ]);
 });

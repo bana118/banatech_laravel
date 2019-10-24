@@ -18,8 +18,8 @@
                 <a href="/blog/view/{{$article->id}}">{{$article->title}}</a>
                 <div>
                     @foreach ($article->categories as $category)
-                    <button
-                        class="uk-button uk-button-primary uk-button-small uk-border-rounded">{{$category->name}}</button>
+                    <button class="uk-button uk-button-primary uk-button-small uk-border-rounded"
+                        onclick="location.href='/blog/category/{{$category->name}}'">{{$category->name}}</button>
                     @endforeach
                 </div>
             </li>
