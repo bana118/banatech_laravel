@@ -6,9 +6,9 @@
 <div class="uk-container uk-container-center uk-background-default">
     <div class="uk-card uk-card-default uk-background-default">
         @yield('card_body')
-        <form class="uk-search uk-search-default" method="POST" action="/blog/search">
+        <form class="uk-search uk-search-default" method="POST" name ="search" action="/blog/search">
             @csrf
-            <span uk-search-icon></span>
+            <a href="javascript:document.search.submit()" uk-search-icon></a>
             <input class="uk-search-input" type="search" name="search" placeholder="Search...">
         </form>
         {{ $articles->links('vendor.pagination.uikit-3') }}
