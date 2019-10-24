@@ -28,7 +28,8 @@
         background: linear-gradient(transparent 70%, #a7d6ff 70%);
     }
 
-    h3 { /*TODO change to work only relation article*/
+    h3 {
+        /*TODO change to work only relation article*/
         border-bottom: double 5px #FFC778;
     }
 
@@ -58,7 +59,11 @@
         @endforeach
     </p>
     <div id="markdown_content" src="{{ asset('item/'.$article->md_file) }}"></div>
-
+    <h3>関連記事</h3>
+    @foreach ($relatedArticles as $relatedArticle)
+    <a href="/blog/view/{{ $relatedArticle->id }}">{{ $relatedArticle->title }}</a>
+    <br>
+    @endforeach
     <br>
     <a href="/blog/edit/{{ $article->id }}">記事編集(管理者用)</a>
     <a href="/blog/delete/{{ $article->id }}" onclick="return confirm('本当に削除しますか？')">記事削除(管理者用)</a>
@@ -87,7 +92,7 @@
         renderer.image = function (href, title, text) {
             var fileName = href.split("/").pop();
             var imgPath = "{{ asset('/item/article/'.$article->id.'/image') }}"
-            return '<img src="'+imgPath+"/"+fileName+'" alt="' + text +
+            return '<img src="' + imgPath + "/" + fileName + '" alt="' + text +
                 '" class="img-fluid">';
         }
 

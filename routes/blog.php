@@ -19,8 +19,20 @@ Route::get('/blog/view/{articleId}', function ($articleId) {
         return App::abort(404);
     } else {
         $article = \App\Article::where('id', $articleId)->first();
+        $relatedArticleIdList = array();
+        $categories = $article->categories()->get();
+        foreach ($categories as $category) {
+            $categoryArticles = $category->articles()->get();
+            foreach($categoryArticles as $categoryArticle){
+                if(!in_array($categoryArticle->id, $relatedArticleIdList) && $categoryArticle->id != $articleId){
+                    $relatedArticleIdList[] = $categoryArticle->id;
+                }
+            }
+        }
+        $relatedArticles = Article::whereIn('id', $relatedArticleIdList)->orderBy('created_at', 'asc')->take(3)->get();
         return view('blog.view', [
-            'article' => $article
+            'article' => $article,
+            'relatedArticles' => $relatedArticles
         ]);
     }
 });
