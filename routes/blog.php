@@ -143,3 +143,32 @@ Route::post('/blog/posted', function (Request $request) {
         'articles' => $articles
     ]);
 });
+
+Route::post('/blog/search', function (Request $request) {
+    $searchWord = $request->search;
+    $idArray = array();
+
+    $articlesByTitle = Article::where('title', 'LIKE', "%{$searchWord}%")->get();
+    foreach ($articlesByTitle as $article) {
+        $id = $article->id;
+        if (!in_array($id, $idArray)) {
+            $idArray[] = $id;
+        }
+    }
+
+    $categories = Category::where('name', 'LIKE', "%{$searchWord}%")->get();
+    foreach ($categories as $category) {
+        $articlesByCategory = $category->articles()->get();
+        foreach ($articlesByCategory as $article) {
+            $id = $article->id;
+            if (!in_array($id, $idArray)) {
+                $idArray[] = $id;
+            }
+        }
+    }
+    $articles = Article::whereIn('id', $idArray)->orderBy('created_at', 'asc')->paginate(20);
+    return view('blog.search', [
+        'searchWord' => $searchWord,
+        'articles' => $articles
+    ]);
+});
