@@ -14,10 +14,6 @@
         /*ページ全体の背景色*/
     }
 
-    .container {
-        background-color: white;
-    }
-
     .uk-navbar-container.uk-light:not(.uk-navbar-transparent):not(.uk-navbar-primary) {
         background: #222;
     }
@@ -42,8 +38,6 @@
         border-left: 2px solid #545454;
     }
 
-    .uk-sticky-fixed {
-        box-shadow: 0 1px 5px 0 #0e0e0e;
-    }
+
 
 </style>

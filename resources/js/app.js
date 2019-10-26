@@ -14,4 +14,5 @@ require('./bootstrap');
 
 //require('./components/Example');
 
+//base
 require("uikit");

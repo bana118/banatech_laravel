@@ -12,4 +12,12 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-   .less('resources/less/app.less', 'public/css');
+   .scripts(['node_modules/marked/lib/marked.js',
+'node_modules/highlightjs/highlight.pack.js'], 'public/js/blog.js')
+   .sass('resources/sass/app.scss', 'public/css/sass.css')
+   .less('resources/less/app.less', 'public/css/less.css')
+   .styles([
+      'public/css/sass.css',
+      'public/css/less.css'
+   ], 'public/css/app.css');
+   
