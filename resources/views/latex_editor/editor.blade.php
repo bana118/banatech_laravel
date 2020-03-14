@@ -10,24 +10,20 @@
 <script src="https://cdn.jsdelivr.net/npm/latex.js@0.11.1/dist/latex.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/latex.js@0.11.1/dist/latex.component.js"></script>
 @section('content')
-<div class="container-fluid">
-    <p>左にLaTeXを書くと右にプレビューが表示されます。プレビューができてもpdfへのエクスポートはうまくいかなかったりします。日本語はpdf上では消えます。</p>
-    <p>記事はこちら→<a href="https://banatech.tk/blog/11">LaTeX.jsとAce.jsを用いたLaTeXのリアルタイムプレビューができるエディタを作った</a></p>
-    <div class="row">
-        <div class="col-sm">
-            <button type="button" class="btn btn-primary" onclick="saveTex();">Save(.tex)</button>
-            <a href="#!" onclick="undo();">
-                <i class="fas fa-undo fa-lg fa-fw"></i>
-            </a>
-            <a href="#!" onclick="redo();">
-                <i class="fas fa-redo fa-lg fa-fw"></i>
-            </a>
+<div class="uk-container uk-container-center uk-background-default">
+    <p>左にLaTeXを書くと右にプレビューが表示されます(laravel化のためエクスポート機能は停止中)</p>
+    <p>記事はこちら→<a href="/blog/11">LaTeX.jsとAce.jsを用いたLaTeXのリアルタイムプレビューができるエディタを作った</a></p>
+    <div class="uk-grid uk-flex-center">
+        <div class="uk-width-1-2@m uk-margin-top">
+            <a class="uk-button uk-button-primary" href="#!" onclick="saveTex();">Save(.tex)</a>
+            <a class="uk-button uk-button-default" href="#!" onclick="undo();">Undo</a>
+            <a class="uk-button uk-button-default" href="#!" onclick="redo();">Redo</a>
             <div id="editor" style="height: 100vh;"></div>
         </div>
-        <div class="col-sm">
-            <button type="button" class="btn btn-primary" onclick="exportToPDF();">Export(.pdf)</button>
-            <div class="card" style="height: 100vh; overflow: auto;">
-                <div class="card-body">
+        <div class="uk-width-1-2@m uk-margin-top">
+            <!--<a class="uk-button uk-button-primary" href="#!" onclick="exportToPDF();">Export(.pdf)</a>-->
+            <div class="uk-card uk-card-default" style="height: 100vh; overflow: auto;">
+                <div class="uk-card-body">
                     <div id="output">
                         <!--LaTeXのパース結果出力場所-->
                     </div>
@@ -89,7 +85,7 @@
                     'value': data[key]
                 }));
             }
-            $form.append('{% csrf_token %}');
+            $form.append('@csrf');
             $form.appendTo(document.body);
             $form.submit();
             $("#tempForm").remove();
@@ -97,18 +93,18 @@
 
         function saveTex() {
             var tex = editor.getValue();
-            postForm("/LaTeXEditor/saveTex", {
+            postForm("/latex_editor/save", {
                 "tex": tex
             });
         }
 
-        function exportToPDF() {
+        /*function exportToPDF() {
             var tex = editor.getValue();
             console.log(tex);
-            postForm("/LaTeXEditor/exportToPDF", {
+            postForm("/latex_editor/export", {
                 "tex": tex
             });
-        }
+        }*/
 
         function undo() {
             editor.undo();
