@@ -42,6 +42,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapHomeRoutes();
         $this->mapBlogRoutes();
         $this->mapLatexEditorRoutes();
+        $this->mapKurukuruRoutes();
     }
 
     protected function mapHomeRoutes()
@@ -63,6 +64,13 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('web')
              ->namespace($this->namespace)
              ->group(base_path('routes/latex_editor.php'));
+    }
+
+    protected function mapKurukuruRoutes()
+    {
+        Route::middleware('web')
+             ->namespace($this->namespace)
+             ->group(base_path('routes/kurukuru.php'));
     }
 
     /**
