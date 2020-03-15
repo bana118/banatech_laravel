@@ -1,6 +1,6 @@
 @extends('base.base')
 
-@section('title', 'くるくる')
+@section('title', 'はこぐちゃ')
 @section('description', 'JavaScript、anime.js、を用いたパズルゲーム。ブロックを回転させ同じ色のブロックを4つそろえよう')
 @include('base.head')
 <script src="{{ asset('js/scripts.js') }}"></script>
@@ -14,14 +14,14 @@
         <audio src="" id="rotateSoundEffect"></audio>
         <audio src="" id="scoreSoundEffect"></audio>
         <audio src="" id="BGM"></audio>
-        <div class="card">
-            <div class="card-body text-center p-2">
+        <div class="uk-card uk-card-default">
+            <div class="uk-card-body uk-text-center">
                 <div class="uk-grid uk-flex-center">
                     <div class="uk-width-1-2">
-                        <div class="text-left" id="score">score: </div>
+                        <div class="uk-text-left" id="score">score: </div>
                     </div>
                     <div class="uk-width-1-2">
-                        <div class="text-right" id="time">time: </div>
+                        <div class="uk-text-right" id="time">time: </div>
                     </div>
                 </div>
             </div>
@@ -56,11 +56,11 @@
         </div>
     </div>
     <br>
-    <p class="text-center">
+    <p class="uk-text-center">
         音量調整：
         <input type="range" value="100" id="volume" min="0" max="100" step="1" onchange="setVolume(this.value)">
     </p>
-    <p class="text-center">音量：<span id="outputVolume"></span></p>
+    <p class="uk-text-center">音量：<span id="outputVolume"></span></p>
     <br>
     <h1>くるくる</h1>
     <p>ルール：カーソルを操作して同じ色のブロックを4つ正方形に並べよう。連続で消していくとスコアアップ！
