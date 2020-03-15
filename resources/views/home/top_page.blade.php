@@ -8,7 +8,7 @@
 <div class="uk-container uk-container-center uk-background-default">
     <div class="uk-grid uk-flex-center">
         <div class="uk-width-1-2@m uk-margin-top">
-            <a class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin uk-link-toggle" href="/"
+            <a href = "/hakogucha" class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin uk-link-toggle" href="/"
                 uk-grid>
                 <div class="uk-flex-last@s uk-card-media-right uk-cover-container">
                     <img src="{{ asset('/img/sumnail/hakogucha.png') }}" alt="はこぐちゃ" uk-cover>
