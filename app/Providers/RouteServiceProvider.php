@@ -44,6 +44,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapLatexEditorRoutes();
         $this->mapKurukuruRoutes();
         $this->mapHakoguchaRoutes();
+        $this->mapReiwaRoutes();
     }
 
     protected function mapHomeRoutes()
@@ -79,6 +80,13 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('web')
              ->namespace($this->namespace)
              ->group(base_path('routes/hakogucha.php'));
+    }
+
+    protected function mapReiwaRoutes()
+    {
+        Route::middleware('web')
+             ->namespace($this->namespace)
+             ->group(base_path('routes/reiwa.php'));
     }
 
     /**
