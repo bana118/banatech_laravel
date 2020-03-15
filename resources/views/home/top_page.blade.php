@@ -39,7 +39,7 @@
             </a>
         </div>
         <div class="uk-width-1-2@m uk-margin">
-            <a class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin uk-link-toggle" uk-grid>
+            <a href="/kurukuru" class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin uk-link-toggle" uk-grid>
                 <div class="uk-flex-last@s uk-card-media-right uk-cover-container">
                     <img src="{{ asset('/img/sumnail/kurukuru.png') }}" alt="くるくる" uk-cover>
                     <canvas width="250" height="250"></canvas>

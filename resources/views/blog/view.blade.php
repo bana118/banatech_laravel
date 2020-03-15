@@ -3,7 +3,7 @@
 @section('title', 'ばなてっく｜工業大学生のポートフォリオ')
 @section('description', '工業大学生によるプログラミングやガジェットに関するブログ兼Webアプリケーション置き場')
 @include('base.head')
-<script src="{{ asset('js/blog.js') }}"></script>
+<script src="{{ asset('js/scripts.js') }}"></script>
 <meta property="og:url" content="https://banatech.tk/blog/{{ $article->id }}" />
 <meta property="og:locale" content="ja_JP">
 <meta property="og:title" content="ばなてっく" />

@@ -1,2 +1,0 @@
-require("marked");
-require("highlightjs");
