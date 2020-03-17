@@ -19,7 +19,7 @@
                         <ul class="uk-navbar-nav uk-visible@s">
                             <li class="uk-active"><a href="/">製作物</a></li>
                             <li class="uk-active"><a href="/blog">ブログ</a></li>
-                            <li class="uk-active"><a href="/profile">プロフィール</a></li>
+                            <!--<li class="uk-active"><a href="/profile">プロフィール</a></li>-->
                             <li class="uk-active"><a href="/privacy_policy">プライバシーポリシー</a></li>
                         </ul>
                         <ul class="uk-navbar-nav uk-hidden@s">
