@@ -3,7 +3,7 @@
 @section('title', 'はこぐちゃ')
 @section('description', 'JavaScript、anime.js、を用いたパズルゲーム。ブロックを回転させ同じ色のブロックを4つそろえよう')
 @include('base.head')
-<script src="{{ asset('js/scripts.js') }}"></script>
+<script src="{{ asset('js/anime.js') }}"></script>
 @section('content')
 <div class="uk-container uk-container-center uk-background-default" style="touch-action: manipulation;">
     <div class="uk-container" style="width: 290px;">
