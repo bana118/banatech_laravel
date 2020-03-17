@@ -2,9 +2,10 @@
 @section('title', '令和で書き初め(ひとりで)')
 @section('description', '「令和」を100秒以内に書きまくれ！手書き文字を人工知能が判定')
 @include('base.head')
-<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.1.0/dist/tf.min.js"></script>
-<script src="https://code.createjs.com/1.0.0/soundjs.min.js"></script>
-<script src="https://code.createjs.com/1.0.0/preloadjs.min.js"></script>
+<script src="{{ asset('js/uikit.js') }}"></script>
+<script src="{{ asset('js/soundjs.js') }}"></script>
+<script src="{{ asset('js/preloadjs.js') }}"></script>
+<script src="{{ asset('js/tf.js') }}"></script>
 @section('content')
 <div id="container" class="uk-container" style="touch-action: manipulation;">
     <div class="uk-frex" style="text-align:center;background-color:#CC9966;">
@@ -13,43 +14,39 @@
                 <canvas id="can" width="128px" height="256px"></canvas>
             </div>
             <div class="uk-width-1-3">
-                <ul class="list-group p-0">
-                    <li class="list-group-item p-0"><span id="time">100</span></li>
-                    <li class="list-group-item p-0">〇:<span id="correctCount">0</span></li>
-                    <li class="list-group-item p-0">×:<span id="wrongCount">0</span></li>
+                <ul class="uk-list uk-list-divider" style="text-align:center;background-color:#FFFFFF;">
+                    <li><span id="time">100</span></li>
+                    <li>〇:<span id="correctCount">0</span></li>
+                    <li>×:<span id="wrongCount">0</span></li>
                 </ul>
                 <img id="write1" src="{{ asset('/img/reiwa/write1.png') }}" class="img-fluid" style="display:none;">
                 <img id="write2" src="{{ asset('/img/reiwa/write2.png') }}" class="img-fluid" style="display:none;">
                 <img id="correct" src="{{ asset('/img/reiwa/correct.png') }}" class="img-fluid" style="display:none;">
                 <img id="wrong" src="{{ asset('/img/reiwa/wrong.png') }}" class="img-fluid" style="display:none;">
-                <button id="submitButton" type="button" class="btn btn-primary" style="display:inline-block;"
+                <button id="submitButton" type="button" class="uk-button-small uk-button-primary" style="display:inline-block;"
                     onClick="submit();">提出</button>
-                <button id="clearButton" type="button" class="btn btn-danger" style="display:inline-block;"
+                <button id="clearButton" type="button" class="uk-button-small uk-button-danger" style="display:inline-block;"
                     onClick="gameClearCan();">クリア</button>
-                <button id="backButton" type="button" class="btn btn-success" style="display:none;"
+                <button id="backButton" type="button" class="uk-button-small uk-button-secondary" style="display:none;"
                     onclick="location.href='/reiwa'">戻る</button>
             </div>
         </div>
     </div>
-    <div class="modal fade" id="finishModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalCenterTitle">終了！</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div id="finalScore" class="modal-body">
-                </div>
-                <div class="modal-footer">
-                    <a id="twitterLink" href="" rel="nofollow" target="_blank">ツイッターでシェア <i
-                            class="fab fa-lg fa-twitter"></i></a>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
-                </div>
-            </div>
+<div id="finishModal" class="uk-flex-top" uk-modal>
+    <div class="uk-modal-dialog uk-margin-auto-vertical">
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+        <div class="uk-modal-header">
+            <h5 class="uk-modal-title">終了！</h5>
+        </div>
+        <div id="finalScore" class="uk-modal-body">
+        </div>
+        <div class="uk-modal-footer uk-text-right">
+        <a id="twitterLink" href="" rel="nofollow" target="_blank">ツイッターでシェア 
+            <i class="fab fa-lg fa-twitter"></i>
+        </a>
         </div>
     </div>
+</div>
     <h1>令和で書き初め</h1>
     <p>ルール：100秒以内に「令和」を書きまくれ！マウスか指で書いた文字を人工知能が判定！</p>
     <p>注意：IE, Edgeブラウザでは動作しません。Google Chrome, Opera, Firefox, sleipnirなどを推奨します。「令」の字は2つありますがどちらでも大丈夫です。</p>
@@ -166,10 +163,8 @@
         var twitterLink = document.getElementById("twitterLink");
         twitterLink.href = "https://twitter.com/share?url=https://banateck.tk/reiwa&text=令和で書き初め！%0a正解した数：" +
             correctCount + "枚%0a間違えた数：" + wrongCount + "枚%0a&hashtags=令和で書き初め,令和,新元号";
-        $('#finishModal').modal({
-            keyboard: false,
-            backdrop: "static"
-        });
+        var modalElement = document.getElementById("finishModal");
+        UIkit.modal(modalElement).show();
     }
 
     //ゲームの制限時間をはかる
