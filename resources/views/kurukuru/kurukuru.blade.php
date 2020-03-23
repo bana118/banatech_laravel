@@ -5,7 +5,7 @@
 @section('head')
 @include('base.head')
 @endsection
-<script src="{{ asset('js/kurukuru/kurukuru.js') }}"></script>
+<script src="{{ mix('js/kurukuru/kurukuru.js') }}"></script>
 @section('content')
 <div class="uk-container uk-container-center uk-background-default" style="touch-action: manipulation;">
     <div class="uk-container" style="width: 290px;">

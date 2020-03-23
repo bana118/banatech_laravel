@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>uikit Sample</title>
-  <link rel="stylesheet" href="{{ asset('/css/base/app.css') }}">
-  <script src="{{ asset('/js/base/app.js') }}"></script>
+  <link rel="stylesheet" href="{{ mix('/css/base/app.css') }}">
+  <script src="{{ mix('/js/base/app.js') }}"></script>
 </head>
 <body>
 <div id="example">

@@ -3,8 +3,8 @@
 @section('description', '「令和」を100秒以内に書きまくれ！手書き文字を人工知能が判定')
 @section('head')
 @include('base.head')
-<script src="{{ asset('js/reiwa/solo.js') }}"></script>
-<script src="{{ asset('js/reiwa/createjs.js') }}"></script>
+<script src="{{ mix('js/reiwa/solo.js') }}"></script>
+<script src="{{ mix('js/reiwa/createjs.js') }}"></script>
 @endsection
 @section('content')
 <div id="container" class="uk-container" style="touch-action: manipulation;">

@@ -4,11 +4,11 @@
 @section('description', '工業大学生によるプログラミングやガジェットに関するブログ兼Webアプリケーション置き場')
 @section('head')
 @include('base.head')
-<script src="{{ asset('js/blog/view.js') }}"></script>
+<script src="{{ mix('js/blog/view.js') }}"></script>
 <script id="MathJax-script" async
   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
 </script>
-<link rel="stylesheet" href="{{ asset('/css/blog/view.css') }}">
+<link rel="stylesheet" href="{{ mix('/css/blog/view.css') }}">
 <meta property="og:url" content="https://banatech.tk/blog/{{ $article->id }}" />
 <meta property="og:locale" content="ja_JP">
 <meta property="og:title" content="ばなてっく" />

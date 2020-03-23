@@ -6,6 +6,6 @@
 </head>
 <body>
 <div id="example"></div>
-<script src="{{asset('/js/base/app.js')}}"></script>
+<script src="{{ mix('/js/base/app.js')}}"></script>
 </body>
 </html>

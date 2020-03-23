@@ -4,7 +4,7 @@
 @section('description', 'JavaScript、anime.js、を用いたパズルゲーム。ブロックを回転させ同じ色のブロックを4つそろえよう')
 @include('base.head')
 <meta name="description" content="降ってくるハコを壊したり押したりして同じ色でそろえよう">
-<script src="{{ asset('js/hakogucha/hakogucha.js') }}"></script>
+<script src="{{ mix('js/hakogucha/hakogucha.js') }}"></script>
 @section('content')
 <div class="uk-container uk-container-center uk-background-default" style="touch-action: manipulation;">
     <div class="uk-container" style="width: 400px;">
