@@ -18,7 +18,8 @@ mix.js('resources/js/base/app.js', 'public/js/base/')
    .less('resources/less/base/app.less', 'public/css/base/less.css')
    .styles([
       'public/css/base/sass.css',
-      'public/css/base/less.css'
+      'public/css/base/less.css',
+      'resources/css/base/app.css'
    ], 'public/css/base/app.css');
 
 // blog

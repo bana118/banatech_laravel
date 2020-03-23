@@ -10,7 +10,7 @@
         <div class="uk-offcanvas-content">
             <nav class="uk-navbar-container uk-light" uk-navbar="mode: click">
                 <div class="uk-navbar-left nav-overlay">
-                    <a class="uk-navbar-item uk-logo" href="#">
+                    <a class="uk-navbar-item uk-logo" href="/">
                         banaTECH
                     </a>
                 </div>
