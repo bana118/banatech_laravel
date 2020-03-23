@@ -5,7 +5,6 @@
 @section('head')
 @include('base.head')
 @endsection
-
 @section('content')
 <div class="uk-container uk-container-center uk-background-default">
     <div class="uk-grid uk-flex-center">
