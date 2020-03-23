@@ -2,8 +2,10 @@
 
 @section('title', '令和で書き初め')
 @section('description', '「令和」を100秒以内に書きまくれ！手書き文字を人工知能が判定')
+@section('head')
 @include('base.head')
-
+<script src="{{ asset('js/reiwa/reiwa.js') }}"></script>
+@endsection
 @section('content')
 <div class="uk-container" style="touch-action: manipulation;">
     <div class="uk-frex start" style="position: relative;text-align:center;">
@@ -15,14 +17,8 @@
     </div>
     <h1>令和で書き初め</h1>
     <p>ルール：100秒以内に「令和」を書きまくれ！マウスか指で書いた文字を人工知能が判定！</p>
-    <p>注意：IE, Edgeブラウザでは動作しません。Google Chrome, Opera, Firefox, sleipnirなどを推奨します。「令」の字は2つありますがどちらでも大丈夫です。</p>
+    <p>「令」の字は2つありますがどちらでも大丈夫です。</p>
     <p>効果音：<a href="https://maoudamashii.jokersounds.com/">魔王魂</a>様</p>
     <p>BGM：<a href="http://www.rengoku-teien.com/index.html">煉獄庭園</a>様</p>
 </div>
-<script>
-    function start(){
-        var bgroup = document.getElementById("bgroup");
-        bgroup.style.display="inline-block";
-    }
-</script>
 @endsection

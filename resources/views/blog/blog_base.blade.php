@@ -1,7 +1,7 @@
 @extends('base.base')
-
+@section('head')
 @include('base.head')
-
+@endsection
 @section('content')
 <div class="uk-container uk-container-center uk-background-default">
     <div class="uk-card uk-card-default uk-background-default">

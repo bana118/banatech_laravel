@@ -2,6 +2,7 @@
 
 @section('title', 'LaTeXEditor')
 @section('description', 'latex.jsを用いたLaTeXのリアルタイムプレビューができるエディター')
+@section('head')
 @include('base.head')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.0/ace.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.0/ext-language_tools.js"></script>
@@ -9,6 +10,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/highlight.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/latex.js@0.11.1/dist/latex.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/latex.js@0.11.1/dist/latex.component.js"></script>
+@endsection
 @section('content')
 <div class="uk-container uk-container-center uk-background-default">
     <p>左にLaTeXを書くと右にプレビューが表示されます(laravel化のためエクスポート機能は停止中)</p>

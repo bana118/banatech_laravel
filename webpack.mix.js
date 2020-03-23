@@ -11,18 +11,42 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-   .scripts(['node_modules/marked/lib/marked.js',
-   'node_modules/highlightjs/highlight.pack.js',], 'public/js/blog.js')
-   .scripts(['node_modules/animejs/lib/anime.js',], 'public/js/anime.js')
-   .scripts(['node_modules/soundjs/lib/soundjs.js',], 'public/js/soundjs.js')
-   .scripts(['node_modules/preloadjs/lib/preloadjs.js',], 'public/js/preload.js')
-   .scripts(['node_modules/@tensorflow/tfjs/dist/tf.js'], 'public/js/tf.js')
-   .scripts(['node_modules/uikit/dist/js/uikit.js',], 'public/js/uikit.js')
-   .sass('resources/sass/app.scss', 'public/css/sass.css')
-   .less('resources/less/app.less', 'public/css/less.css')
+
+// base
+mix.js('resources/js/base/app.js', 'public/js/base/')
+   .sass('resources/sass/base/app.scss', 'public/css/base/sass.css')
+   .less('resources/less/base/app.less', 'public/css/base/less.css')
    .styles([
-      'public/css/sass.css',
-      'public/css/less.css'
-   ], 'public/css/app.css');
-   
+      'public/css/base/sass.css',
+      'public/css/base/less.css'
+   ], 'public/css/base/app.css');
+
+// blog
+mix.js('resources/js/blog/view.js', 'public/js/blog/')
+   .styles(['resources/css/blog/view.css'], 'public/css/blog/view.css');
+
+// kurukuru
+mix.js('resources/js/kurukuru/kurukuru.js', 'public/js/kurukuru/');
+
+// hakogucha
+mix.js('resources/js/hakogucha/hakogucha.js', 'public/js/hakogucha/');
+
+// reiwa
+mix.js('resources/js/reiwa/reiwa.js', 'public/js/reiwa/')
+   .js('resources/js/reiwa/solo.js', 'public/js/reiwa/')
+   .scripts(['resources/js/reiwa/createjs/preloadjs.min.js',
+      'resources/js/reiwa/createjs/soundjs.min.js'], 'public/js/reiwa/createjs.js');
+
+if (mix.inProduction()) {
+   mix.version();
+} else {
+   mix.browserSync({
+      files: [
+         "resources/views/**/*.blade.php",
+         "public/**/*.*"
+      ],
+      proxy: {
+         target: "http://127.0.0.1:8000",
+      }
+   });
+}
