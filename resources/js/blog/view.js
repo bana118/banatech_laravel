@@ -42,7 +42,7 @@ $(document).ready(function () {
     renderer.image = function (href, title, text) {
         var fileName = href.split("/").pop();
         var articleId = $("#article_id").data("name");
-        var imgPath = location.origin + "/item/article/" + articleId + "/image";
+        var imgPath = location.origin + "/blog_item/article/" + articleId + "/image";
         return '<img src="' + imgPath + "/" + fileName + '" alt="' + text +
             '" class="img-fluid">';
     }

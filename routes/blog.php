@@ -40,7 +40,7 @@ Route::get('/blog/view/{articleId}', function ($articleId) {
 Route::get('/blog/delete/{articleId}', function ($articleId) {
     if (Auth::check()) {
         $article = \App\Article::where('id', $articleId)->first();
-        $deleteDirPath = "blog/article/" . $article->id;
+        $deleteDirPath = "blog_item/article/" . $article->id;
         File::deleteDirectory(public_path($deleteDirPath));
         $article->delete();
         return redirect('/blog');
@@ -52,7 +52,7 @@ Route::get('/blog/delete/{articleId}', function ($articleId) {
 Route::get('/blog/edit/{articleId}', function ($articleId) {
     if (Auth::check()) {
         $article = \App\Article::where('id', $articleId)->first();
-        $editPath = public_path(("blog/" . $article->md_file));
+        $editPath = public_path(("blog_item/" . $article->md_file));
         $content = file_get_contents($editPath);
         return view('blog.edit', [
             'article' => $article,
@@ -94,12 +94,12 @@ Route::post('/blog/edited/{articleId}', function (Request $request, $articleId) 
         }
 
         $content = $request->content;
-        $mdFilePath = public_path('blog/article/' . $article->id . '/article.md');
+        $mdFilePath = public_path('blog_item/article/' . $article->id . '/article.md');
         \File::put($mdFilePath, $content);
 
         $imgCheck = $request->imgCheck;
         if ($imgCheck == "on") {
-            $imgDir = public_path('blog/article/' . $article->id . '/image');
+            $imgDir = public_path('blog_item/article/' . $article->id . '/image');
             \File::cleanDirectory($imgDir);
             if ($request->file('img') != null) {
                 foreach ($request->file('img') as $img) {

@@ -27,7 +27,7 @@
         <button class="uk-button uk-button-primary uk-button-small uk-border-rounde">{{$category->name}}</button>
         @endforeach
     </p>
-    <div id="markdown_content" src="{{ asset('item/'.$article->md_file) }}"></div>
+    <div id="markdown_content" src="{{ asset('blog_item/'.$article->md_file) }}"></div>
     <h3 id="related-articles">関連記事</h3>
     @foreach ($relatedArticles as $relatedArticle)
     <a href="/blog/view/{{ $relatedArticle->id }}">{{ $relatedArticle->title }}</a>
