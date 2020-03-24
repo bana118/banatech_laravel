@@ -1,12 +1,14 @@
 {
-    "/js/app.js": "/js/app.js",
-    "/css/less.css": "/css/less.css",
-    "/css/sass.css": "/css/sass.css",
-    "/js/blog.js": "/js/blog.js",
-    "/js/anime.js": "/js/anime.js",
-    "/js/soundjs.js": "/js/soundjs.js",
-    "/js/preloadjs.js": "/js/preloadjs.js",
-    "/js/tf.js": "/js/tf.js",
-    "/js/uikit.js": "/js/uikit.js",
-    "/css/app.css": "/css/app.css"
+    "/js/base/app.js": "/js/base/app.js",
+    "/css/base/less.css": "/css/base/less.css",
+    "/css/base/sass.css": "/css/base/sass.css",
+    "/js/blog/view.js": "/js/blog/view.js",
+    "/js/hakogucha/hakogucha.js": "/js/hakogucha/hakogucha.js",
+    "/js/kurukuru/kurukuru.js": "/js/kurukuru/kurukuru.js",
+    "/js/latex_editor/editor.js": "/js/latex_editor/editor.js",
+    "/js/reiwa/reiwa.js": "/js/reiwa/reiwa.js",
+    "/js/reiwa/solo.js": "/js/reiwa/solo.js",
+    "/css/base/app.css": "/css/base/app.css",
+    "/css/blog/view.css": "/css/blog/view.css",
+    "/js/reiwa/createjs.js": "/js/reiwa/createjs.js"
 }

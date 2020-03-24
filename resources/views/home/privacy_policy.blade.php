@@ -2,8 +2,9 @@
 
 @section('title', 'プライバシーポリシー')
 @section('description', 'プライバシーポリシー')
+@section('head')
 @include('base.head')
-
+@endsection
 @section('content')
 <div class="uk-container uk-container-center uk-background-default">
     <h2>プライバシーポリシー(個人情報保護方針)</h2>

@@ -12,8 +12,3 @@ Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
 
-/*
-Route::get('/sample', function () { //TODO for debug
-    return view('home.sample');
-});
-*/

@@ -10,7 +10,7 @@
     <div id="content">
 
     </div>
-    <script src="{{ asset('/js/marked.js') }}"></script>
+    <script src="{{ mix('/js/marked.js') }}"></script>
     <script>
         window.onload = function () {
             document.getElementById("content").innerHTML = marked("# テスト");
