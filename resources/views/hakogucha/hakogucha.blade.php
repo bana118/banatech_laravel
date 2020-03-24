@@ -2,7 +2,7 @@
 
 @section('title', 'はこぐちゃ')
 @section('description', 'JavaScript、anime.js、を用いたパズルゲーム。ブロックを回転させ同じ色のブロックを4つそろえよう')
-@sectio('head')
+@section('head')
 @include('base.head')
 <meta name="description" content="降ってくるハコを壊したり押したりして同じ色でそろえよう">
 <script src="{{ mix('js/hakogucha/hakogucha.js') }}"></script>
