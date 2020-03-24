@@ -7,7 +7,7 @@ use App\Category;
 const ARTICLES_PER_PAGE = 20;
 
 Route::get('/blog', function () {
-    $articles = Article::orderBy('created_at', 'asc')->paginate(ARTICLES_PER_PAGE);
+    $articles = Article::orderBy('updated_at', 'desc')->paginate(ARTICLES_PER_PAGE);
     return view('blog.blog', [
         'articles' => $articles
     ]);
@@ -29,7 +29,7 @@ Route::get('/blog/view/{articleId}', function ($articleId) {
                 }
             }
         }
-        $relatedArticles = Article::whereIn('id', $relatedArticleIdList)->orderBy('created_at', 'asc')->take(3)->get();
+        $relatedArticles = Article::whereIn('id', $relatedArticleIdList)->orderBy('updated_at', 'desc')->take(3)->get();
         return view('blog.view', [
             'article' => $article,
             'relatedArticles' => $relatedArticles
@@ -40,7 +40,7 @@ Route::get('/blog/view/{articleId}', function ($articleId) {
 Route::get('/blog/delete/{articleId}', function ($articleId) {
     if (Auth::check()) {
         $article = \App\Article::where('id', $articleId)->first();
-        $deleteDirPath = "item/article/" . $article->id;
+        $deleteDirPath = "blog/article/" . $article->id;
         File::deleteDirectory(public_path($deleteDirPath));
         $article->delete();
         return redirect('/blog');
@@ -52,7 +52,7 @@ Route::get('/blog/delete/{articleId}', function ($articleId) {
 Route::get('/blog/edit/{articleId}', function ($articleId) {
     if (Auth::check()) {
         $article = \App\Article::where('id', $articleId)->first();
-        $editPath = public_path(("item/" . $article->md_file));
+        $editPath = public_path(("blog/" . $article->md_file));
         $content = file_get_contents($editPath);
         return view('blog.edit', [
             'article' => $article,
@@ -94,12 +94,12 @@ Route::post('/blog/edited/{articleId}', function (Request $request, $articleId) 
         }
 
         $content = $request->content;
-        $mdFilePath = public_path('item/article/' . $article->id . '/article.md');
+        $mdFilePath = public_path('blog/article/' . $article->id . '/article.md');
         \File::put($mdFilePath, $content);
 
         $imgCheck = $request->imgCheck;
         if ($imgCheck == "on") {
-            $imgDir = public_path('item/article/' . $article->id . '/image');
+            $imgDir = public_path('blog/article/' . $article->id . '/image');
             \File::cleanDirectory($imgDir);
             if ($request->file('img') != null) {
                 foreach ($request->file('img') as $img) {
@@ -144,7 +144,7 @@ Route::post('/blog/posted', function (Request $request) {
         $article->md_file = "dummy";
         $article->save();
         $mdFile = $request->file('mdfile');
-        $mdFilePath = $mdFile->storeAs('article/' . $article->id, 'article.md');
+        $mdFilePath = $mdFile->storeAs('article/' . $article->id, $article->id . '.md');
         $article->md_file = $mdFilePath;
         $article->save();
         if ($request->file('img') != null) {
@@ -195,7 +195,7 @@ Route::post('/blog/search', function (Request $request) {
             }
         }
     }
-    $articles = Article::whereIn('id', $idArray)->orderBy('created_at', 'asc')->paginate(ARTICLES_PER_PAGE);
+    $articles = Article::whereIn('id', $idArray)->orderBy('updated_at', 'desc')->paginate(ARTICLES_PER_PAGE);
     return view('blog.search', [
         'searchWord' => $searchWord,
         'articles' => $articles

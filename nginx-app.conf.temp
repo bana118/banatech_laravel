@@ -1,0 +1,35 @@
+# nginx-app.conf
+
+#letsencrypt認証用
+# configuration of the server
+server {
+    # the port your site will be served on, default_server indicates that this server block
+    # is the block to use if no blocks match the server_name
+    listen      80;
+    # the domain name it will serve for
+    server_name banatech.dip.jp; # substitute your machine's IP address or FQDN
+    root /banatech.dip.jp/public;
+    charset     utf-8;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    index index.html index.htm index.php;
+
+    #letsencrypt認証用
+    location /.well-known {
+        root /home/docker/laravel/banatech_laravel/public;
+    }
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location = /robots.txt  { access_log off; log_not_found off; }
+
+    # Finally, send all non-media requests to the Django server.
+    location ~ \.php$ {
+        fastcgi_pass unix:/var/run/php/php7.2-fpm.sock;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+}
