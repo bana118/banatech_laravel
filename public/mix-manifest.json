@@ -5,6 +5,7 @@
     "/js/blog/view.js": "/js/blog/view.js",
     "/js/hakogucha/hakogucha.js": "/js/hakogucha/hakogucha.js",
     "/js/kurukuru/kurukuru.js": "/js/kurukuru/kurukuru.js",
+    "/js/latex_editor/editor.js": "/js/latex_editor/editor.js",
     "/js/reiwa/reiwa.js": "/js/reiwa/reiwa.js",
     "/js/reiwa/solo.js": "/js/reiwa/solo.js",
     "/css/base/app.css": "/css/base/app.css",

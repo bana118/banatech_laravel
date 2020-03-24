@@ -26,6 +26,9 @@ mix.js('resources/js/base/app.js', 'public/js/base/')
 mix.js('resources/js/blog/view.js', 'public/js/blog/')
    .styles(['resources/css/blog/view.css'], 'public/css/blog/view.css');
 
+//latex_editor
+mix.js('resources/js/latex_editor/editor.js', 'public/js/latex_editor/');
+
 // kurukuru
 mix.js('resources/js/kurukuru/kurukuru.js', 'public/js/kurukuru/');
 
