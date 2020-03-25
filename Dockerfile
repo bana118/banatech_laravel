@@ -38,7 +38,7 @@ RUN apt update && \
 RUN npm install n -g
 RUN n stable
 RUN apt purge -y nodejs npm
-
+ENV PATH $PATH:/usr/local/bin/node
 # add our code
 COPY . /home/docker/code/banatech_laravel
 
