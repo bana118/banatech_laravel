@@ -49,7 +49,7 @@ RUN cd /home/docker/code/banatech_laravel && composer install --optimize-autoloa
 RUN cd /home/docker/code/banatech_laravel && npm install
 
 # clear laravel caches
-RUN php artisan config:cache && php artisan route:cache
+RUN cd /home/docker/code/banatech_laravel && php artisan config:cache && php artisan route:cache
 
 # setup all the configfiles
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
