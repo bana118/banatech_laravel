@@ -24,10 +24,10 @@
     <p>
         カテゴリー：
         @foreach ($article->categories as $category)
-        <button class="uk-button uk-button-primary uk-button-small uk-border-rounde">{{$category->name}}</button>
+        <button class="uk-button uk-button-primary uk-button-small uk-border-rounde" onclick="location.href='/blog/category/{{$category->name}}'">{{$category->name}}</button>
         @endforeach
     </p>
-    <div id="markdown_content" src="{{ asset('blog_item/'.$article->md_file) }}"></div>
+    <div id="markdown_content" src="{{ asset('uploaded/'.$article->md_file) }}"></div>
     <h3 id="related-articles">関連記事</h3>
     @foreach ($relatedArticles as $relatedArticle)
     <a href="/blog/view/{{ $relatedArticle->id }}">{{ $relatedArticle->title }}</a>
