@@ -38,7 +38,6 @@ RUN apt update && \
 RUN npm install n -g
 RUN n stable
 RUN apt purge -y nodejs npm
-RUN exec $SHELL -l
 
 # install laravel and etc
 RUN cd /home/docker/code/banatech_laravel && composer install --optimize-autoloader --no-dev
