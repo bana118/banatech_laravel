@@ -35,6 +35,7 @@ RUN apt update && \
     rm -rf /var/lib/apt/lists/*
 
 # update node npm
+RUN npm install n -g
 RUN n stable
 RUN apt purge -y nodejs npm
 RUN exec $SHELL -l
@@ -52,11 +53,6 @@ RUN php artisan config:cache && php artisan route:cache
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 COPY nginx-app.conf /etc/nginx/sites-available/default
 COPY supervisor-app.conf /etc/supervisor/conf.d/
-
-# COPY requirements.txt and RUN pip install BEFORE adding the rest of your code, this will cause Docker's caching mechanism
-# to prevent re-installing (all your) dependencies when you made a change a line or two in your app.
-COPY requirements.txt /home/docker/code/
-RUN pip3 install -r /home/docker/code/requirements.txt
 
 # add (the rest of) our code
 COPY . /home/docker/code/
