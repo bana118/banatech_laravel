@@ -4,10 +4,8 @@ use Illuminate\Http\Request;
 use App\Article;
 use App\Category;
 
-$articles_per_page = 20;
-
 Route::get('/blog', function () {
-    $articles = Article::orderBy('updated_at', 'desc')->paginate($articles_per_page);
+    $articles = Article::orderBy('updated_at', 'desc')->paginate(config('const.BLOG_SETTING.articles_per_page'));
     return view('blog.blog', [
         'articles' => $articles
     ]);
@@ -195,7 +193,7 @@ Route::post('/blog/search', function (Request $request) {
             }
         }
     }
-    $articles = Article::whereIn('id', $idArray)->orderBy('updated_at', 'desc')->paginate($articles_per_page);
+    $articles = Article::whereIn('id', $idArray)->orderBy('updated_at', 'desc')->paginate(config('const.BLOG_SETTING.articles_per_page'));
     return view('blog.search', [
         'searchWord' => $searchWord,
         'articles' => $articles
@@ -204,7 +202,7 @@ Route::post('/blog/search', function (Request $request) {
 
 Route::get('/blog/category/{categoryName}', function ($categoryName) {
     $category = Category::where('name', $categoryName)->first();
-    $articles = $category->articles()->paginate($articles_per_page);
+    $articles = $category->articles()->paginate(config('const.BLOG_SETTING.articles_per_page'));
     return view('blog.category', [
         'categoryName' => $categoryName,
         'articles' => $articles
