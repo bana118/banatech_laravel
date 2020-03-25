@@ -49,7 +49,9 @@ RUN cd /home/docker/code/banatech_laravel && composer install --optimize-autoloa
 RUN cd /home/docker/code/banatech_laravel && npm install
 
 # clear laravel caches
-RUN cd /home/docker/code/banatech_laravel && php artisan config:cache && php artisan route:cache
+# This app doesn't seem to delete the route cache...
+RUN cd /home/docker/code/banatech_laravel && php artisan config:cache
+# RUN cd /home/docker/code/banatech_laravel && php artisan config:cache && php artisan route:cache
 
 # setup all the configfiles
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
@@ -60,13 +62,3 @@ COPY supervisor-app.conf /etc/supervisor/conf.d/
 EXPOSE 80
 EXPOSE 443
 CMD ["supervisord", "-n"]
-
-#今はmakemigrations, migrate, createsuperuserは手動で行うことにする
-#RUN python3 /home/docker/code/banatech/manage.py collectstatic
-#RUN apt-get update
-#RUN apt-get install language-pack-ja
-#RUN update-locale LANG=ja_JP.UTF-8
-#RUN export LANG=ja_JP.UTF-8
-#RUN python3 /home/docker/code/banatech/manage.py makemigrations
-#RUN python3 /home/docker/code/banatech/manage.py migrate
-#RUN python3 /home/docker/code/banatech/manage.py createsuperuser
