@@ -30,6 +30,7 @@ RUN apt update && \
     php-mysql \
     php-sqlite3 \
     php-bcmath \
+    php-fpm \
 	certbot \
 	sqlite3 && \
     rm -rf /var/lib/apt/lists/*
