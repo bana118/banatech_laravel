@@ -40,7 +40,7 @@ RUN n stable
 RUN apt purge -y nodejs npm
 
 # add our code
-COPY . /home/docker/code/
+COPY . /home/docker/code/banatech_laravel
 
 # install laravel and etc
 RUN cd /home/docker/code/banatech_laravel && composer install --optimize-autoloader --no-dev
