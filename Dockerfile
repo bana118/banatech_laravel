@@ -39,6 +39,9 @@ RUN npm install n -g
 RUN n stable
 RUN apt purge -y nodejs npm
 
+# add our code
+COPY . /home/docker/code/
+
 # install laravel and etc
 RUN cd /home/docker/code/banatech_laravel && composer install --optimize-autoloader --no-dev
 
@@ -53,8 +56,7 @@ RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 COPY nginx-app.conf /etc/nginx/sites-available/default
 COPY supervisor-app.conf /etc/supervisor/conf.d/
 
-# add (the rest of) our code
-COPY . /home/docker/code/
+# run nginx
 EXPOSE 80
 EXPOSE 443
 CMD ["supervisord", "-n"]
