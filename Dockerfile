@@ -71,6 +71,7 @@ COPY supervisor-app.conf /etc/supervisor/conf.d/
 # create socket file for php-fpm
 RUN mkdir /var/run/php
 RUN touch /var/run/php/php7.2-fpm.sock
+RUN /usr/sbin/php-fpm7.2 -c /etc/php/7.2/fpm
 
 # run nginx
 EXPOSE 80
