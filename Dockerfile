@@ -77,4 +77,3 @@ RUN chmod 777 /var/run/php/php7.2-fpm.sock
 EXPOSE 80
 EXPOSE 443
 CMD ["supervisord", "-n"]
-RUN /usr/sbin/php-fpm7.2 -c /etc/php/7.2/fpm
