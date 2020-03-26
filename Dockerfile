@@ -58,8 +58,10 @@ RUN cd /home/docker/code/banatech_laravel && php artisan config:cache
 RUN cd /home/docker/code/banatech_laravel && npm run prod
 
 # add permission
-RUN chmod -R 777 /home/docker/code/banatech_laravel/storage
-RUN chmod -R 777 /home/docker/code/banatech_laravel/bootstrap/cache
+RUN chmod -R 775 /home/docker/code/banatech_laravel/storage
+RUN chmod -R 775 /home/docker/code/banatech_laravel/bootstrap/cache
+RUN chmod -R 775 /home/docker/code/banatech_laravel/database/database.sqlite3
+RUN chmod -R 775 /home/docker/code/banatech_laravel/public/uploaded
 
 # setup all the configfiles
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
