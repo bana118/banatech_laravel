@@ -68,7 +68,12 @@ RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 COPY nginx-app.conf /etc/nginx/sites-available/default
 COPY supervisor-app.conf /etc/supervisor/conf.d/
 
+# create socket file for php-fpm
+RUN mkdir /run/php
+RUN touch /run/php/php7.2-fpm.sock
+
 # run nginx
 EXPOSE 80
 EXPOSE 443
 CMD ["supervisord", "-n"]
+
