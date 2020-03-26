@@ -69,9 +69,9 @@ COPY nginx-app.conf /etc/nginx/sites-available/default
 COPY supervisor-app.conf /etc/supervisor/conf.d/
 
 # create socket file for php-fpm
-# RUN mkdir /var/run/php
-# RUN touch /var/run/php/php7.2-fpm.sock
-# RUN chmod 777 /var/run/php/php7.2-fpm.sock
+RUN mkdir /var/run/php
+RUN touch /var/run/php/php7.2-fpm.sock
+RUN chmod 777 /var/run/php/php7.2-fpm.sock
 
 # run nginx
 EXPOSE 80
