@@ -58,10 +58,10 @@ RUN cd /home/docker/code/banatech_laravel && php artisan config:cache
 RUN cd /home/docker/code/banatech_laravel && npm run prod
 
 # add permission
-RUN chmod -R 775 /home/docker/code/banatech_laravel/storage
-RUN chmod -R 775 /home/docker/code/banatech_laravel/bootstrap/cache
-RUN chmod -R 775 /home/docker/code/banatech_laravel/database/database.sqlite3
-RUN chmod -R 775 /home/docker/code/banatech_laravel/public/uploaded
+RUN chmod -R 777 /home/docker/code/banatech_laravel/storage
+RUN chmod -R 777 /home/docker/code/banatech_laravel/bootstrap/cache
+RUN chmod -R 777 /home/docker/code/banatech_laravel/database/database.sqlite3
+RUN chmod -R 777 /home/docker/code/banatech_laravel/public/uploaded
 
 # setup all the configfiles
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
@@ -69,8 +69,8 @@ COPY nginx-app.conf /etc/nginx/sites-available/default
 COPY supervisor-app.conf /etc/supervisor/conf.d/
 
 # create socket file for php-fpm
-RUN mkdir /run/php
-RUN touch /run/php/php7.2-fpm.sock
+RUN mkdir /var/run/php
+RUN touch /var/run/php/php7.2-fpm.sock
 
 # run nginx
 EXPOSE 80
