@@ -54,6 +54,13 @@ RUN cd /home/docker/code/banatech_laravel && npm install
 RUN cd /home/docker/code/banatech_laravel && php artisan config:cache
 # RUN cd /home/docker/code/banatech_laravel && php artisan config:cache && php artisan route:cache
 
+# compile css and js
+RUN cd /home/docker/code/banatech_laravel && npm run prod
+
+# add permission
+RUN chmod -R 777 /home/docker/code/banatech_laravel/storage
+RUN chmod -R 777 /home/docker/code/banatech_laravel/bootstrap/cache
+
 # setup all the configfiles
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 COPY nginx-app.conf /etc/nginx/sites-available/default
