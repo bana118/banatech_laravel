@@ -40,6 +40,8 @@ $ sudo certbot certonly --webroot -w /home/docker/code/banatech_laravel/public -
 ```
 $ mv nginx-app.conf nginx-app.conf.temp
 $ cp nginx-app.conf.prod nginx-app.conf
+$ mkdir /home/docker/code/dhparam
+$ sudo openssl dhparam -out /home/docker/code/dhparam/dhparam4096.pem 4096
 $ sudo docker stop ${container_id}
 $ sudo docker rm ${exist_container_id}
 $ sudo docker build -t banatech_laravel .
