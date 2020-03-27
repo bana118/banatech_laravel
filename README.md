@@ -19,6 +19,15 @@ $ php artisan serve
 ## 注意！
 
 docker run -v するとホスト側のディレクトリがコンテナ側のディレクトリを上書きします。public/uploaded ディレクトリやdatabase.sqlite3 ファイルはうっかり消しかねないのでバックアップ必須です。.env などもホスト側のものが使用されかねないので注意が必要です。docker内に入り.env のAPP_KEYを確かめる必要があります。
+そのときはdocker内に入り以下のコマンドを実行。
+
+```
+$ sudo docker exec -i -t ${container_id} bash
+# cd /home/docker/code/banatech_laravel
+# npm install
+# npm run prod
+# php artisan key:generate
+```
 
 ## httpのみでデプロイ
 
