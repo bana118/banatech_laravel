@@ -23,7 +23,8 @@ $ cp .env.example .env
 $ cp nginx-app.conf.temp nginx-app.conf
 $ sudo chmod -R 777 storage
 $ sudo chmod -R 777 bootstrap/cache
-$ sudo chmod -R 777 database/database.sqlite3
+$ sudo chmod -R 777 database
+$ sudo chmod -R 777 public
 $ sudo docker build -t banatech_laravel .
 $ sudo docker run -d -p 80:80 -p 443:443 -v /home/docker/code:/home/docker/code -v /etc/letsencrypt:/etc/letsencrypt banatech_laravel
 ```
@@ -38,9 +39,9 @@ $ sudo certbot certonly --webroot -w /home/docker/code/banatech_laravel/public -
 ## httpsでデプロイ
 
 ```
-$ mv nginx-app.conf nginx-app.conf.temp
-$ cp nginx-app.conf.prod nginx-app.conf
-$ mkdir /home/docker/code/dhparam
+$ sudo mv nginx-app.conf nginx-app.conf.temp
+$ sudo cp nginx-app.conf.prod nginx-app.conf
+$ sudo mkdir /home/docker/code/dhparam
 $ sudo openssl dhparam -out /home/docker/code/dhparam/dhparam4096.pem 4096
 $ sudo docker stop ${container_id}
 $ sudo docker rm ${exist_container_id}
