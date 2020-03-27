@@ -6,6 +6,13 @@
 @include('base.head')
 <script src="{{ mix('js/latex_editor/editor.js') }}"></script>
 <meta name="csrf-token" content='@csrf'> <!--to save tex file with post form-->
+<meta property="og:url" content="{{ url()->current() }}" />
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="ばなてっく" />
+<meta property="og:description" content="LaTeXEditor" />
+<meta property="og:image" content="{{ asset('img/sumnail/latex_editor.png')}}" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="{{Config::get('const.TWITTERID')}}" />
 @endsection
 @section('content')
 <div class="uk-container uk-container-center uk-background-default">

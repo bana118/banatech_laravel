@@ -9,13 +9,13 @@
   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
 </script>
 <link rel="stylesheet" href="{{ mix('/css/blog/view.css') }}">
-<meta property="og:url" content="https://banatech.tk/blog/{{ $article->id }}" />
+<meta property="og:url" content="{{ url()->current() }}" />
 <meta property="og:locale" content="ja_JP">
 <meta property="og:title" content="ばなてっく" />
 <meta property="og:description" content="{{ $article->title }}" />
-<!--<meta property="og:image" content="https://banatech.tk/static/favicon/android-chrome-256x256.png" />-->
+<meta property="og:image" content="{{ asset('img/favicon/android-chrome-512x512.png')}}" />
 <meta name="twitter:card" content="summary" />
-<meta name="twitter:site" content="@theoria118" />
+<meta name="twitter:site" content="{{Config::get('const.TWITTERID')}}" />
 @endsection
 @section('content')
 <div class="uk-container uk-container-center uk-background-default">

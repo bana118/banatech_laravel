@@ -4,7 +4,13 @@
 @section('description', 'JavaScript、anime.js、を用いたパズルゲーム。ブロックを回転させ同じ色のブロックを4つそろえよう')
 @section('head')
 @include('base.head')
-<meta name="description" content="降ってくるハコを壊したり押したりして同じ色でそろえよう">
+<meta property="og:url" content="{{ url()->current() }}" />
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="ばなてっく" />
+<meta property="og:description" content="はこぐちゃ" />
+<meta property="og:image" content="{{ asset('img/sumnail/hakogucha.png')}}" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="{{Config::get('const.TWITTERID')}}" />
 <script src="{{ mix('js/hakogucha/hakogucha.js') }}"></script>
 @endsection
 @section('content')
