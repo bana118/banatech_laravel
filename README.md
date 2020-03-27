@@ -16,10 +16,14 @@ $ php artisan serve
 
 # デプロイ
 
+## 注意！
+
+docker run -v するとホスト側のディレクトリがコンテナ側のディレクトリを上書きします。public/uploaded ディレクトリやdatabase.sqlite3 ファイルはうっかり消しかねないのでバックアップ必須です。.env などもホスト側のものが使用されかねないので注意が必要です。docker内に入り.env のAPP_KEYを確かめる必要があります。
+
 ## httpのみでデプロイ
 
 ```
-$ sudo cp .env.example .env
+$ sudo cp .env.prod .env
 $ sudo cp nginx-app.conf.temp nginx-app.conf
 $ sudo chmod -R 777 storage
 $ sudo chmod -R 777 bootstrap/cache
