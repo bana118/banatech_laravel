@@ -54,6 +54,12 @@ RUN cd /home/docker/code/banatech_laravel && npm install
 RUN cd /home/docker/code/banatech_laravel && php artisan config:cache
 # RUN cd /home/docker/code/banatech_laravel && php artisan config:cache && php artisan route:cache
 
+# generate app key
+RUN cd /home/docker/code/banatech_laravel && php artisan key:generate
+
+# migrate
+RUN cd /home/docker/code/banatech_laravel && php artisan migrate
+
 # compile css and js
 RUN cd /home/docker/code/banatech_laravel && npm run prod
 
