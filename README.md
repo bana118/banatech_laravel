@@ -92,7 +92,7 @@ crontabに以下追記
 
 ```
 > sudo git pull
-> sudo cp -pR ./ docker/code/banatech_laravel
+> sudo cp -pR ./ /home/docker/code/banatech_laravel
 > docker restart ${container_id}
 ```
 
