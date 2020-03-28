@@ -1,10 +1,17 @@
 @extends('base.base')
-@section('title', '令和で書き初め(ひとりで)')
+@section('title', '令和で書き初め')
 @section('description', '「令和」を100秒以内に書きまくれ！手書き文字を人工知能が判定')
 @section('head')
 @include('base.head')
 <script src="{{ mix('js/reiwa/solo.js') }}"></script>
 <script src="{{ mix('js/reiwa/createjs.js') }}"></script>
+<meta property="og:url" content="{{ url()->current() }}" />
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="ばなてっく" />
+<meta property="og:description" content="令和で書き初め" />
+<meta property="og:image" content="{{ asset('img/sumnail/reiwa.png')}}" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="{{Config::get('const.TWITTERID')}}" />
 @endsection
 @section('content')
 <div id="container" class="uk-container" style="touch-action: manipulation;">

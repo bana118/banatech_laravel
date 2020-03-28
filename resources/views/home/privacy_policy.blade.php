@@ -4,11 +4,18 @@
 @section('description', 'プライバシーポリシー')
 @section('head')
 @include('base.head')
+<meta property="og:url" content="{{ url()->current() }}" />
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="ばなてっく" />
+<meta property="og:description" content="プライバシーポリシー" />
+<meta property="og:image" content="{{ asset('img/favicon/android-chrome-512x512.png')}}" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="{{Config::get('const.TWITTERID')}}" />
 @endsection
 @section('content')
 <div class="uk-container uk-container-center uk-background-default">
     <h2>プライバシーポリシー(個人情報保護方針)</h2>
-    <p>「https://banatech.tk」（以下、当サイト）を利用される方は、以下に記載する諸条件に同意したものとみなします。</p>
+    <p>「{{ config('app.url') }}」（以下、当サイト）を利用される方は、以下に記載する諸条件に同意したものとみなします。</p>
     <p>&nbsp;</p>
     <h2>アクセス解析ツールについて</h2>
     <p>当サイトでは、Googleによるアクセス解析ツール「Googleアナリティクス」を利用しています。

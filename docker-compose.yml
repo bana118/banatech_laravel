@@ -1,0 +1,10 @@
+version: "2"
+services:
+  web:
+    image: banatech_laravel
+    volumes:
+      - /home/docker/code:/home/docker/code
+      - /etc/letsencrypt:/etc/letsencrypt
+    ports:
+      - "80:80"
+      - "443:443"
