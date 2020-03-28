@@ -6,8 +6,15 @@ use App\Category;
 
 Route::get('/blog', function () {
     $articles = Article::orderBy('updated_at', 'desc')->paginate(config('const.BLOG_SETTING.articles_per_page'));
-    return view('blog.blog', [
+    return view('blog.category', [
         'articles' => $articles
+    ]);
+});
+
+Route::get('/blog/all_categories', function () {
+    $allCategories = Category::orderBy('name', 'asc')->paginate(config('const.BLOG_SETTING.categories_per_page'));
+    return view('blog.category', [
+        'categories' => $allCategories
     ]);
 });
 
@@ -203,7 +210,7 @@ Route::post('/blog/search', function (Request $request) {
 Route::get('/blog/category/{categoryName}', function ($categoryName) {
     $category = Category::where('name', $categoryName)->first();
     $articles = $category->articles()->paginate(config('const.BLOG_SETTING.articles_per_page'));
-    return view('blog.category', [
+    return view('blog.search_category', [
         'categoryName' => $categoryName,
         'articles' => $articles
     ]);
