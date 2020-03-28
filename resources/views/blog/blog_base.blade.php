@@ -33,6 +33,5 @@
             @endforeach
         </ul>
     </div>
-    <a href="/blog/post">記事追加（管理者用）</a>
 </div>
 @endsection
