@@ -40,6 +40,10 @@ $ sudo chmod -R 777 database
 $ sudo chmod -R 777 public
 $ sudo docker build -t banatech_laravel .
 $ sudo docker run -d -p 80:80 -p 443:443 -v /home/docker/code:/home/docker/code -v /etc/letsencrypt:/etc/letsencrypt banatech_laravel
+$ sudo docker exec -i -t ${container_id} bash
+# cd /home/docker/code/banatech_laravel
+# npm install
+# npm run prod
 ```
 
 ## letsencryptで証明書取得
@@ -56,10 +60,12 @@ $ sudo mv nginx-app.conf nginx-app.conf.temp
 $ sudo cp nginx-app.conf.prod nginx-app.conf
 $ sudo mkdir -p /home/docker/code/dhparam
 $ sudo openssl dhparam -out /home/docker/code/dhparam/dhparam4096.pem 4096
-$ sudo docker stop ${container_id}
-$ sudo docker rm ${exist_container_id}
-$ sudo docker build -t banatech_laravel .
-$ sudo docker run -d -p 80:80 -p 443:443 -v /home/docker/code:/home/docker/code -v /etc/letsencrypt:/etc/letsencrypt banatech_laravel
+$ sudo docker exec -i -t ${container_id} bash
+# cd /home/docker/code/banatech_laravel
+# mv nginx-app.conf nginx-app.conf.temp
+# cp nginx-app.conf.prod nginx-app.conf
+# cp nginx-app.conf /etc/nginx/sites-available/default
+# supervisorctl restart nginx
 ```
 
 ## letsencrypt更新確認
@@ -67,6 +73,8 @@ $ sudo docker run -d -p 80:80 -p 443:443 -v /home/docker/code:/home/docker/code 
 ```
 $ sudo certbot renew --force-renew --dry-run --webroot-path /home/docker/code/banatech_laravel/public
 ```
+certbotのバージョンが0.32以前だと--dry-runでエラーが起きるそうです。
+[Problem with renew certificates - The request message was malformed :: Method not allowed - Help - Let's Encrypt Community Support](https://community.letsencrypt.org/t/problem-with-renew-certificates-the-request-message-was-malformed-method-not-allowed/107889)
 
 ## letsencrypt自動更新
 
