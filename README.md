@@ -24,6 +24,7 @@ docker run -v するとホスト側のディレクトリがコンテナ側のデ
 ```
 $ sudo docker exec -i -t ${container_id} bash
 # cd /home/docker/code/banatech_laravel
+# composer install --optimize-autoloader --no-dev
 # npm install
 # npm run prod
 # php artisan key:generate
@@ -42,6 +43,7 @@ $ sudo docker build -t banatech_laravel .
 $ sudo docker run -d -p 80:80 -p 443:443 -v /home/docker/code:/home/docker/code -v /etc/letsencrypt:/etc/letsencrypt banatech_laravel
 $ sudo docker exec -i -t ${container_id} bash
 # cd /home/docker/code/banatech_laravel
+# composer install --optimize-autoloader --no-dev
 # npm install
 # npm run prod
 ```
