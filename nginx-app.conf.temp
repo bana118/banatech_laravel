@@ -7,7 +7,7 @@ server {
     # is the block to use if no blocks match the server_name
     listen      80;
     # the domain name it will serve for
-    server_name banatech.dip.jp; # substitute your machine's IP address or FQDN
+    server_name banatech.net; # substitute your machine's IP address or FQDN
     root /home/docker/code/banatech_laravel/public;
     charset     utf-8;
 

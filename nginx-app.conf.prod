@@ -5,22 +5,22 @@
 server {
     listen 80;
     listen [::]:80;
-    server_name banatech.dip.jp;
+    server_name banatech.net;
     location /.well-known {
         root /home/docker/code/banatech_laravel/public;
     }
     #sitemap
     location /sitemap.xml {
-        return 301 https://banatech.dip.jp/sitemap.xml;
+        return 301 https://banatech.net/sitemap.xml;
     }
 
     #robots
     location /robots.txt {
-        return 301 https://banatech.dip.jp/robots.txt;
+        return 301 https://banatech.net/robots.txt;
     }
 
     location / {
-        return 301 https://banatech.dip.jp;
+        return 301 https://banatech.net;
     }
 }
 
@@ -30,8 +30,8 @@ server {
     listen      443 ssl http2;
     listen [::]:443 ssl http2;
     # ssl config
-    ssl_certificate     /etc/letsencrypt/live/banatech.dip.jp/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/banatech.dip.jp/privkey.pem;
+    ssl_certificate     /etc/letsencrypt/live/banatech.net/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/banatech.net/privkey.pem;
 
     #config https://jyn.jp/ssl-aplus/
     ssl_ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384;
@@ -46,9 +46,9 @@ server {
     ssl_session_tickets off;
     ssl_stapling on;
     ssl_stapling_verify on;
-    ssl_trusted_certificate /etc/letsencrypt/live/banatech.dip.jp/chain.pem;
+    ssl_trusted_certificate /etc/letsencrypt/live/banatech.net/chain.pem;
     # the domain name it will serve for
-    server_name banatech.dip.jp; # substitute your machine's IP address or FQDN
+    server_name banatech.net; # substitute your machine's IP address or FQDN
     charset     utf-8;
 
     root /home/docker/code/banatech_laravel/public;
