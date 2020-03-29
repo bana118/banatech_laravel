@@ -47,7 +47,9 @@ if (mix.inProduction()) {
    mix.browserSync({
       files: [
          "resources/views/**/*.blade.php",
-         "public/**/*.*"
+         "public/**/*.*",
+         "routes/*",
+         "config/*"
       ],
       proxy: {
          target: "http://127.0.0.1:8000",

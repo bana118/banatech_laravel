@@ -11,6 +11,58 @@ Route::get('/blog', function () {
     ]);
 });
 
+Route::get('/blog/download_all_articles', function () {
+    zipDirectory(public_path() . '/uploaded/article/', public_path() . '/articles.zip');
+    return response()->download(public_path() . '/articles.zip');
+});
+
+function zipDirectory($dir, $file, $root = "")
+{
+    $zip = new ZipArchive();
+    $res = $zip->open($file, ZipArchive::CREATE);
+
+    if ($res) {
+        if ($root != "") {
+            $zip->addEmptyDir($root);
+            $root .= DIRECTORY_SEPARATOR;
+        }
+
+        $baseLen = mb_strlen($dir);
+
+        $iterator = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator(
+                $dir,
+                FilesystemIterator::SKIP_DOTS
+                    | FilesystemIterator::KEY_AS_PATHNAME
+                    | FilesystemIterator::CURRENT_AS_FILEINFO
+            ),
+            RecursiveIteratorIterator::SELF_FIRST
+        );
+
+        $list = array();
+        foreach ($iterator as $pathname => $info) {
+            $localpath = $root . mb_substr($pathname, $baseLen);
+
+            if ($info->isFile()) {
+                $zip->addFile($pathname, $localpath);
+            } else {
+                $res = $zip->addEmptyDir($localpath);
+            }
+        }
+
+        $zip->close();
+    } else {
+        return false;
+    }
+}
+
+Route::get('/blog/all_categories', function () {
+    $allCategories = Category::orderBy('name', 'asc')->paginate(config('const.BLOG_SETTING.categories_per_page'));
+    return view('blog.category', [
+        'categories' => $allCategories
+    ]);
+});
+
 Route::get('/blog/view/{articleId}', function ($articleId) {
     $articleCount = \App\Article::where('id', $articleId)->count();
     if ($articleCount == 0) {
@@ -203,7 +255,7 @@ Route::post('/blog/search', function (Request $request) {
 Route::get('/blog/category/{categoryName}', function ($categoryName) {
     $category = Category::where('name', $categoryName)->first();
     $articles = $category->articles()->paginate(config('const.BLOG_SETTING.articles_per_page'));
-    return view('blog.category', [
+    return view('blog.search_category', [
         'categoryName' => $categoryName,
         'articles' => $articles
     ]);

@@ -33,6 +33,6 @@
             @endforeach
         </ul>
     </div>
-    <a href="/blog/post">記事追加（管理者用）</a>
+    <a href="/blog/all_categories">すべてのカテゴリ</a>
 </div>
 @endsection
