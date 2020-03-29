@@ -27,6 +27,5 @@
             @endforeach
         </ul>
     </div>
-    <a href="/blog/all_categories">すべてのカテゴリ</a>
 </div>
 @endsection
