@@ -17,7 +17,6 @@
 @section('content')
 <div class="uk-container uk-container-center uk-background-default">
     <p>左にLaTeXを書くと右にプレビューが表示されます(laravel化のためエクスポート機能は停止中)</p>
-    <p>記事はこちら→<a href="/blog/11">LaTeX.jsとAce.jsを用いたLaTeXのリアルタイムプレビューができるエディタを作った</a></p>
     <div class="uk-grid uk-flex-center">
         <div class="uk-width-1-2@m uk-margin-top">
             <a class="uk-button uk-button-primary" href="#!" onclick="saveTex();">Save(.tex)</a>
