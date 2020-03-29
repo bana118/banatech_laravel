@@ -90,9 +90,15 @@ Route::get('/blog/view/{articleId}', function ($articleId) {
 Route::get('/blog/delete/{articleId}', function ($articleId) {
     if (Auth::check()) {
         $article = \App\Article::where('id', $articleId)->first();
+        $prevCategories = $article->categories()->get();
         $deleteDirPath = "uploaded/article/" . $article->id;
         File::deleteDirectory(public_path($deleteDirPath));
         $article->delete();
+        foreach ($prevCategories as $prevCategory) {
+            if ($prevCategory->articles()->count() == 0) {
+                $prevCategory->delete();
+            }
+        }
         return redirect('/blog');
     } else {
         return redirect('/admin/login');
@@ -128,6 +134,7 @@ Route::post('/blog/edited/{articleId}', function (Request $request, $articleId) 
         $article = \App\Article::where('id', $articleId)->first();
         $article->title = $request->title;
         $article->category_split_space = $request->category;
+        $prevCategories = $article->categories()->get();
         $article->categories()->detach();
         $categorySplitSpace = explode(" ", $request->category);
         foreach ($categorySplitSpace as $category) {
@@ -142,6 +149,13 @@ Route::post('/blog/edited/{articleId}', function (Request $request, $articleId) 
                 $article->categories()->attach($categoryInDB->id);
             }
         }
+
+        foreach ($prevCategories as $prevCategory) {
+            if ($prevCategory->articles()->count() == 0) {
+                $prevCategory->delete();
+            }
+        }
+
 
         $content = $request->content;
         $mdFilePath = public_path('uploaded/article/' . $article->id . '/' . $article->id . '.md');
@@ -159,7 +173,7 @@ Route::post('/blog/edited/{articleId}', function (Request $request, $articleId) 
             }
         }
 
-        $article->save();
+        $article->update();
 
         return redirect('/blog');
     } else {
