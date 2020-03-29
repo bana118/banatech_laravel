@@ -159,7 +159,7 @@ Route::post('/blog/edited/{articleId}', function (Request $request, $articleId) 
             }
         }
 
-        $article->save();
+        $article->update();
 
         return redirect('/blog');
     } else {
