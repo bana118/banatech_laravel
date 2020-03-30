@@ -93,13 +93,23 @@ crontabに以下追記
 ## 更新
 
 ```
-> sudo git pull
-> sudo cp -pR ./ /home/docker/code/banatech_laravel
-> docker restart ${container_id}
+$ sudo git pull
+$ sudo cp -pR ./ /home/docker/code/banatech_laravel
+$ docker restart ${container_id}
+```
+
+必要に応じて
+
+```
+$ sudo docker exec -i -t ${container_id} bash
+# composer update
+# composer install --optimize-autoloader --no-dev
+# npm install
+# npm run prod
 ```
 
 ## docker内確認
 
 ```
-sudo docker exec -i -t ${container_id} bash
+$ sudo docker exec -i -t ${container_id} bash
 ```
