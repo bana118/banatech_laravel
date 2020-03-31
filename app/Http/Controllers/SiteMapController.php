@@ -28,7 +28,7 @@ class siteMapController extends Controller
 
             //home
             $sitemap->add(URL::to('/'), $now, '1.0', 'monthly');
-            $sitemap->add(URL::to('/rivacy_policy'), '2020-03-28T20:00:00+02:00', '0.5', 'yearly');
+            $sitemap->add(URL::to('/privacy_policy'), '2020-03-28T20:00:00+02:00', '0.5', 'yearly');
 
             //blog
             $sitemap->add(URL::to('/blog'), $now, '0.9', 'monthly');
@@ -47,7 +47,7 @@ class siteMapController extends Controller
             $sitemap->add(URL::to('/latex_editor'), '2020-03-28T20:00:00+02:00', '0.9', 'yearly');
 
             //kurukuru
-            $sitemap->add(URL::to('/kurkuru'), '2020-03-28T20:00:00+02:00', '0.9', 'yearly');
+            $sitemap->add(URL::to('/kurukuru'), '2020-03-28T20:00:00+02:00', '0.9', 'yearly');
 
             //reiwa
             $sitemap->add(URL::to('/reiwa'), '2020-03-28T20:00:00+02:00', '0.9', 'yearly');
