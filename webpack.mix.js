@@ -41,6 +41,11 @@ mix.js('resources/js/reiwa/reiwa.js', 'public/js/reiwa/')
    .scripts(['resources/js/reiwa/createjs/preloadjs.min.js',
       'resources/js/reiwa/createjs/soundjs.min.js'], 'public/js/reiwa/createjs.js');
 
+// vr_meiro
+mix.js('resources/js/vr_meiro/intro.js', 'public/js/vr_meiro/')
+   .js('resources/js/vr_meiro/play.js', 'public/js/vr_meiro/');
+
+
 if (mix.inProduction()) {
    mix.version();
 } else {
