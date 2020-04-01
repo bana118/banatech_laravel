@@ -24,7 +24,7 @@
     <p>
         カテゴリー：
         @foreach ($article->categories as $category)
-        <button class="uk-button uk-button-primary uk-button-small uk-border-rounde" onclick="location.href='/blog/category/{{$category->name}}'">{{$category->name}}</button>
+        <button class="uk-button uk-button-primary uk-button-small uk-border-rounde" onclick="location.href='/blog/category/{{$category->id}}'">{{$category->name}}</button>
         @endforeach
     </p>
     <div id="markdown_content" src="{{ asset('uploaded/'.$article->md_file) }}"></div>

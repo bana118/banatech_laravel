@@ -266,8 +266,9 @@ Route::post('/blog/search', function (Request $request) {
     ]);
 });
 
-Route::get('/blog/category/{categoryName}', function ($categoryName) {
-    $category = Category::where('name', $categoryName)->first();
+Route::get('/blog/category/{categoryId}', function ($categoryId) {
+    $category = Category::where('id', $categoryId)->first();
+    $categoryName = $category->name;
     $articles = $category->articles()->paginate(config('const.BLOG_SETTING.articles_per_page'));
     return view('blog.search_category', [
         'categoryName' => $categoryName,
