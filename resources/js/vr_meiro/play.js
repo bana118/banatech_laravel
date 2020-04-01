@@ -1,11 +1,113 @@
 require('aframe');
+require('aframe-extras');
 
 window.onload = function () {
     const SIZE = 21; //SIZE must be odd;
     const MAZE_ARRAY = createMaze(SIZE);
+    const SCENE_ELEMENT = document.getElementById("scene");
     const MAZE_ELEMENT = document.getElementById("maze");
+    const CAMERA_ELEMENT = document.getElementById("rig");
+    createPath(MAZE_ARRAY, SCENE_ELEMENT, SIZE);
+    //setObjects(CAMERA_ELEMENT, MAZE_ARRAY, SIZE);
     showMaze(MAZE_ELEMENT, MAZE_ARRAY, SIZE);
 };
+
+function createPath(mazeArray, sceneElement, size) {
+    AFRAME.registerComponent('maze-path', {
+        schema: {
+            width: { type: 'number', default: 1 },
+            height: { type: 'number', default: 1 },
+            depth: { type: 'number', default: 1 },
+            color: { type: 'color', default: '#AAA' }
+        },
+
+        /**
+         * Initial creation and setting of the mesh.
+         */
+        init: function () {
+            console.log(mazeArray);
+            let points = [];
+            const meshSize = 0.7;
+            let path = [1, 1];
+            let isGoArround = false;
+            let direction = "up";
+            while (!isGoArround) {
+                console.log(`${path[0]}, ${path[1]}`);
+                points.push(new THREE.Vector2(path[0] * meshSize - 1, path[1] * meshSize -1));
+                if (direction == "up") {
+                    console.log(direction);
+                    if (mazeArray[path[0]][path[1]] == 0) {
+                        direction = "right";
+                        path[0] = path[0] + 1;
+                    } else if (mazeArray[path[0]-1][path[1]] == 0) {
+                        path[1] = path[1] + 1;
+                    } else {
+                        direction = "left";
+                        path[0] = path[0] - 1;
+                    }
+                } else if (direction == "right") {
+                    console.log(direction);
+                    if (mazeArray[path[0]][path[1]-1] == 0) {
+                        direction = "down";
+                        path[1] = path[1] - 1;
+                    } else if (mazeArray[path[0]][path[1]] == 0) {
+                        path[0] = path[0] + 1;
+                    } else {
+                        direction = "up";
+                        path[1] = path[1] + 1;
+                    }
+                } else if (direction == "down") {
+                    console.log(direction);
+                    if (mazeArray[path[0]-1][path[1]-1] == 0) {
+                        direction = "left";
+                        path[0] = path[0] - 1;
+                    } else if (mazeArray[path[0]][path[1]-1] == 0) {
+                        path[1] = path[1] - 1;
+                    } else {
+                        direction = "right";
+                        path[0] = path[0] + 1;
+                    }
+                } else { // directon == "left"
+                    console.log(direction);
+                    if (mazeArray[path[0]-1][path[1]] == 0) {
+                        direction = "up";
+                        path[1] = path[1] + 1;
+                    } else if (mazeArray[path[0]-1][path[1]-1] == 0) {
+                        path[0] = path[0] - 1;
+                    } else {
+                        direction = "down";
+                        path[1] = path[1] - 1;
+                    }
+                }
+                if (path[0] == 1 && path[1] == 1) {
+                    isGoArround = true;
+                }
+            }
+            //points.push(new THREE.Vector2(0, 0));
+            //points.push(new THREE.Vector2(0.8, 0));
+            //points.push(new THREE.Vector2(0.8, 0.8));
+            //points.push(new THREE.Vector2(0, 0.8));
+            //for (var i = 0; i < points.length; i++) {
+            //    points[i].multiplyScalar(1);
+            //}
+            var heartShape = new THREE.Shape(points);
+
+            var geometry = new THREE.ShapeGeometry(heartShape);
+            var material = new THREE.MeshBasicMaterial({
+                color: 0x00ff00
+            });
+            var mesh = new THREE.Mesh(geometry, material);
+
+            this.el.setObject3D('mesh', mesh);
+        }
+    });
+    let pathElement = document.createElement("a-entity");
+    pathElement.setAttribute("maze-path", "");
+    pathElement.setAttribute("position", "0.6 0.2 1.45");
+    pathElement.setAttribute("rotation", "-90 0 0");
+    pathElement.setAttribute("nav-mesh", "");
+    sceneElement.appendChild(pathElement);
+}
 
 function createMaze(size) {
     const BINARY_ARRAY = Array.from(new Array(size), () => new Array(size).fill(0));
@@ -97,14 +199,27 @@ function showMaze(mazeElement, mazeArray, size) {
         for (let j = 0; j < size; j++) {
             if (mazeArray[i][j] == 1) {
                 let blockElement = document.createElement("a-box");
-                blockElement.setAttribute("class", "collidable");
                 blockElement.setAttribute("position", `${i} 0 ${j}`);
                 blockElement.setAttribute("width", "1");
                 blockElement.setAttribute("height", "2");
                 blockElement.setAttribute("depth", "1");
                 blockElement.setAttribute("color", "#4CC3D9");
-                mazeElement.appendChild(blockElement);
+                //mazeElement.appendChild(blockElement);
             }
         }
     }
+}
+
+function setObjects(cameraElement, mazeArray, size) {
+    let pathIndex = [];
+    for (let i = 0; i < size; i++) {
+        for (let j = 0; j < size; j++) {
+            if (mazeArray[i][j] == 0) {
+                pathIndex.push([i, j]);
+            }
+        }
+    }
+    const START_CAMERA_POSITION_INDEX = Math.floor(Math.random() * pathIndex.length);
+    const START_CAMERA_POSITION = pathIndex[START_CAMERA_POSITION_INDEX];
+    cameraElement.setAttribute("position", `${START_CAMERA_POSITION[0] + 0.5} 0.3 ${START_CAMERA_POSITION[1] + 0.5}`)
 }

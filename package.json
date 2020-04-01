@@ -20,6 +20,7 @@
         "@types/uikit": "^3.2.1",
         "ace-builds": "^1.4.8",
         "aframe": "^1.0.4",
+        "aframe-extras": "^6.1.0",
         "animejs": "^3.1.0",
         "axios": "^0.19",
         "browser-sync": "^2.26.7",
