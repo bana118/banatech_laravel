@@ -27,19 +27,19 @@ function createPath(mazeArray, sceneElement, size) {
         init: function () {
             console.log(mazeArray);
             let points = [];
-            const meshSize = 0.7;
+            const meshSize = 0.8;
             let path = [1, 1];
             let isGoArround = false;
             let direction = "up";
             while (!isGoArround) {
                 console.log(`${path[0]}, ${path[1]}`);
-                points.push(new THREE.Vector2(path[0] * meshSize - 1, path[1] * meshSize -1));
+                points.push(new THREE.Vector2(path[0] * meshSize, path[1] * meshSize));
                 if (direction == "up") {
                     console.log(direction);
                     if (mazeArray[path[0]][path[1]] == 0) {
                         direction = "right";
                         path[0] = path[0] + 1;
-                    } else if (mazeArray[path[0]-1][path[1]] == 0) {
+                    } else if (mazeArray[path[0] - 1][path[1]] == 0) {
                         path[1] = path[1] + 1;
                     } else {
                         direction = "left";
@@ -47,7 +47,7 @@ function createPath(mazeArray, sceneElement, size) {
                     }
                 } else if (direction == "right") {
                     console.log(direction);
-                    if (mazeArray[path[0]][path[1]-1] == 0) {
+                    if (mazeArray[path[0]][path[1] - 1] == 0) {
                         direction = "down";
                         path[1] = path[1] - 1;
                     } else if (mazeArray[path[0]][path[1]] == 0) {
@@ -58,10 +58,10 @@ function createPath(mazeArray, sceneElement, size) {
                     }
                 } else if (direction == "down") {
                     console.log(direction);
-                    if (mazeArray[path[0]-1][path[1]-1] == 0) {
+                    if (mazeArray[path[0] - 1][path[1] - 1] == 0) {
                         direction = "left";
                         path[0] = path[0] - 1;
-                    } else if (mazeArray[path[0]][path[1]-1] == 0) {
+                    } else if (mazeArray[path[0]][path[1] - 1] == 0) {
                         path[1] = path[1] - 1;
                     } else {
                         direction = "right";
@@ -69,10 +69,10 @@ function createPath(mazeArray, sceneElement, size) {
                     }
                 } else { // directon == "left"
                     console.log(direction);
-                    if (mazeArray[path[0]-1][path[1]] == 0) {
+                    if (mazeArray[path[0] - 1][path[1]] == 0) {
                         direction = "up";
                         path[1] = path[1] + 1;
-                    } else if (mazeArray[path[0]-1][path[1]-1] == 0) {
+                    } else if (mazeArray[path[0] - 1][path[1] - 1] == 0) {
                         path[0] = path[0] - 1;
                     } else {
                         direction = "down";
@@ -123,6 +123,7 @@ function createMaze(size) {
             startCreateWallPoints.push([i, j]);
         }
     }
+    //TODO ループしてる！
     while (startCreateWallPoints.length != 0) {
         let randIndex = Math.floor(Math.random() * startCreateWallPoints.length); //0 ~ startCreateWallPoints.length - 1
         let startCreateWallPoint = startCreateWallPoints.pop(randIndex);
@@ -135,16 +136,16 @@ function createMaze(size) {
             let y = startCreateWallPoint[1];
             while (canExtendWall) {
                 let extendDirection = [];
-                if (BINARY_ARRAY[x - 1][y] == 0 && !currentCreatingWallEvenPoints.includes([x - 2, y])) {
+                if (BINARY_ARRAY[x - 1][y] == 0 && currentCreatingWallEvenPoints.filter(arr => (arr[0] == x-2 && arr[1] == y)).length == 0) {
                     extendDirection.push("left");
                 }
-                if (BINARY_ARRAY[x + 1][y] == 0 && !currentCreatingWallEvenPoints.includes([x + 2, y])) {
+                if (BINARY_ARRAY[x + 1][y] == 0 && currentCreatingWallEvenPoints.filter(arr => (arr[0] == x+2 && arr[1] == y)).length == 0) {
                     extendDirection.push("right");
                 }
-                if (BINARY_ARRAY[x][y - 1] == 0 && !currentCreatingWallEvenPoints.includes([x, y - 2])) {
+                if (BINARY_ARRAY[x][y - 1] == 0 && currentCreatingWallEvenPoints.filter(arr => (arr[0] == x && arr[1] == y-2)).length == 0) {
                     extendDirection.push("down");
                 }
-                if (BINARY_ARRAY[x][y + 1] == 0 && !currentCreatingWallEvenPoints.includes([x, y + 2])) {
+                if (BINARY_ARRAY[x][y + 1] == 0 && currentCreatingWallEvenPoints.filter(arr => (arr[0] == x && arr[1] == y+2)).length == 0) {
                     extendDirection.push("up");
                 }
                 if (extendDirection.length != 0) {
@@ -204,7 +205,7 @@ function showMaze(mazeElement, mazeArray, size) {
                 blockElement.setAttribute("height", "2");
                 blockElement.setAttribute("depth", "1");
                 blockElement.setAttribute("color", "#4CC3D9");
-                //mazeElement.appendChild(blockElement);
+                mazeElement.appendChild(blockElement);
             }
         }
     }

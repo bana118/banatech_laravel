@@ -6,8 +6,8 @@
 
 <body>
     <a-scene id="scene">
-        <a-entity id="rig" movement-controls="constrainToNavMesh: true; speed:0.1">
-            <a-entity id="camera" camera look-controls="pointerLockEnabled: true" position="0 1 0"></a-entity>
+        <a-entity id="rig" movement-controls="constrainToNavMesh: true; speed:0.5">
+            <a-entity id="camera" camera look-controls="pointerLockEnabled: true" position="0 0.3 0"></a-entity>
         </a-entity>
         <a-entity id="maze" position="0 0 0">
         </a-entity>
