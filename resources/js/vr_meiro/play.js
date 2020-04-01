@@ -8,34 +8,24 @@ window.onload = function () {
     const MAZE_ELEMENT = document.getElementById("maze");
     const CAMERA_ELEMENT = document.getElementById("rig");
     createPath(MAZE_ARRAY, SCENE_ELEMENT, SIZE);
-    //setObjects(CAMERA_ELEMENT, MAZE_ARRAY, SIZE);
+    setObjects(CAMERA_ELEMENT, MAZE_ARRAY, SIZE);
     showMaze(MAZE_ELEMENT, MAZE_ARRAY, SIZE);
 };
 
 function createPath(mazeArray, sceneElement, size) {
     AFRAME.registerComponent('maze-path', {
-        schema: {
-            width: { type: 'number', default: 1 },
-            height: { type: 'number', default: 1 },
-            depth: { type: 'number', default: 1 },
-            color: { type: 'color', default: '#AAA' }
-        },
-
         /**
          * Initial creation and setting of the mesh.
          */
         init: function () {
-            console.log(mazeArray);
             let points = [];
-            const meshSize = 0.8;
+            const meshSize = 1;
             let path = [1, 1];
             let isGoArround = false;
             let direction = "up";
             while (!isGoArround) {
-                console.log(`${path[0]}, ${path[1]}`);
-                points.push(new THREE.Vector2(path[0] * meshSize, path[1] * meshSize));
+                points.push(new THREE.Vector2(path[0] * meshSize-0.5, path[1] * meshSize * -1 + 0.5));
                 if (direction == "up") {
-                    console.log(direction);
                     if (mazeArray[path[0]][path[1]] == 0) {
                         direction = "right";
                         path[0] = path[0] + 1;
@@ -46,7 +36,6 @@ function createPath(mazeArray, sceneElement, size) {
                         path[0] = path[0] - 1;
                     }
                 } else if (direction == "right") {
-                    console.log(direction);
                     if (mazeArray[path[0]][path[1] - 1] == 0) {
                         direction = "down";
                         path[1] = path[1] - 1;
@@ -57,7 +46,6 @@ function createPath(mazeArray, sceneElement, size) {
                         path[1] = path[1] + 1;
                     }
                 } else if (direction == "down") {
-                    console.log(direction);
                     if (mazeArray[path[0] - 1][path[1] - 1] == 0) {
                         direction = "left";
                         path[0] = path[0] - 1;
@@ -68,7 +56,6 @@ function createPath(mazeArray, sceneElement, size) {
                         path[0] = path[0] + 1;
                     }
                 } else { // directon == "left"
-                    console.log(direction);
                     if (mazeArray[path[0] - 1][path[1]] == 0) {
                         direction = "up";
                         path[1] = path[1] + 1;
@@ -83,13 +70,6 @@ function createPath(mazeArray, sceneElement, size) {
                     isGoArround = true;
                 }
             }
-            //points.push(new THREE.Vector2(0, 0));
-            //points.push(new THREE.Vector2(0.8, 0));
-            //points.push(new THREE.Vector2(0.8, 0.8));
-            //points.push(new THREE.Vector2(0, 0.8));
-            //for (var i = 0; i < points.length; i++) {
-            //    points[i].multiplyScalar(1);
-            //}
             var heartShape = new THREE.Shape(points);
 
             var geometry = new THREE.ShapeGeometry(heartShape);
@@ -103,7 +83,6 @@ function createPath(mazeArray, sceneElement, size) {
     });
     let pathElement = document.createElement("a-entity");
     pathElement.setAttribute("maze-path", "");
-    pathElement.setAttribute("position", "0.6 0.2 1.45");
     pathElement.setAttribute("rotation", "-90 0 0");
     pathElement.setAttribute("nav-mesh", "");
     sceneElement.appendChild(pathElement);
@@ -123,7 +102,6 @@ function createMaze(size) {
             startCreateWallPoints.push([i, j]);
         }
     }
-    //TODO ループしてる！
     while (startCreateWallPoints.length != 0) {
         let randIndex = Math.floor(Math.random() * startCreateWallPoints.length); //0 ~ startCreateWallPoints.length - 1
         let startCreateWallPoint = startCreateWallPoints.pop(randIndex);
@@ -205,6 +183,7 @@ function showMaze(mazeElement, mazeArray, size) {
                 blockElement.setAttribute("height", "2");
                 blockElement.setAttribute("depth", "1");
                 blockElement.setAttribute("color", "#4CC3D9");
+                blockElement.setAttribute("side", "double");
                 mazeElement.appendChild(blockElement);
             }
         }
