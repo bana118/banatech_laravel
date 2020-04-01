@@ -40,7 +40,7 @@ class siteMapController extends Controller
             $sitemap->add(URL::to('/blog/all_categories'), $now, '0.7', 'monthly');
             $categories = Category::orderBy('updated_at', 'desc')->get();
             foreach ($categories as $category) {
-                $sitemap->add(URL::to('/category/'.$category->id), $category->updated_at, '0.6', 'yearly');
+                $sitemap->add(URL::to('/blog/category/'.$category->id), $category->updated_at, '0.6', 'yearly');
             }
 
             //latex_editor
