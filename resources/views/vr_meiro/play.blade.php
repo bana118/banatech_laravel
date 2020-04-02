@@ -13,6 +13,7 @@
         </a-entity>
         <a-entity id="stage">
         </a-entity>
+        <a-plane rotation="-90 0 0" width="100" height="100" color="#00FF00"></a-plane>
         <a-sky color="#ECECEC"></a-sky>
     </a-scene>
 </body>

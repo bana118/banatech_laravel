@@ -2,7 +2,7 @@ require('aframe');
 require('aframe-extras');
 
 window.onload = function () {
-    const SIZE = 21; //SIZE must be odd;
+    const SIZE = 21; //maze size must be odd;
     const MAZE_ARRAY = createMaze(SIZE);
     const SCENE_ELEMENT = document.getElementById("scene");
     const MAZE_ELEMENT = document.getElementById("maze");
@@ -24,7 +24,7 @@ function createPath(mazeArray, sceneElement, size) {
             let isGoArround = false;
             let direction = "up";
             while (!isGoArround) {
-                points.push(new THREE.Vector2(path[0] * meshSize-0.5, path[1] * meshSize * -1 + 0.5));
+                points.push(new THREE.Vector2(path[0] * meshSize - 0.5, path[1] * meshSize * -1 + 0.5));
                 if (direction == "up") {
                     if (mazeArray[path[0]][path[1]] == 0) {
                         direction = "right";
@@ -83,11 +83,14 @@ function createPath(mazeArray, sceneElement, size) {
     });
     let pathElement = document.createElement("a-entity");
     pathElement.setAttribute("maze-path", "");
+    pathElement.setAttribute("position", "0 0.01 0");
     pathElement.setAttribute("rotation", "-90 0 0");
+    pathElement.setAttribute("color", "#00FF00");
     pathElement.setAttribute("nav-mesh", "");
     sceneElement.appendChild(pathElement);
 }
 
+// Extend wall to create maze (wall extension method)
 function createMaze(size) {
     const BINARY_ARRAY = Array.from(new Array(size), () => new Array(size).fill(0));
     for (let i = 0; i < size; i++) {
@@ -114,16 +117,16 @@ function createMaze(size) {
             let y = startCreateWallPoint[1];
             while (canExtendWall) {
                 let extendDirection = [];
-                if (BINARY_ARRAY[x - 1][y] == 0 && currentCreatingWallEvenPoints.filter(arr => (arr[0] == x-2 && arr[1] == y)).length == 0) {
+                if (BINARY_ARRAY[x - 1][y] == 0 && currentCreatingWallEvenPoints.filter(arr => (arr[0] == x - 2 && arr[1] == y)).length == 0) {
                     extendDirection.push("left");
                 }
-                if (BINARY_ARRAY[x + 1][y] == 0 && currentCreatingWallEvenPoints.filter(arr => (arr[0] == x+2 && arr[1] == y)).length == 0) {
+                if (BINARY_ARRAY[x + 1][y] == 0 && currentCreatingWallEvenPoints.filter(arr => (arr[0] == x + 2 && arr[1] == y)).length == 0) {
                     extendDirection.push("right");
                 }
-                if (BINARY_ARRAY[x][y - 1] == 0 && currentCreatingWallEvenPoints.filter(arr => (arr[0] == x && arr[1] == y-2)).length == 0) {
+                if (BINARY_ARRAY[x][y - 1] == 0 && currentCreatingWallEvenPoints.filter(arr => (arr[0] == x && arr[1] == y - 2)).length == 0) {
                     extendDirection.push("down");
                 }
-                if (BINARY_ARRAY[x][y + 1] == 0 && currentCreatingWallEvenPoints.filter(arr => (arr[0] == x && arr[1] == y+2)).length == 0) {
+                if (BINARY_ARRAY[x][y + 1] == 0 && currentCreatingWallEvenPoints.filter(arr => (arr[0] == x && arr[1] == y + 2)).length == 0) {
                     extendDirection.push("up");
                 }
                 if (extendDirection.length != 0) {
@@ -178,12 +181,30 @@ function showMaze(mazeElement, mazeArray, size) {
         for (let j = 0; j < size; j++) {
             if (mazeArray[i][j] == 1) {
                 let blockElement = document.createElement("a-box");
-                blockElement.setAttribute("position", `${i} 0 ${j}`);
-                blockElement.setAttribute("width", "1");
-                blockElement.setAttribute("height", "2");
-                blockElement.setAttribute("depth", "1");
                 blockElement.setAttribute("color", "#4CC3D9");
                 blockElement.setAttribute("side", "double");
+                blockElement.setAttribute("height", "5");
+                let width = 1;
+                let depth = 1;
+
+                // adjust box size not to see inside of the box
+                if ((i == 0 || mazeArray[i - 1][j] == 1) && (i == size - 1 || mazeArray[i + 1][j] == 1)
+                    && (j == 0 || mazeArray[i][j - 1] != 1) && (j == size - 1 || mazeArray[i][j + 1] != 1)) {
+                    width = 1.1;
+                    depth = 0.9;
+                } else if ((j == 0 || mazeArray[i][j - 1] == 1) && (j == size - 1 || mazeArray[i][j + 1] == 1)
+                    && (i == 0 || mazeArray[i - 1][j] != 1) && (i == size - 1 || mazeArray[i + 1][j] != 1)) {
+                    width = 0.9;
+                    depth = 1.1;
+                } else {
+                    width = 0.9;
+                    depth = 0.9;
+                }
+                blockElement.setAttribute("width", width);
+                blockElement.setAttribute("depth", depth);
+
+                blockElement.setAttribute("position", `${i} 0 ${j}`);
+
                 mazeElement.appendChild(blockElement);
             }
         }
@@ -201,5 +222,6 @@ function setObjects(cameraElement, mazeArray, size) {
     }
     const START_CAMERA_POSITION_INDEX = Math.floor(Math.random() * pathIndex.length);
     const START_CAMERA_POSITION = pathIndex[START_CAMERA_POSITION_INDEX];
-    cameraElement.setAttribute("position", `${START_CAMERA_POSITION[0] + 0.5} 0.3 ${START_CAMERA_POSITION[1] + 0.5}`)
+    //cameraElement.setAttribute("position", `${START_CAMERA_POSITION[0] + 0.5} 0.3 ${START_CAMERA_POSITION[1] + 0.5}`);
+    cameraElement.setAttribute("position", "1.3 0.3 1.3");
 }
