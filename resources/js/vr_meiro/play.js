@@ -2,15 +2,28 @@ require('aframe');
 require('aframe-extras');
 
 window.onload = function () {
-    const SIZE = 21; //maze size must be odd;
+    const SIZE = 5; //maze size must be odd;
     const MAZE_ARRAY = createMaze(SIZE);
     const SCENE_ELEMENT = document.getElementById("scene");
     const MAZE_ELEMENT = document.getElementById("maze");
-    const CAMERA_ELEMENT = document.getElementById("rig");
     createPath(MAZE_ARRAY, SCENE_ELEMENT, SIZE);
-    setObjects(CAMERA_ELEMENT, MAZE_ARRAY, SIZE);
     showMaze(MAZE_ELEMENT, MAZE_ARRAY, SIZE);
+    setObjects(MAZE_ARRAY, SIZE);
+    gameStart();
 };
+
+function gameStart() {
+    AFRAME.registerComponent('position-reader', {
+        tick: function () {
+            // `this.el` is the element.
+            // `object3D` is the three.js object.
+            // `position` is a three.js Vector3.
+            console.log(this.el.object3D.position);
+        }
+    });
+    let rigElement = document.getElementById("rig");
+    rigElement.setAttribute("position-reader", "");
+}
 
 function createPath(mazeArray, sceneElement, size) {
     AFRAME.registerComponent('maze-path', {
@@ -180,10 +193,11 @@ function showMaze(mazeElement, mazeArray, size) {
     for (let i = 0; i < size; i++) {
         for (let j = 0; j < size; j++) {
             if (mazeArray[i][j] == 1) {
-                let blockElement = document.createElement("a-box");
-                blockElement.setAttribute("color", "#4CC3D9");
-                blockElement.setAttribute("side", "double");
-                blockElement.setAttribute("height", "5");
+                let wallElement = document.createElement("a-box");
+                wallElement.id = `wall-${i}-${j}`;
+                wallElement.setAttribute("position", `${i} 0 ${j}`);
+                wallElement.setAttribute("color", "#4CC3D9");
+                wallElement.setAttribute("height", "5");
                 let width = 1;
                 let depth = 1;
 
@@ -200,18 +214,15 @@ function showMaze(mazeElement, mazeArray, size) {
                     width = 0.9;
                     depth = 0.9;
                 }
-                blockElement.setAttribute("width", width);
-                blockElement.setAttribute("depth", depth);
-
-                blockElement.setAttribute("position", `${i} 0 ${j}`);
-
-                mazeElement.appendChild(blockElement);
+                wallElement.setAttribute("width", width);
+                wallElement.setAttribute("depth", depth);
+                mazeElement.appendChild(wallElement);
             }
         }
     }
 }
 
-function setObjects(cameraElement, mazeArray, size) {
+function setObjects(mazeArray, size) {
     let pathIndex = [];
     for (let i = 0; i < size; i++) {
         for (let j = 0; j < size; j++) {
@@ -223,5 +234,7 @@ function setObjects(cameraElement, mazeArray, size) {
     const START_CAMERA_POSITION_INDEX = Math.floor(Math.random() * pathIndex.length);
     const START_CAMERA_POSITION = pathIndex[START_CAMERA_POSITION_INDEX];
     //cameraElement.setAttribute("position", `${START_CAMERA_POSITION[0] + 0.5} 0.3 ${START_CAMERA_POSITION[1] + 0.5}`);
-    cameraElement.setAttribute("position", "1.3 0.3 1.3");
+    const GOAL_ELEMENT = document.getElementById(`wall-${size - 1}-${size - 2}`);
+    GOAL_ELEMENT.setAttribute("src", "#gate-close");
+    GOAL_ELEMENT.setAttribute("repeat", "1 2");
 }
