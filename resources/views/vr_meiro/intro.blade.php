@@ -23,5 +23,8 @@
     </div>
     <h1>VR迷路</h1>
     <p>概要</p>
+    <p>素材</p>
+    <p><a href="https://www.irasutoya.com/2013/02/blog-post_8910.html">かわいいマークのイラスト</a>, <a href="https://www.irasutoya.com/2018/08/blog-post_513.html">門のイラスト（西洋）</a>: <a href="https://www.irasutoya.com/">かわいいフリー素材集 いらすとや</a></p>
+    <p><a href="https://sketchfab.com/3d-models/zombi-model-8a6ba408df1c42ac8a3fc8d07989b2a0">Zombi Model</a>: <a href="https://sketchfab.com/cafofo.game.studio">JonatanSantana</a>(<a href="https://creativecommons.org/licenses/by/4.0/">Licensed under CC BY 4.0</a>)</p>
 </div>
 @endsection

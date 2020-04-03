@@ -2,7 +2,7 @@ require('aframe');
 require('aframe-extras');
 
 window.onload = function () {
-    const SIZE = 5; //maze size must be odd;
+    const SIZE = 11; //maze size must be odd;
     const MAZE_ARRAY = createMaze(SIZE);
     const SCENE_ELEMENT = document.getElementById("scene");
     const MAZE_ELEMENT = document.getElementById("maze");
@@ -10,11 +10,11 @@ window.onload = function () {
     const CAMERA_ELEMENT = document.getElementById("camera");
     createPath(MAZE_ARRAY, SCENE_ELEMENT);
     showMaze(MAZE_ELEMENT, MAZE_ARRAY, SIZE);
-    const OBJECT_ELEMENTS = setObjects(MAZE_ARRAY, SIZE);
+    const OBJECT_ELEMENTS = setObjects(SCENE_ELEMENT, MAZE_ARRAY, SIZE);
     gameStart(RIG_ELEMENT, CAMERA_ELEMENT, OBJECT_ELEMENTS, SIZE);
 };
 
-function gameStart(rigElement,cameraElement, objectElements, size) {
+function gameStart(rigElement, cameraElement, objectElements, size) {
     const GOAL_ELEMENT = objectElements[0];
     const GOAL_POSITION = GOAL_ELEMENT.object3D.position;
     AFRAME.registerComponent('position-reader', {
@@ -23,9 +23,9 @@ function gameStart(rigElement,cameraElement, objectElements, size) {
             // `object3D` is the three.js object.
             // `position` is a three.js Vector3.
             let cameraPosition = this.el.object3D.position;
-            if(Math.pow(cameraPosition.x - GOAL_POSITION.x,2) + Math.pow(cameraPosition.z - GOAL_POSITION.z,2) < 1){
-                console.log("clear!");
-                gameClear(rigElement,cameraElement);
+            if (Math.pow(cameraPosition.x - GOAL_POSITION.x, 2) +
+                Math.pow(cameraPosition.z - GOAL_POSITION.z, 2) < 1) {
+                gameClear(rigElement, cameraElement);
             }
         }
     });
@@ -33,7 +33,7 @@ function gameStart(rigElement,cameraElement, objectElements, size) {
 }
 
 function gameClear(rigElement, cameraElement) {
-    if(!cameraElement.hasChildNodes()){
+    if (!cameraElement.hasChildNodes()) {
         let textElement = document.createElement("a-text");
         textElement.setAttribute("value", "Game Clear!");
         textElement.setAttribute("position", "-0.012 0.005 -0.02");
@@ -56,10 +56,10 @@ function gameClear(rigElement, cameraElement) {
         // buttonTextElement.setAttribute("color", "red");
         // cameraElement.appendChild(buttonTextElement);
     }
-    if(rigElement.hasAttribute("movement-controls")){
+    if (rigElement.hasAttribute("movement-controls")) {
         rigElement.removeAttribute("movement-controls");
     }
-    if(cameraElement.hasAttribute("look-controls")){
+    if (cameraElement.hasAttribute("look-controls")) {
         cameraElement.removeAttribute("look-controls");
     }
 }
@@ -261,7 +261,7 @@ function showMaze(mazeElement, mazeArray, size) {
     }
 }
 
-function setObjects(mazeArray, size) {
+function setObjects(sceneElement, mazeArray, size) {
     let pathIndex = [];
     for (let i = 0; i < size; i++) {
         for (let j = 0; j < size; j++) {
@@ -273,12 +273,31 @@ function setObjects(mazeArray, size) {
     // const START_CAMERA_POSITION_INDEX = Math.floor(Math.random() * pathIndex.length);
     // const START_CAMERA_POSITION = pathIndex[START_CAMERA_POSITION_INDEX];
     // cameraElement.setAttribute("position", `${START_CAMERA_POSITION[0] + 0.5} 0.3 ${START_CAMERA_POSITION[1] + 0.5}`);
-    const GOAL_POSITIONS = [[size-1,size-2],[1, size-1], [size-2, 0]];
+    const GOAL_POSITIONS = [[size - 1, size - 2], [1, size - 1], [size - 2, 0]];
     const GOAL_POSIION_INDEX = Math.floor(Math.random() * GOAL_POSITIONS.length);
     const GOAL_POSITION = GOAL_POSITIONS[GOAL_POSIION_INDEX];
     const GOAL_ELEMENT = document.getElementById(`wall-${GOAL_POSITION[0]}-${GOAL_POSITION[1]}`);
-    GOAL_ELEMENT.setAttribute("src", "#gate-close");
+    GOAL_ELEMENT.setAttribute("src", "#gate-close-asset");
     GOAL_ELEMENT.setAttribute("repeat", "1 2");
+
+    const RED_KEY_ELEMENT = document.createElement("a-box");
+    RED_KEY_ELEMENT.id = `red-key`;
+    RED_KEY_ELEMENT.setAttribute("position", `1 0.5 1`);
+    RED_KEY_ELEMENT.setAttribute("color", "white");
+    RED_KEY_ELEMENT.setAttribute("width", "0.2");
+    RED_KEY_ELEMENT.setAttribute("depth", "0.2");
+    RED_KEY_ELEMENT.setAttribute("height", "0.2");
+    //RED_KEY_ELEMENT.setAttribute("repeat", "1 1");
+    RED_KEY_ELEMENT.setAttribute("src", "#red-key-asset");
+    //sceneElement.appendChild(RED_KEY_ELEMENT);
+
+    const ZOMBI_ELEMENT = document.createElement("a-entity");
+    ZOMBI_ELEMENT.id = "zombi"
+    ZOMBI_ELEMENT.setAttribute("gltf-model","#zombi-asset");
+    ZOMBI_ELEMENT.setAttribute("position", "1 0.01 1");
+    ZOMBI_ELEMENT.setAttribute("scale", "0.005 0.005 0.005");
+    ZOMBI_ELEMENT.setAttribute("animation-mixer","");
+    sceneElement.appendChild(ZOMBI_ELEMENT);
 
     const ELEMENTS = [GOAL_ELEMENT];
     return ELEMENTS;
