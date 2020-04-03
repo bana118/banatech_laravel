@@ -6,26 +6,65 @@ window.onload = function () {
     const MAZE_ARRAY = createMaze(SIZE);
     const SCENE_ELEMENT = document.getElementById("scene");
     const MAZE_ELEMENT = document.getElementById("maze");
-    createPath(MAZE_ARRAY, SCENE_ELEMENT, SIZE);
+    const RIG_ELEMENT = document.getElementById("rig");
+    const CAMERA_ELEMENT = document.getElementById("camera");
+    createPath(MAZE_ARRAY, SCENE_ELEMENT);
     showMaze(MAZE_ELEMENT, MAZE_ARRAY, SIZE);
-    setObjects(MAZE_ARRAY, SIZE);
-    gameStart();
+    const OBJECT_ELEMENTS = setObjects(MAZE_ARRAY, SIZE);
+    gameStart(RIG_ELEMENT, CAMERA_ELEMENT, OBJECT_ELEMENTS, SIZE);
 };
 
-function gameStart() {
+function gameStart(rigElement,cameraElement, objectElements, size) {
+    const GOAL_ELEMENT = objectElements[0];
+    const GOAL_POSITION = GOAL_ELEMENT.object3D.position;
     AFRAME.registerComponent('position-reader', {
         tick: function () {
             // `this.el` is the element.
             // `object3D` is the three.js object.
             // `position` is a three.js Vector3.
-            console.log(this.el.object3D.position);
+            let cameraPosition = this.el.object3D.position;
+            if(Math.pow(cameraPosition.x - GOAL_POSITION.x,2) + Math.pow(cameraPosition.z - GOAL_POSITION.z,2) < 1){
+                console.log("clear!");
+                gameClear(rigElement,cameraElement);
+            }
         }
     });
-    let rigElement = document.getElementById("rig");
     rigElement.setAttribute("position-reader", "");
 }
 
-function createPath(mazeArray, sceneElement, size) {
+function gameClear(rigElement, cameraElement) {
+    if(!cameraElement.hasChildNodes()){
+        let textElement = document.createElement("a-text");
+        textElement.setAttribute("value", "Game Clear!");
+        textElement.setAttribute("position", "-0.012 0.005 -0.02");
+        textElement.setAttribute("width", "0.1");
+        textElement.setAttribute("hight", "0.1");
+        textElement.setAttribute("color", "red");
+        cameraElement.appendChild(textElement);
+        // let buttonElement = document.createElement("a-box");
+        // buttonElement.id = "retry-button";
+        // buttonElement.setAttribute("color","blue");
+        // buttonElement.setAttribute("position","0 0 -0.6");
+        // buttonElement.setAttribute("width", "0.04");
+        // buttonElement.setAttribute("height", "0.02");
+        // cameraElement.appendChild(buttonElement);
+        // let buttonTextElement = document.createElement("a-text");
+        // buttonTextElement.setAttribute("value", "Retry");
+        // buttonTextElement.setAttribute("position", "-0.0028 0 -0.02");
+        // buttonTextElement.setAttribute("width", "0.05");
+        // buttonTextElement.setAttribute("hight", "0.05");
+        // buttonTextElement.setAttribute("color", "red");
+        // cameraElement.appendChild(buttonTextElement);
+    }
+    if(rigElement.hasAttribute("movement-controls")){
+        rigElement.removeAttribute("movement-controls");
+    }
+    if(cameraElement.hasAttribute("look-controls")){
+        cameraElement.removeAttribute("look-controls");
+    }
+}
+
+function createPath(mazeArray, sceneElement) {
     AFRAME.registerComponent('maze-path', {
         /**
          * Initial creation and setting of the mesh.
@@ -231,10 +270,16 @@ function setObjects(mazeArray, size) {
             }
         }
     }
-    const START_CAMERA_POSITION_INDEX = Math.floor(Math.random() * pathIndex.length);
-    const START_CAMERA_POSITION = pathIndex[START_CAMERA_POSITION_INDEX];
-    //cameraElement.setAttribute("position", `${START_CAMERA_POSITION[0] + 0.5} 0.3 ${START_CAMERA_POSITION[1] + 0.5}`);
-    const GOAL_ELEMENT = document.getElementById(`wall-${size - 1}-${size - 2}`);
+    // const START_CAMERA_POSITION_INDEX = Math.floor(Math.random() * pathIndex.length);
+    // const START_CAMERA_POSITION = pathIndex[START_CAMERA_POSITION_INDEX];
+    // cameraElement.setAttribute("position", `${START_CAMERA_POSITION[0] + 0.5} 0.3 ${START_CAMERA_POSITION[1] + 0.5}`);
+    const GOAL_POSITIONS = [[size-1,size-2],[1, size-1], [size-2, 0]];
+    const GOAL_POSIION_INDEX = Math.floor(Math.random() * GOAL_POSITIONS.length);
+    const GOAL_POSITION = GOAL_POSITIONS[GOAL_POSIION_INDEX];
+    const GOAL_ELEMENT = document.getElementById(`wall-${GOAL_POSITION[0]}-${GOAL_POSITION[1]}`);
     GOAL_ELEMENT.setAttribute("src", "#gate-close");
     GOAL_ELEMENT.setAttribute("repeat", "1 2");
+
+    const ELEMENTS = [GOAL_ELEMENT];
+    return ELEMENTS;
 }
