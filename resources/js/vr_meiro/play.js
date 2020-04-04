@@ -2,7 +2,7 @@ require('aframe');
 require('aframe-extras');
 
 window.onload = function () {
-    const SIZE = 11; //maze size must be odd;
+    const SIZE = 7; //maze size must be odd;
     const MAZE_ARRAY = createMaze(SIZE);
     const SCENE_ELEMENT = document.getElementById("scene");
     const MAZE_ELEMENT = document.getElementById("maze");
@@ -16,6 +16,8 @@ window.onload = function () {
 
 function gameStart(rigElement, cameraElement, objectElements, size) {
     const GOAL_ELEMENT = objectElements[0];
+    const RED_KEY_ELEMENT = objectElements[1];
+    const BLUE_KEY_ELEMENT = objectElements[2];
     const GOAL_POSITION = GOAL_ELEMENT.object3D.position;
     AFRAME.registerComponent('position-reader', {
         tick: function () {
@@ -274,31 +276,83 @@ function setObjects(sceneElement, mazeArray, size) {
     // const START_CAMERA_POSITION = pathIndex[START_CAMERA_POSITION_INDEX];
     // cameraElement.setAttribute("position", `${START_CAMERA_POSITION[0] + 0.5} 0.3 ${START_CAMERA_POSITION[1] + 0.5}`);
     const GOAL_POSITIONS = [[size - 1, size - 2], [1, size - 1], [size - 2, 0]];
-    const GOAL_POSIION_INDEX = Math.floor(Math.random() * GOAL_POSITIONS.length);
-    const GOAL_POSITION = GOAL_POSITIONS[GOAL_POSIION_INDEX];
+    const GOAL_POSITION_INDEX = Math.floor(Math.random() * GOAL_POSITIONS.length);
+    const GOAL_POSITION = GOAL_POSITIONS[GOAL_POSITION_INDEX];
     const GOAL_ELEMENT = document.getElementById(`wall-${GOAL_POSITION[0]}-${GOAL_POSITION[1]}`);
     GOAL_ELEMENT.setAttribute("src", "#gate-close-asset");
     GOAL_ELEMENT.setAttribute("repeat", "1 2");
 
-    const RED_KEY_ELEMENT = document.createElement("a-box");
+    const RED_KEY_ELEMENT = document.createElement("a-image");
     RED_KEY_ELEMENT.id = `red-key`;
-    RED_KEY_ELEMENT.setAttribute("position", `1 0.5 1`);
-    RED_KEY_ELEMENT.setAttribute("color", "white");
     RED_KEY_ELEMENT.setAttribute("width", "0.2");
     RED_KEY_ELEMENT.setAttribute("depth", "0.2");
     RED_KEY_ELEMENT.setAttribute("height", "0.2");
-    //RED_KEY_ELEMENT.setAttribute("repeat", "1 1");
     RED_KEY_ELEMENT.setAttribute("src", "#red-key-asset");
-    //sceneElement.appendChild(RED_KEY_ELEMENT);
+    const BLUE_KEY_ELEMENT = document.createElement("a-image");
+    BLUE_KEY_ELEMENT.id = `blue-key`;
+    BLUE_KEY_ELEMENT.setAttribute("width", "0.2");
+    BLUE_KEY_ELEMENT.setAttribute("depth", "0.2");
+    BLUE_KEY_ELEMENT.setAttribute("height", "0.2");
+    BLUE_KEY_ELEMENT.setAttribute("src", "#blue-key-asset");
+
+    if (GOAL_POSITION_INDEX == 0) {
+        let redKeyPosition = [0, 0];
+        while (mazeArray[redKeyPosition[0]][redKeyPosition[1]] == 1) {
+            let redKeyPositionI = Math.floor(Math.random() * ((size - 1) / 2)) + (size - 1) / 2;
+            let redKeyPositionJ = Math.floor(Math.random() * ((size - 1) / 2));
+            redKeyPosition = [redKeyPositionI, redKeyPositionJ];
+        }
+        RED_KEY_ELEMENT.setAttribute("position", `${redKeyPosition[0]} 0.5 ${redKeyPosition[1]}`);
+        let blueKeyPosition = [0, 0];
+        while (mazeArray[blueKeyPosition[0]][blueKeyPosition[1]] == 1) {
+            let blueKeyPositionI = Math.floor(Math.random() * ((size - 1) / 2));
+            let blueKeyPositionJ = Math.floor(Math.random() * ((size - 1) / 2)) + (size - 1) / 2;
+            blueKeyPosition = [blueKeyPositionI, blueKeyPositionJ];
+        }
+        BLUE_KEY_ELEMENT.setAttribute("position", `${blueKeyPosition[0]} 0.5 ${blueKeyPosition[1]}`);
+    } else if (GOAL_POSITION_INDEX == 1) {
+        let redKeyPosition = [0, 0];
+        while (mazeArray[redKeyPosition[0]][redKeyPosition[1]] == 1) {
+            let redKeyPositionI = Math.floor(Math.random() * ((size - 1) / 2)) + (size - 1) / 2;
+            let redKeyPositionJ = Math.floor(Math.random() * ((size - 1) / 2)) + (size - 1) / 2;
+            redKeyPosition = [redKeyPositionI, redKeyPositionJ];
+        }
+        RED_KEY_ELEMENT.setAttribute("position", `${redKeyPosition[0]} 0.5 ${redKeyPosition[1]}`);
+        let blueKeyPosition = [0, 0];
+        while (mazeArray[blueKeyPosition[0]][blueKeyPosition[1]] == 1) {
+            let blueKeyPositionI = Math.floor(Math.random() * ((size - 1) / 2)) + (size - 1) / 2;
+            let blueKeyPositionJ = Math.floor(Math.random() * ((size - 1) / 2));
+            blueKeyPosition = [blueKeyPositionI, blueKeyPositionJ];
+        }
+        BLUE_KEY_ELEMENT.setAttribute("position", `${blueKeyPosition[0]} 0.5 ${blueKeyPosition[1]}`);
+    } else { // GOAL_POSITION_INDEX == 2
+        let redKeyPosition = [0, 0];
+        while (mazeArray[redKeyPosition[0]][redKeyPosition[1]] == 1) {
+            let redKeyPositionI = Math.floor(Math.random() * ((size - 1) / 2));
+            let redKeyPositionJ = Math.floor(Math.random() * ((size - 1) / 2)) + (size - 1) / 2;
+            redKeyPosition = [redKeyPositionI, redKeyPositionJ];
+        }
+        RED_KEY_ELEMENT.setAttribute("position", `${redKeyPosition[0]} 0.5 ${redKeyPosition[1]}`);
+        let blueKeyPosition = [0, 0];
+        while (mazeArray[blueKeyPosition[0]][blueKeyPosition[1]] == 1) {
+            let blueKeyPositionI = Math.floor(Math.random() * ((size - 1) / 2)) + (size - 1) / 2;
+            let blueKeyPositionJ = Math.floor(Math.random() * ((size - 1) / 2)) + (size - 1) / 2;;
+            blueKeyPosition = [blueKeyPositionI, blueKeyPositionJ];
+        }
+        BLUE_KEY_ELEMENT.setAttribute("position", `${blueKeyPosition[0]} 0.5 ${blueKeyPosition[1]}`);
+    }
+
+    sceneElement.appendChild(RED_KEY_ELEMENT);
+    sceneElement.appendChild(BLUE_KEY_ELEMENT);
 
     const ZOMBI_ELEMENT = document.createElement("a-entity");
     ZOMBI_ELEMENT.id = "zombi"
-    ZOMBI_ELEMENT.setAttribute("gltf-model","#zombi-asset");
+    ZOMBI_ELEMENT.setAttribute("gltf-model", "#zombi-asset");
     ZOMBI_ELEMENT.setAttribute("position", "1 0.01 1");
     ZOMBI_ELEMENT.setAttribute("scale", "0.005 0.005 0.005");
-    ZOMBI_ELEMENT.setAttribute("animation-mixer","");
+    ZOMBI_ELEMENT.setAttribute("animation-mixer", "");
     sceneElement.appendChild(ZOMBI_ELEMENT);
 
-    const ELEMENTS = [GOAL_ELEMENT];
+    const ELEMENTS = [GOAL_ELEMENT, RED_KEY_ELEMENT, BLUE_KEY_ELEMENT];
     return ELEMENTS;
 }
