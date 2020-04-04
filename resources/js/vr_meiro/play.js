@@ -24,8 +24,10 @@ function gameStart(sceneElement, rigElement, cameraElement, objectElements) {
     let hasRedKey = false;
     let hasBlueKey = false;
     let isGameClear = false;
+    let time = 0;
     AFRAME.registerComponent('position-reader', {
         tick: function () {
+            time += 1;
             // `this.el` is the element.
             // `object3D` is the three.js object.
             // `position` is a three.js Vector3.
@@ -63,14 +65,14 @@ function gameStart(sceneElement, rigElement, cameraElement, objectElements) {
                 Math.pow(cameraPosition.x - GOAL_POSITION.x, 2) +
                 Math.pow(cameraPosition.z - GOAL_POSITION.z, 2) < 1) {
                 isGameClear = true;
-                gameClear(rigElement, cameraElement);
+                gameClear(rigElement, cameraElement, time);
             }
         }
     });
     rigElement.setAttribute("position-reader", "");
 }
 
-function gameClear(rigElement, cameraElement) {
+function gameClear(rigElement, cameraElement, time) {
     let textElement = document.createElement("a-text");
     textElement.setAttribute("value", "Game Clear!");
     textElement.setAttribute("position", "-0.012 0.005 -0.02");
@@ -80,7 +82,32 @@ function gameClear(rigElement, cameraElement) {
     cameraElement.appendChild(textElement);
     rigElement.removeAttribute("movement-controls");
     cameraElement.removeAttribute("look-controls");
+    setTimeout(() => {
+        postForm("/vr_meiro/game_clear", {
+            "time": Math.round(time / 60)
+        });
+    }, 1000);
 }
+
+function postForm(url, data) {
+    var $form = $('<form/>', {
+        'action': url,
+        'method': 'post',
+        'id': 'tempForm'
+    });
+    for (var key in data) {
+        $form.append($('<input/>', {
+            'type': 'hidden',
+            'name': key,
+            'value': data[key]
+        }));
+    }
+    var csrfToken = $('meta[name="csrf-token"]').attr('content');
+    $form.append(csrfToken);
+    $form.appendTo(document.body);
+    $form.submit();
+    $("#tempForm").remove();
+};
 
 function createPath(mazeArray, sceneElement) {
     AFRAME.registerComponent('maze-path', {
