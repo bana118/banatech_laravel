@@ -11,21 +11,43 @@ window.onload = function () {
     createPath(MAZE_ARRAY, SCENE_ELEMENT);
     showMaze(MAZE_ELEMENT, MAZE_ARRAY, SIZE);
     const OBJECT_ELEMENTS = setObjects(SCENE_ELEMENT, MAZE_ARRAY, SIZE);
-    gameStart(RIG_ELEMENT, CAMERA_ELEMENT, OBJECT_ELEMENTS, SIZE);
+    gameStart(SCENE_ELEMENT, RIG_ELEMENT, CAMERA_ELEMENT, OBJECT_ELEMENTS);
 };
 
-function gameStart(rigElement, cameraElement, objectElements, size) {
+function gameStart(sceneElement, rigElement, cameraElement, objectElements) {
     const GOAL_ELEMENT = objectElements[0];
     const RED_KEY_ELEMENT = objectElements[1];
     const BLUE_KEY_ELEMENT = objectElements[2];
     const GOAL_POSITION = GOAL_ELEMENT.object3D.position;
+    const RED_KEY_POSITION = RED_KEY_ELEMENT.object3D.position;
+    const BLUE_KEY_POSITION = BLUE_KEY_ELEMENT.object3D.position;
+    let hasRedKey = false;
+    let hasBlueKey = false;
     AFRAME.registerComponent('position-reader', {
         tick: function () {
             // `this.el` is the element.
             // `object3D` is the three.js object.
             // `position` is a three.js Vector3.
             let cameraPosition = this.el.object3D.position;
-            if (Math.pow(cameraPosition.x - GOAL_POSITION.x, 2) +
+
+            if (!hasRedKey &&
+                Math.pow(cameraPosition.x - RED_KEY_POSITION.x, 2) +
+                Math.pow(cameraPosition.z - RED_KEY_POSITION.z, 2) < 0.1) {
+                sceneElement.removeChild(RED_KEY_ELEMENT);
+                hasRedKey = true;
+            }
+            if (!hasBlueKey &&
+                Math.pow(cameraPosition.x - BLUE_KEY_POSITION.x, 2) +
+                Math.pow(cameraPosition.z - BLUE_KEY_POSITION.z, 2) < 0.1) {
+                sceneElement.removeChild(BLUE_KEY_ELEMENT);
+                hasBlueKey = true;
+            }
+            if(hasRedKey && hasBlueKey){
+                GOAL_ELEMENT.setAttribute("src", "#gate-open-asset");
+            }
+
+            if ((hasRedKey && hasBlueKey) &&
+                Math.pow(cameraPosition.x - GOAL_POSITION.x, 2) +
                 Math.pow(cameraPosition.z - GOAL_POSITION.z, 2) < 1) {
                 gameClear(rigElement, cameraElement);
             }

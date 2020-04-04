@@ -8,7 +8,7 @@
     <a-scene id="scene">
         <a-assets>
             <img id="gate-close-asset" src="{{ asset('img/vr_meiro/mon_gate_western_close.png') }}">
-            <img id="gate-open-assset" src="{{ asset('img/vr_meiro/mon_gate_western_open_half.png') }}">
+            <img id="gate-open-asset" src="{{ asset('img/vr_meiro/mon_gate_western_open_half.png') }}">
             <img id="red-key-asset" src="{{ asset('img/vr_meiro/red_key.png') }}">
             <img id="blue-key-asset" src="{{ asset('img/vr_meiro/blue_key.png') }}">
             <a-asset-item id="zombi-asset" src ="{{ asset('other/vr_meiro/gltf/zombi/scene.gltf') }}"> </a-asset-item >
