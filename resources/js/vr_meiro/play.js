@@ -23,6 +23,7 @@ function gameStart(sceneElement, rigElement, cameraElement, objectElements) {
     const BLUE_KEY_POSITION = BLUE_KEY_ELEMENT.object3D.position;
     let hasRedKey = false;
     let hasBlueKey = false;
+    let isGameClear = false;
     AFRAME.registerComponent('position-reader', {
         tick: function () {
             // `this.el` is the element.
@@ -35,20 +36,33 @@ function gameStart(sceneElement, rigElement, cameraElement, objectElements) {
                 Math.pow(cameraPosition.z - RED_KEY_POSITION.z, 2) < 0.1) {
                 sceneElement.removeChild(RED_KEY_ELEMENT);
                 hasRedKey = true;
+                let redKeyInfoElement = document.createElement("a-image");
+                redKeyInfoElement.setAttribute("src", "#red-key-asset");
+                redKeyInfoElement.setAttribute("position", "-0.001 -0.015 -0.02");
+                redKeyInfoElement.setAttribute("width", "0.003");
+                redKeyInfoElement.setAttribute("height", "0.003");
+                cameraElement.appendChild(redKeyInfoElement);
             }
             if (!hasBlueKey &&
                 Math.pow(cameraPosition.x - BLUE_KEY_POSITION.x, 2) +
                 Math.pow(cameraPosition.z - BLUE_KEY_POSITION.z, 2) < 0.1) {
                 sceneElement.removeChild(BLUE_KEY_ELEMENT);
                 hasBlueKey = true;
+                let blueKeyInfoElement = document.createElement("a-image");
+                blueKeyInfoElement.setAttribute("src", "#blue-key-asset");
+                blueKeyInfoElement.setAttribute("position", "0.001 -0.015 -0.02");
+                blueKeyInfoElement.setAttribute("width", "0.003");
+                blueKeyInfoElement.setAttribute("height", "0.003");
+                cameraElement.appendChild(blueKeyInfoElement);
             }
-            if(hasRedKey && hasBlueKey){
+            if (hasRedKey && hasBlueKey) {
                 GOAL_ELEMENT.setAttribute("src", "#gate-open-asset");
             }
 
-            if ((hasRedKey && hasBlueKey) &&
+            if (!isGameClear && (hasRedKey && hasBlueKey) &&
                 Math.pow(cameraPosition.x - GOAL_POSITION.x, 2) +
                 Math.pow(cameraPosition.z - GOAL_POSITION.z, 2) < 1) {
+                isGameClear = true;
                 gameClear(rigElement, cameraElement);
             }
         }
@@ -57,35 +71,15 @@ function gameStart(sceneElement, rigElement, cameraElement, objectElements) {
 }
 
 function gameClear(rigElement, cameraElement) {
-    if (!cameraElement.hasChildNodes()) {
-        let textElement = document.createElement("a-text");
-        textElement.setAttribute("value", "Game Clear!");
-        textElement.setAttribute("position", "-0.012 0.005 -0.02");
-        textElement.setAttribute("width", "0.1");
-        textElement.setAttribute("hight", "0.1");
-        textElement.setAttribute("color", "red");
-        cameraElement.appendChild(textElement);
-        // let buttonElement = document.createElement("a-box");
-        // buttonElement.id = "retry-button";
-        // buttonElement.setAttribute("color","blue");
-        // buttonElement.setAttribute("position","0 0 -0.6");
-        // buttonElement.setAttribute("width", "0.04");
-        // buttonElement.setAttribute("height", "0.02");
-        // cameraElement.appendChild(buttonElement);
-        // let buttonTextElement = document.createElement("a-text");
-        // buttonTextElement.setAttribute("value", "Retry");
-        // buttonTextElement.setAttribute("position", "-0.0028 0 -0.02");
-        // buttonTextElement.setAttribute("width", "0.05");
-        // buttonTextElement.setAttribute("hight", "0.05");
-        // buttonTextElement.setAttribute("color", "red");
-        // cameraElement.appendChild(buttonTextElement);
-    }
-    if (rigElement.hasAttribute("movement-controls")) {
-        rigElement.removeAttribute("movement-controls");
-    }
-    if (cameraElement.hasAttribute("look-controls")) {
-        cameraElement.removeAttribute("look-controls");
-    }
+    let textElement = document.createElement("a-text");
+    textElement.setAttribute("value", "Game Clear!");
+    textElement.setAttribute("position", "-0.012 0.005 -0.02");
+    textElement.setAttribute("width", "0.1");
+    textElement.setAttribute("height", "0.1");
+    textElement.setAttribute("color", "red");
+    cameraElement.appendChild(textElement);
+    rigElement.removeAttribute("movement-controls");
+    cameraElement.removeAttribute("look-controls");
 }
 
 function createPath(mazeArray, sceneElement) {
@@ -294,9 +288,6 @@ function setObjects(sceneElement, mazeArray, size) {
             }
         }
     }
-    // const START_CAMERA_POSITION_INDEX = Math.floor(Math.random() * pathIndex.length);
-    // const START_CAMERA_POSITION = pathIndex[START_CAMERA_POSITION_INDEX];
-    // cameraElement.setAttribute("position", `${START_CAMERA_POSITION[0] + 0.5} 0.3 ${START_CAMERA_POSITION[1] + 0.5}`);
     const GOAL_POSITIONS = [[size - 1, size - 2], [1, size - 1], [size - 2, 0]];
     const GOAL_POSITION_INDEX = Math.floor(Math.random() * GOAL_POSITIONS.length);
     const GOAL_POSITION = GOAL_POSITIONS[GOAL_POSITION_INDEX];
@@ -307,13 +298,11 @@ function setObjects(sceneElement, mazeArray, size) {
     const RED_KEY_ELEMENT = document.createElement("a-image");
     RED_KEY_ELEMENT.id = `red-key`;
     RED_KEY_ELEMENT.setAttribute("width", "0.2");
-    RED_KEY_ELEMENT.setAttribute("depth", "0.2");
     RED_KEY_ELEMENT.setAttribute("height", "0.2");
     RED_KEY_ELEMENT.setAttribute("src", "#red-key-asset");
     const BLUE_KEY_ELEMENT = document.createElement("a-image");
     BLUE_KEY_ELEMENT.id = `blue-key`;
     BLUE_KEY_ELEMENT.setAttribute("width", "0.2");
-    BLUE_KEY_ELEMENT.setAttribute("depth", "0.2");
     BLUE_KEY_ELEMENT.setAttribute("height", "0.2");
     BLUE_KEY_ELEMENT.setAttribute("src", "#blue-key-asset");
 
