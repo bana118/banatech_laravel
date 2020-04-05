@@ -10,21 +10,82 @@ window.onload = function () {
     const CAMERA_ELEMENT = document.getElementById("camera");
     createPath(MAZE_ARRAY, SCENE_ELEMENT);
     showMaze(MAZE_ELEMENT, MAZE_ARRAY, SIZE);
-    const OBJECT_ELEMENTS = setObjects(SCENE_ELEMENT, MAZE_ARRAY, SIZE);
-    gameStart(SCENE_ELEMENT, RIG_ELEMENT, CAMERA_ELEMENT, OBJECT_ELEMENTS);
+    const OBJECT_ELEMENTS = setObjects(SCENE_ELEMENT, RIG_ELEMENT, MAZE_ARRAY, SIZE);
+    gameStart(SIZE, MAZE_ARRAY, SCENE_ELEMENT, RIG_ELEMENT, CAMERA_ELEMENT, OBJECT_ELEMENTS);
 };
 
-function gameStart(sceneElement, rigElement, cameraElement, objectElements) {
+function gameStart(size, mazeArray, sceneElement, rigElement, cameraElement, objectElements) {
     const GOAL_ELEMENT = objectElements[0];
     const RED_KEY_ELEMENT = objectElements[1];
     const BLUE_KEY_ELEMENT = objectElements[2];
+    const ZOMBI_ELEMENT = objectElements[3];
     const GOAL_POSITION = GOAL_ELEMENT.object3D.position;
     const RED_KEY_POSITION = RED_KEY_ELEMENT.object3D.position;
     const BLUE_KEY_POSITION = BLUE_KEY_ELEMENT.object3D.position;
     let hasRedKey = false;
     let hasBlueKey = false;
     let isGameClear = false;
+    let isGameOver = false;
     let time = 0;
+
+    const ZOMBI_SPEED = 1;
+    let zombiPosition = ZOMBI_ELEMENT.object3D.position;
+    let isFound = false;
+    ZOMBI_ELEMENT.setAttribute("animation-mixer", "timeScale: 4");
+    ZOMBI_ELEMENT.addEventListener("animation-loop", function () {
+        if (!isGameOver) {
+            //console.log(ZOMBI_ELEMENT.getAttribute("rotation").x);
+            //console.log(ZOMBI_ELEMENT.getAttribute("position"));
+            zombiPosition = ZOMBI_ELEMENT.object3D.position;
+            if (ZOMBI_ELEMENT.getAttribute("rotation").y == 0) {
+                //ZOMBI_ELEMENT.setAttribute("rotation", "0 0 0");
+                ZOMBI_ELEMENT.setAttribute("position", `${zombiPosition.x} ${zombiPosition.y} ${zombiPosition.z + ZOMBI_SPEED}`);
+            } else if (ZOMBI_ELEMENT.getAttribute("rotation").y == 90) {
+                //ZOMBI_ELEMENT.setAttribute("rotation", "0 90 0");
+                ZOMBI_ELEMENT.setAttribute("position", `${zombiPosition.x + ZOMBI_SPEED} ${zombiPosition.y} ${zombiPosition.z}`);
+            } else if (ZOMBI_ELEMENT.getAttribute("rotation").y == 180) {
+                ZOMBI_ELEMENT.setAttribute("position", `${zombiPosition.x} ${zombiPosition.y} ${zombiPosition.z - ZOMBI_SPEED}`);
+            } else { //ZOMBI_ELEMENT.getAttribute("rotation").y == 270
+                ZOMBI_ELEMENT.setAttribute("position", `${zombiPosition.x - ZOMBI_SPEED} ${zombiPosition.y} ${zombiPosition.z}`);
+            }
+
+            if (isFound) {
+
+            } else {
+                let currentBlockI = Math.floor(zombiPosition.x + 0.5);
+                let currentBlockJ = Math.floor(zombiPosition.z + 0.5);
+                let rotationYArray = [];
+                let currentRotaionY = ZOMBI_ELEMENT.getAttribute("rotation").y;
+                if (mazeArray[currentBlockI][currentBlockJ + 1] == 0 &&
+                    (currentRotaionY != 180 || (mazeArray[currentBlockI + 1][currentBlockJ] != 0 &&
+                        mazeArray[currentBlockI][currentBlockJ - 1] != 0 &&
+                        mazeArray[currentBlockI - 1][currentBlockJ] != 0))) {
+                    rotationYArray.push(0);
+                }
+                if (mazeArray[currentBlockI + 1][currentBlockJ] == 0 &&
+                    (currentRotaionY != 270 || (mazeArray[currentBlockI][currentBlockJ + 1] != 0 &&
+                        mazeArray[currentBlockI][currentBlockJ - 1] != 0 &&
+                        mazeArray[currentBlockI - 1][currentBlockJ] != 0))) {
+                    rotationYArray.push(90);
+                }
+                if (mazeArray[currentBlockI][currentBlockJ - 1] == 0 &&
+                    (currentRotaionY != 0 || (mazeArray[currentBlockI][currentBlockJ + 1] != 0 &&
+                        mazeArray[currentBlockI + 1][currentBlockJ] != 0 &&
+                        mazeArray[currentBlockI - 1][currentBlockJ] != 0))) {
+                    rotationYArray.push(180);
+                }
+                if (mazeArray[currentBlockI - 1][currentBlockJ] == 0 &&
+                    (currentRotaionY != 90 || (mazeArray[currentBlockI][currentBlockJ + 1] != 0 &&
+                        mazeArray[currentBlockI + 1][currentBlockJ] != 0 &&
+                        mazeArray[currentBlockI][currentBlockJ - 1] != 0))) {
+                    rotationYArray.push(270);
+                }
+                let rotionYIndex = Math.floor(Math.random() * rotationYArray.length);
+                let rotationY = rotationYArray[rotionYIndex];
+                ZOMBI_ELEMENT.setAttribute("rotation", `0 ${rotationY} 0`);
+            }
+        }
+    })
     AFRAME.registerComponent('position-reader', {
         tick: function () {
             time += 1;
@@ -61,11 +122,17 @@ function gameStart(sceneElement, rigElement, cameraElement, objectElements) {
                 GOAL_ELEMENT.setAttribute("src", "#gate-open-asset");
             }
 
-            if (!isGameClear && (hasRedKey && hasBlueKey) &&
+            if (!isGameClear && !isGameOver && (hasRedKey && hasBlueKey) &&
                 Math.pow(cameraPosition.x - GOAL_POSITION.x, 2) +
                 Math.pow(cameraPosition.z - GOAL_POSITION.z, 2) < 1) {
                 isGameClear = true;
                 gameClear(rigElement, cameraElement, time);
+            }
+
+            if (!isGameClear && !isGameOver && Math.pow(cameraPosition.x - zombiPosition.x, 2) +
+                Math.pow(cameraPosition.z - zombiPosition.z, 2) < 1) {
+                isGameOver = true;
+                gameOver(rigElement, cameraElement, ZOMBI_ELEMENT);
             }
         }
     });
@@ -86,6 +153,34 @@ function gameClear(rigElement, cameraElement, time) {
         postForm("/vr_meiro/game_clear", {
             "time": Math.round(time / 60)
         });
+    }, 1000);
+}
+
+function gameOver(rigElement, cameraElement, zombiElement) {
+    let cameraRotationY = cameraElement.getAttribute("rotation").y;
+    let rigPosition = rigElement.getAttribute("position");
+    let zombiDistance = 0.6;
+    zombiElement.removeAttribute("animation-mixer");
+    console.log(zombiElement.object3D.position);
+    zombiElement.setAttribute("position",
+        `${rigPosition.x - zombiDistance * Math.sin(cameraRotationY * (Math.PI / 180))}
+         0.03 ${rigPosition.z - zombiDistance * Math.cos(cameraRotationY * (Math.PI / 180))}`)
+    zombiElement.setAttribute("rotation", `0 ${cameraRotationY} 0`);
+    console.log(zombiElement.object3D.position);
+    console.log(cameraElement.getAttribute("rotation").y);
+
+    let textElement = document.createElement("a-text");
+    textElement.setAttribute("value", "Game Over");
+    textElement.setAttribute("position", "-0.012 0.005 -0.02");
+    textElement.setAttribute("width", "0.1");
+    textElement.setAttribute("height", "0.1");
+    textElement.setAttribute("color", "red");
+    cameraElement.appendChild(textElement);
+
+    rigElement.removeAttribute("movement-controls");
+    cameraElement.removeAttribute("look-controls");
+    setTimeout(() => {
+        window.location.href = "/vr_meiro/game_over";
     }, 1000);
 }
 
@@ -306,7 +401,7 @@ function showMaze(mazeElement, mazeArray, size) {
     }
 }
 
-function setObjects(sceneElement, mazeArray, size) {
+function setObjects(sceneElement, rigElement, mazeArray, size) {
     let pathIndex = [];
     for (let i = 0; i < size; i++) {
         for (let j = 0; j < size; j++) {
@@ -386,11 +481,10 @@ function setObjects(sceneElement, mazeArray, size) {
     const ZOMBI_ELEMENT = document.createElement("a-entity");
     ZOMBI_ELEMENT.id = "zombi"
     ZOMBI_ELEMENT.setAttribute("gltf-model", "#zombi-asset");
-    ZOMBI_ELEMENT.setAttribute("position", "1 0.01 1");
+    ZOMBI_ELEMENT.setAttribute("position", `${(size - 1) / 2} 0.03 ${(size - 1) / 2}`);
     ZOMBI_ELEMENT.setAttribute("scale", "0.005 0.005 0.005");
-    ZOMBI_ELEMENT.setAttribute("animation-mixer", "");
     sceneElement.appendChild(ZOMBI_ELEMENT);
 
-    const ELEMENTS = [GOAL_ELEMENT, RED_KEY_ELEMENT, BLUE_KEY_ELEMENT];
+    const ELEMENTS = [GOAL_ELEMENT, RED_KEY_ELEMENT, BLUE_KEY_ELEMENT, ZOMBI_ELEMENT];
     return ELEMENTS;
 }

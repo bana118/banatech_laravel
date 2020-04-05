@@ -18,3 +18,6 @@ Route::post('/vr_meiro/game_clear', function (Request $request) {
     ]);
 });
 
+Route::get('/vr_meiro/game_over', function () {
+    return view('vr_meiro.game_over');
+});
