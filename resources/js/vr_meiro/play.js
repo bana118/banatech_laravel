@@ -2,7 +2,7 @@ require('aframe');
 require('aframe-extras');
 
 window.onload = function () {
-    const SIZE = 15; //maze size must be odd;
+    const SIZE = 7; //maze size must be odd;
     const MAZE_ARRAY = createMaze(SIZE);
     const SCENE_ELEMENT = document.getElementById("scene");
     const MAZE_ELEMENT = document.getElementById("maze");
@@ -43,7 +43,7 @@ function gameStart(mazeArray, sceneElement, rigElement, cameraElement, objectEle
     warnTextElement.setAttribute("visible", "false");
     cameraElement.appendChild(warnTextElement);
 
-    ZOMBI_ELEMENT.setAttribute("animation-mixer", "timeScale: 7");
+    ZOMBI_ELEMENT.setAttribute("animation-mixer", "timeScale: 6");
     ZOMBI_ELEMENT.addEventListener("animation-loop", function () {
         if (!isGameOver) {
             zombiPosition = ZOMBI_ELEMENT.object3D.position;
@@ -233,9 +233,9 @@ function gazeCheck(rotationY, cameraI, cameraJ, zombiI, zombiJ, mazeArray) {
 function gameClear(rigElement, cameraElement, time) {
     let textElement = document.createElement("a-text");
     textElement.setAttribute("value", "Game Clear!");
-    textElement.setAttribute("position", "-0.012 0.005 -0.02");
-    textElement.setAttribute("width", "0.1");
-    textElement.setAttribute("height", "0.1");
+    textElement.setAttribute("position", "-0.006 0.005 -0.02");
+    textElement.setAttribute("width", "0.05");
+    textElement.setAttribute("height", "0.05");
     textElement.setAttribute("color", "red");
     cameraElement.appendChild(textElement);
     rigElement.removeAttribute("movement-controls");
@@ -259,9 +259,9 @@ function gameOver(rigElement, cameraElement, zombiElement) {
 
     let textElement = document.createElement("a-text");
     textElement.setAttribute("value", "Game Over");
-    textElement.setAttribute("position", "-0.012 0.005 -0.02");
-    textElement.setAttribute("width", "0.1");
-    textElement.setAttribute("height", "0.1");
+    textElement.setAttribute("position", "-0.006 0.005 -0.02");
+    textElement.setAttribute("width", "0.05");
+    textElement.setAttribute("height", "0.05");
     textElement.setAttribute("color", "red");
     cameraElement.appendChild(textElement);
 

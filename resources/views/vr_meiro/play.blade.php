@@ -3,7 +3,15 @@
 <head>
     <script src="{{ mix('/js/base/app.js') }}"></script>
     <script src="{{ mix('js/vr_meiro/play.js') }}"></script>
-    <meta name="csrf-token" content='@csrf'> <!--for post form-->
+    <meta property="og:url" content="{{ url()->current() }}" />
+    <meta property="og:locale" content="ja_JP">
+    <meta property="og:title" content="ばなてっく" />
+    <meta property="og:description" content="VR迷路Web" />
+    <meta property="og:image" content="{{ asset('img/sumnail/kurukuru.png')}}" /><!-- TODO change og image-->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="{{Config::get('const.TWITTERID')}}" />
+    <!--for post form-->
+    <meta name="csrf-token" content='@csrf'>
 </head>
 
 <body>

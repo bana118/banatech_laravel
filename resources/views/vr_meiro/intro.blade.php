@@ -7,7 +7,7 @@
 <meta property="og:url" content="{{ url()->current() }}" />
 <meta property="og:locale" content="ja_JP">
 <meta property="og:title" content="ばなてっく" />
-<meta property="og:description" content="VR迷路Web" />
+<meta property="og:description" content="VR迷路" />
 <meta property="og:image" content="{{ asset('img/sumnail/kurukuru.png')}}" /><!-- TODO change og image-->
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="{{Config::get('const.TWITTERID')}}" />
@@ -22,8 +22,20 @@
         <h4>画像をタッチorクリック！</h4>
     </div>
     <h1>VR迷路</h1>
-    <p>概要</p>
-    <p>素材</p>
+    <h2>概要</h2>
+    <p>赤と青の鍵を集めて扉にたどり着いたらクリア！</p>
+    <p>※徘徊するゾンビに注意</p>
+    <h2>操作方法(HMD)</h2>
+    <p>WASDまたは十字キー: 移動</p>
+    <p>マウス: 視点移動</p>
+    <h2>操作方法(PC)</h2>
+    <p>WASDまたは十字キー: 移動</p>
+    <p>マウス: 視点移動</p>
+    <p>ESCキー: マウスカーソル表示</p>
+    <h2>操作方法(スマートフォン)</h2>
+    <p>タッチ: 移動</p>
+    <p>スワイプ: 視点移動</p>
+    <h2>素材</h2>
     <p><a href="https://www.irasutoya.com/2013/02/blog-post_8910.html">かわいいマークのイラスト</a>, <a href="https://www.irasutoya.com/2018/08/blog-post_513.html">門のイラスト（西洋）</a>: <a href="https://www.irasutoya.com/">かわいいフリー素材集 いらすとや</a></p>
     <p><a href="https://sketchfab.com/3d-models/zombi-model-8a6ba408df1c42ac8a3fc8d07989b2a0">Zombi Model</a>: <a href="https://sketchfab.com/cafofo.game.studio">JonatanSantana</a>(<a href="https://creativecommons.org/licenses/by/4.0/">Licensed under CC BY 4.0</a>)</p>
 </div>
