@@ -17,7 +17,7 @@
                 <div>
                     <div class="uk-card-body">
                         <h3 class="uk-card-title">VR迷路</h3>
-                        <p>ここに概要を書く</p>
+                        <p>VRじゃなくてもできる</p>
                     </div>
                 </div>
             </a>

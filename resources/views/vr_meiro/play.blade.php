@@ -7,7 +7,7 @@
     <meta property="og:locale" content="ja_JP">
     <meta property="og:title" content="ばなてっく" />
     <meta property="og:description" content="VR迷路Web" />
-    <meta property="og:image" content="{{ asset('img/sumnail/kurukuru.png')}}" /><!-- TODO change og image-->
+    <meta property="og:image" content="{{ asset('img/sumnail/vr_meiro.png')}}" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="{{Config::get('const.TWITTERID')}}" />
     <!--for post form-->

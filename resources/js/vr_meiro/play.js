@@ -2,7 +2,7 @@ require('aframe');
 require('aframe-extras');
 
 window.onload = function () {
-    const SIZE = 7; //maze size must be odd;
+    const SIZE = 15; //maze size must be odd;
     const MAZE_ARRAY = createMaze(SIZE);
     const SCENE_ELEMENT = document.getElementById("scene");
     const MAZE_ELEMENT = document.getElementById("maze");
