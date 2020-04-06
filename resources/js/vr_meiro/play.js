@@ -2,7 +2,7 @@ require('aframe');
 require('aframe-extras');
 
 window.onload = function () {
-    const SIZE = 7; //maze size must be odd;
+    const SIZE = 15; //maze size must be odd;
     const MAZE_ARRAY = createMaze(SIZE);
     const SCENE_ELEMENT = document.getElementById("scene");
     const MAZE_ELEMENT = document.getElementById("maze");
@@ -11,10 +11,10 @@ window.onload = function () {
     createPath(MAZE_ARRAY, SCENE_ELEMENT);
     showMaze(MAZE_ELEMENT, MAZE_ARRAY, SIZE);
     const OBJECT_ELEMENTS = setObjects(SCENE_ELEMENT, RIG_ELEMENT, MAZE_ARRAY, SIZE);
-    gameStart(SIZE, MAZE_ARRAY, SCENE_ELEMENT, RIG_ELEMENT, CAMERA_ELEMENT, OBJECT_ELEMENTS);
+    gameStart(MAZE_ARRAY, SCENE_ELEMENT, RIG_ELEMENT, CAMERA_ELEMENT, OBJECT_ELEMENTS);
 };
 
-function gameStart(size, mazeArray, sceneElement, rigElement, cameraElement, objectElements) {
+function gameStart(mazeArray, sceneElement, rigElement, cameraElement, objectElements) {
     const GOAL_ELEMENT = objectElements[0];
     const RED_KEY_ELEMENT = objectElements[1];
     const BLUE_KEY_ELEMENT = objectElements[2];
@@ -31,17 +31,25 @@ function gameStart(size, mazeArray, sceneElement, rigElement, cameraElement, obj
     const ZOMBI_SPEED = 1;
     let zombiPosition = ZOMBI_ELEMENT.object3D.position;
     let isFound = false;
-    ZOMBI_ELEMENT.setAttribute("animation-mixer", "timeScale: 4");
+    let foundTime = 0;
+    let memoryCameraBlock = [0, 0];
+
+    let warnTextElement = document.createElement("a-text");
+    warnTextElement.setAttribute("value", "!");
+    warnTextElement.setAttribute("position", "0 -0.01 -0.02");
+    warnTextElement.setAttribute("width", "0.05");
+    warnTextElement.setAttribute("height", "0.05");
+    warnTextElement.setAttribute("color", "yellow");
+    warnTextElement.setAttribute("visible", "false");
+    cameraElement.appendChild(warnTextElement);
+
+    ZOMBI_ELEMENT.setAttribute("animation-mixer", "timeScale: 7");
     ZOMBI_ELEMENT.addEventListener("animation-loop", function () {
         if (!isGameOver) {
-            //console.log(ZOMBI_ELEMENT.getAttribute("rotation").x);
-            //console.log(ZOMBI_ELEMENT.getAttribute("position"));
             zombiPosition = ZOMBI_ELEMENT.object3D.position;
             if (ZOMBI_ELEMENT.getAttribute("rotation").y == 0) {
-                //ZOMBI_ELEMENT.setAttribute("rotation", "0 0 0");
                 ZOMBI_ELEMENT.setAttribute("position", `${zombiPosition.x} ${zombiPosition.y} ${zombiPosition.z + ZOMBI_SPEED}`);
             } else if (ZOMBI_ELEMENT.getAttribute("rotation").y == 90) {
-                //ZOMBI_ELEMENT.setAttribute("rotation", "0 90 0");
                 ZOMBI_ELEMENT.setAttribute("position", `${zombiPosition.x + ZOMBI_SPEED} ${zombiPosition.y} ${zombiPosition.z}`);
             } else if (ZOMBI_ELEMENT.getAttribute("rotation").y == 180) {
                 ZOMBI_ELEMENT.setAttribute("position", `${zombiPosition.x} ${zombiPosition.y} ${zombiPosition.z - ZOMBI_SPEED}`);
@@ -49,35 +57,66 @@ function gameStart(size, mazeArray, sceneElement, rigElement, cameraElement, obj
                 ZOMBI_ELEMENT.setAttribute("position", `${zombiPosition.x - ZOMBI_SPEED} ${zombiPosition.y} ${zombiPosition.z}`);
             }
 
-            if (isFound) {
+            let zombiBlockI = Math.floor(zombiPosition.x + 0.5);
+            let zombiBlockJ = Math.floor(zombiPosition.z + 0.5);
+            let rotationYArray = [];
+            let currentRotaionY = ZOMBI_ELEMENT.getAttribute("rotation").y;
 
+            if (isFound) {
+                if ((zombiBlockI == memoryCameraBlock[0] && zombiBlockJ == memoryCameraBlock[1])) {
+                    isFound = false;
+                    warnTextElement.setAttribute("visible", "false");
+                    if (mazeArray[zombiBlockI][zombiBlockJ + 1] == 0 && currentRotaionY != 0 &&
+                        (currentRotaionY != 180 || (mazeArray[zombiBlockI + 1][zombiBlockJ] != 0 &&
+                            mazeArray[zombiBlockI][zombiBlockJ - 1] != 0 &&
+                            mazeArray[zombiBlockI - 1][zombiBlockJ] != 0))) {
+                        rotationYArray.push(0);
+                    }
+                    if (mazeArray[zombiBlockI + 1][zombiBlockJ] == 0 && currentRotaionY != 90 &&
+                        (currentRotaionY != 270 || (mazeArray[zombiBlockI][zombiBlockJ + 1] != 0 &&
+                            mazeArray[zombiBlockI][zombiBlockJ - 1] != 0 &&
+                            mazeArray[zombiBlockI - 1][zombiBlockJ] != 0))) {
+                        rotationYArray.push(90);
+                    }
+                    if (mazeArray[zombiBlockI][zombiBlockJ - 1] == 0 && currentRotaionY != 180 &&
+                        (currentRotaionY != 0 || (mazeArray[zombiBlockI][zombiBlockJ + 1] != 0 &&
+                            mazeArray[zombiBlockI + 1][zombiBlockJ] != 0 &&
+                            mazeArray[zombiBlockI - 1][zombiBlockJ] != 0))) {
+                        rotationYArray.push(180);
+                    }
+                    if (mazeArray[zombiBlockI - 1][zombiBlockJ] == 0 && currentRotaionY != 270 &&
+                        (currentRotaionY != 90 || (mazeArray[zombiBlockI][zombiBlockJ + 1] != 0 &&
+                            mazeArray[zombiBlockI + 1][zombiBlockJ] != 0 &&
+                            mazeArray[zombiBlockI][zombiBlockJ - 1] != 0))) {
+                        rotationYArray.push(270);
+                    }
+                    let rotionYIndex = Math.floor(Math.random() * rotationYArray.length);
+                    let rotationY = rotationYArray[rotionYIndex];
+                    ZOMBI_ELEMENT.setAttribute("rotation", `0 ${rotationY} 0`);
+                }
             } else {
-                let currentBlockI = Math.floor(zombiPosition.x + 0.5);
-                let currentBlockJ = Math.floor(zombiPosition.z + 0.5);
-                let rotationYArray = [];
-                let currentRotaionY = ZOMBI_ELEMENT.getAttribute("rotation").y;
-                if (mazeArray[currentBlockI][currentBlockJ + 1] == 0 &&
-                    (currentRotaionY != 180 || (mazeArray[currentBlockI + 1][currentBlockJ] != 0 &&
-                        mazeArray[currentBlockI][currentBlockJ - 1] != 0 &&
-                        mazeArray[currentBlockI - 1][currentBlockJ] != 0))) {
+                if (mazeArray[zombiBlockI][zombiBlockJ + 1] == 0 &&
+                    (currentRotaionY != 180 || (mazeArray[zombiBlockI + 1][zombiBlockJ] != 0 &&
+                        mazeArray[zombiBlockI][zombiBlockJ - 1] != 0 &&
+                        mazeArray[zombiBlockI - 1][zombiBlockJ] != 0))) {
                     rotationYArray.push(0);
                 }
-                if (mazeArray[currentBlockI + 1][currentBlockJ] == 0 &&
-                    (currentRotaionY != 270 || (mazeArray[currentBlockI][currentBlockJ + 1] != 0 &&
-                        mazeArray[currentBlockI][currentBlockJ - 1] != 0 &&
-                        mazeArray[currentBlockI - 1][currentBlockJ] != 0))) {
+                if (mazeArray[zombiBlockI + 1][zombiBlockJ] == 0 &&
+                    (currentRotaionY != 270 || (mazeArray[zombiBlockI][zombiBlockJ + 1] != 0 &&
+                        mazeArray[zombiBlockI][zombiBlockJ - 1] != 0 &&
+                        mazeArray[zombiBlockI - 1][zombiBlockJ] != 0))) {
                     rotationYArray.push(90);
                 }
-                if (mazeArray[currentBlockI][currentBlockJ - 1] == 0 &&
-                    (currentRotaionY != 0 || (mazeArray[currentBlockI][currentBlockJ + 1] != 0 &&
-                        mazeArray[currentBlockI + 1][currentBlockJ] != 0 &&
-                        mazeArray[currentBlockI - 1][currentBlockJ] != 0))) {
+                if (mazeArray[zombiBlockI][zombiBlockJ - 1] == 0 &&
+                    (currentRotaionY != 0 || (mazeArray[zombiBlockI][zombiBlockJ + 1] != 0 &&
+                        mazeArray[zombiBlockI + 1][zombiBlockJ] != 0 &&
+                        mazeArray[zombiBlockI - 1][zombiBlockJ] != 0))) {
                     rotationYArray.push(180);
                 }
-                if (mazeArray[currentBlockI - 1][currentBlockJ] == 0 &&
-                    (currentRotaionY != 90 || (mazeArray[currentBlockI][currentBlockJ + 1] != 0 &&
-                        mazeArray[currentBlockI + 1][currentBlockJ] != 0 &&
-                        mazeArray[currentBlockI][currentBlockJ - 1] != 0))) {
+                if (mazeArray[zombiBlockI - 1][zombiBlockJ] == 0 &&
+                    (currentRotaionY != 90 || (mazeArray[zombiBlockI][zombiBlockJ + 1] != 0 &&
+                        mazeArray[zombiBlockI + 1][zombiBlockJ] != 0 &&
+                        mazeArray[zombiBlockI][zombiBlockJ - 1] != 0))) {
                     rotationYArray.push(270);
                 }
                 let rotionYIndex = Math.floor(Math.random() * rotationYArray.length);
@@ -93,6 +132,23 @@ function gameStart(size, mazeArray, sceneElement, rigElement, cameraElement, obj
             // `object3D` is the three.js object.
             // `position` is a three.js Vector3.
             let cameraPosition = this.el.object3D.position;
+            zombiPosition = ZOMBI_ELEMENT.object3D.position;
+            let currentZombiRotaionY = ZOMBI_ELEMENT.getAttribute("rotation").y;
+
+            let currentCameraBlockI = Math.floor(cameraPosition.x + 0.5);
+            let currentCameraBlockJ = Math.floor(cameraPosition.z + 0.5);
+
+            let currentZombiBlockI = Math.floor(zombiPosition.x + 0.5);
+            let currentZombiBlockJ = Math.floor(zombiPosition.z + 0.5);
+            if (gazeCheck(currentZombiRotaionY, currentCameraBlockI, currentCameraBlockJ,
+                currentZombiBlockI, currentZombiBlockJ, mazeArray)) {
+                foundTime = time;
+                memoryCameraBlock = [currentCameraBlockI, currentCameraBlockJ];
+                if (!isFound) {
+                    isFound = true;
+                    warnTextElement.setAttribute("visible", "true");
+                }
+            }
 
             if (!hasRedKey &&
                 Math.pow(cameraPosition.x - RED_KEY_POSITION.x, 2) +
@@ -139,6 +195,41 @@ function gameStart(size, mazeArray, sceneElement, rigElement, cameraElement, obj
     rigElement.setAttribute("position-reader", "");
 }
 
+function gazeCheck(rotationY, cameraI, cameraJ, zombiI, zombiJ, mazeArray) {
+    if (rotationY == 0 && cameraI == zombiI && cameraJ > zombiJ) {
+        for (let j = zombiJ; j < cameraJ; j++) {
+            if (mazeArray[cameraI][j] == 1) {
+                return false;
+            }
+        }
+        return true;
+    } else if (rotationY == 90 && cameraJ == zombiJ && cameraI > zombiI) {
+        for (let i = zombiI; i < cameraI; i++) {
+            if (mazeArray[i][cameraJ] == 1) {
+                return false;
+            }
+        }
+        return true;
+    } else if (rotationY == 180 && cameraI == zombiI && cameraJ < zombiJ) {
+        for (let j = cameraJ; j < zombiJ; j++) {
+            if (mazeArray[cameraI][j] == 1) {
+                return false;
+            }
+        }
+        return true;
+    } else if (rotationY == 270 && cameraJ == zombiJ && cameraI < zombiI) {
+        for (let i = cameraI; i < zombiI; i++) {
+            if (mazeArray[i][cameraJ] == 1) {
+                return false;
+            }
+        }
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
 function gameClear(rigElement, cameraElement, time) {
     let textElement = document.createElement("a-text");
     textElement.setAttribute("value", "Game Clear!");
@@ -161,13 +252,10 @@ function gameOver(rigElement, cameraElement, zombiElement) {
     let rigPosition = rigElement.getAttribute("position");
     let zombiDistance = 0.6;
     zombiElement.removeAttribute("animation-mixer");
-    console.log(zombiElement.object3D.position);
     zombiElement.setAttribute("position",
         `${rigPosition.x - zombiDistance * Math.sin(cameraRotationY * (Math.PI / 180))}
          0.03 ${rigPosition.z - zombiDistance * Math.cos(cameraRotationY * (Math.PI / 180))}`)
     zombiElement.setAttribute("rotation", `0 ${cameraRotationY} 0`);
-    console.log(zombiElement.object3D.position);
-    console.log(cameraElement.getAttribute("rotation").y);
 
     let textElement = document.createElement("a-text");
     textElement.setAttribute("value", "Game Over");
