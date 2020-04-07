@@ -161,21 +161,12 @@ function gameStart(mazeArray, sceneElement, rigElement, cameraElement, objectEle
                 warnTextElement.setAttribute("position", "0 -0.01 -0.02");
                 warnTextElement.setAttribute("width", "0.05");
                 warnTextElement.setAttribute("height", "0.05");
-                RED_KEY_ELEMENT.setAttribute("position", `${redKeyPosition.x} ${redKeyPosition.y - 0.7} ${redKeyPosition.z}`);
-                redKeyPosition = RED_KEY_ELEMENT.object3D.position;
-                BLUE_KEY_ELEMENT.setAttribute("position", `${blueKeyPosition.x} ${blueKeyPosition.y - 0.7} ${blueKeyPosition.z}`);
-                blueKeyPosition = BLUE_KEY_ELEMENT.object3D.position;
             }
             if (vrMode && !isVrPosition) {
-                console.log(vrMode, !isVrPosition);
                 isVrPosition = true;
                 warnTextElement.setAttribute("position", "0 -0.3 -0.7");
                 warnTextElement.setAttribute("width", "5");
                 warnTextElement.setAttribute("height", "5");
-                RED_KEY_ELEMENT.setAttribute("position", `${redKeyPosition.x} ${redKeyPosition.y + 0.7} ${redKeyPosition.z}`);
-                redKeyPosition = RED_KEY_ELEMENT.object3D.position;
-                BLUE_KEY_ELEMENT.setAttribute("position", `${blueKeyPosition.x} ${blueKeyPosition.y + 0.7} ${blueKeyPosition.z}`);
-                blueKeyPosition = BLUE_KEY_ELEMENT.object3D.position;
             }
 
             if (!hasRedKey &&
@@ -283,6 +274,7 @@ function gameClear(rigElement, cameraElement, time) {
     textElement.setAttribute("color", "red");
     cameraElement.appendChild(textElement);
     rigElement.removeAttribute("movement-controls");
+    rigElement.removeAttribute("rotation-controls");
     cameraElement.removeAttribute("look-controls");
     setTimeout(() => {
         postForm("/vr_meiro/game_clear", {
@@ -315,12 +307,12 @@ function gameOver(rigElement, cameraElement, zombiElement) {
     textElement.setAttribute("color", "red");
     cameraElement.appendChild(textElement);
 
-    //rigElement.removeAttribute("movement-controls");
-    //rigElement.removeAttribute("rotation-controls");
-    //cameraElement.removeAttribute("look-controls");
-    // setTimeout(() => {
-    //     window.location.href = "/vr_meiro/game_over";
-    // }, 1000);
+    rigElement.removeAttribute("movement-controls");
+    rigElement.removeAttribute("rotation-controls");
+    cameraElement.removeAttribute("look-controls");
+    setTimeout(() => {
+        window.location.href = "/vr_meiro/game_over";
+    }, 1000);
 }
 
 function postForm(url, data) {
@@ -573,14 +565,14 @@ function setObjects(sceneElement, rigElement, mazeArray, size) {
             let redKeyPositionJ = Math.floor(Math.random() * ((size - 1) / 2));
             redKeyPosition = [redKeyPositionI, redKeyPositionJ];
         }
-        RED_KEY_ELEMENT.setAttribute("position", `${redKeyPosition[0]} 0.5 ${redKeyPosition[1]}`);
+        RED_KEY_ELEMENT.setAttribute("position", `${redKeyPosition[0]} 1.2 ${redKeyPosition[1]}`);
         let blueKeyPosition = [0, 0];
         while (mazeArray[blueKeyPosition[0]][blueKeyPosition[1]] == 1) {
             let blueKeyPositionI = Math.floor(Math.random() * ((size - 1) / 2));
             let blueKeyPositionJ = Math.floor(Math.random() * ((size - 1) / 2)) + (size - 1) / 2;
             blueKeyPosition = [blueKeyPositionI, blueKeyPositionJ];
         }
-        BLUE_KEY_ELEMENT.setAttribute("position", `${blueKeyPosition[0]} 0.5 ${blueKeyPosition[1]}`);
+        BLUE_KEY_ELEMENT.setAttribute("position", `${blueKeyPosition[0]} 1.2 ${blueKeyPosition[1]}`);
     } else if (GOAL_POSITION_INDEX == 1) {
         let redKeyPosition = [0, 0];
         while (mazeArray[redKeyPosition[0]][redKeyPosition[1]] == 1) {
@@ -588,14 +580,14 @@ function setObjects(sceneElement, rigElement, mazeArray, size) {
             let redKeyPositionJ = Math.floor(Math.random() * ((size - 1) / 2)) + (size - 1) / 2;
             redKeyPosition = [redKeyPositionI, redKeyPositionJ];
         }
-        RED_KEY_ELEMENT.setAttribute("position", `${redKeyPosition[0]} 0.5 ${redKeyPosition[1]}`);
+        RED_KEY_ELEMENT.setAttribute("position", `${redKeyPosition[0]} 1.2 ${redKeyPosition[1]}`);
         let blueKeyPosition = [0, 0];
         while (mazeArray[blueKeyPosition[0]][blueKeyPosition[1]] == 1) {
             let blueKeyPositionI = Math.floor(Math.random() * ((size - 1) / 2)) + (size - 1) / 2;
             let blueKeyPositionJ = Math.floor(Math.random() * ((size - 1) / 2));
             blueKeyPosition = [blueKeyPositionI, blueKeyPositionJ];
         }
-        BLUE_KEY_ELEMENT.setAttribute("position", `${blueKeyPosition[0]} 0.5 ${blueKeyPosition[1]}`);
+        BLUE_KEY_ELEMENT.setAttribute("position", `${blueKeyPosition[0]} 1.2 ${blueKeyPosition[1]}`);
     } else { // GOAL_POSITION_INDEX == 2
         let redKeyPosition = [0, 0];
         while (mazeArray[redKeyPosition[0]][redKeyPosition[1]] == 1) {
@@ -603,14 +595,14 @@ function setObjects(sceneElement, rigElement, mazeArray, size) {
             let redKeyPositionJ = Math.floor(Math.random() * ((size - 1) / 2)) + (size - 1) / 2;
             redKeyPosition = [redKeyPositionI, redKeyPositionJ];
         }
-        RED_KEY_ELEMENT.setAttribute("position", `${redKeyPosition[0]} 0.5 ${redKeyPosition[1]}`);
+        RED_KEY_ELEMENT.setAttribute("position", `${redKeyPosition[0]} 1.2 ${redKeyPosition[1]}`);
         let blueKeyPosition = [0, 0];
         while (mazeArray[blueKeyPosition[0]][blueKeyPosition[1]] == 1) {
             let blueKeyPositionI = Math.floor(Math.random() * ((size - 1) / 2)) + (size - 1) / 2;
             let blueKeyPositionJ = Math.floor(Math.random() * ((size - 1) / 2)) + (size - 1) / 2;;
             blueKeyPosition = [blueKeyPositionI, blueKeyPositionJ];
         }
-        BLUE_KEY_ELEMENT.setAttribute("position", `${blueKeyPosition[0]} 0.5 ${blueKeyPosition[1]}`);
+        BLUE_KEY_ELEMENT.setAttribute("position", `${blueKeyPosition[0]} 1.2 ${blueKeyPosition[1]}`);
     }
 
     sceneElement.appendChild(RED_KEY_ELEMENT);
