@@ -1,10 +1,19 @@
 require('aframe');
 require('aframe-extras');
+require('./rotation-controls');
+
+let vrMode = false;
 
 window.onload = function () {
-    const SIZE = 15; //maze size must be odd;
+    const SIZE = 9; //maze size must be odd;
     const MAZE_ARRAY = createMaze(SIZE);
     const SCENE_ELEMENT = document.getElementById("scene");
+    SCENE_ELEMENT.addEventListener('enter-vr', function () {
+        vrMode = true;
+    });
+    SCENE_ELEMENT.addEventListener('exit-vr', function () {
+        vrMode = false;
+    });
     const MAZE_ELEMENT = document.getElementById("maze");
     const RIG_ELEMENT = document.getElementById("rig");
     const CAMERA_ELEMENT = document.getElementById("camera");
@@ -20,18 +29,17 @@ function gameStart(mazeArray, sceneElement, rigElement, cameraElement, objectEle
     const BLUE_KEY_ELEMENT = objectElements[2];
     const ZOMBI_ELEMENT = objectElements[3];
     const GOAL_POSITION = GOAL_ELEMENT.object3D.position;
-    const RED_KEY_POSITION = RED_KEY_ELEMENT.object3D.position;
-    const BLUE_KEY_POSITION = BLUE_KEY_ELEMENT.object3D.position;
+    let redKeyPosition = RED_KEY_ELEMENT.object3D.position;
+    let blueKeyPosition = BLUE_KEY_ELEMENT.object3D.position;
     let hasRedKey = false;
     let hasBlueKey = false;
     let isGameClear = false;
     let isGameOver = false;
-    let time = 0;
+    let isVrPosition = false;
 
     const ZOMBI_SPEED = 1;
     let zombiPosition = ZOMBI_ELEMENT.object3D.position;
     let isFound = false;
-    let foundTime = 0;
     let memoryCameraBlock = [0, 0];
 
     let warnTextElement = document.createElement("a-text");
@@ -56,7 +64,6 @@ function gameStart(mazeArray, sceneElement, rigElement, cameraElement, objectEle
             } else { //ZOMBI_ELEMENT.getAttribute("rotation").y == 270
                 ZOMBI_ELEMENT.setAttribute("position", `${zombiPosition.x - ZOMBI_SPEED} ${zombiPosition.y} ${zombiPosition.z}`);
             }
-
             let zombiBlockI = Math.floor(zombiPosition.x + 0.5);
             let zombiBlockJ = Math.floor(zombiPosition.z + 0.5);
             let rotationYArray = [];
@@ -126,11 +133,11 @@ function gameStart(mazeArray, sceneElement, rigElement, cameraElement, objectEle
         }
     })
     AFRAME.registerComponent('position-reader', {
-        tick: function () {
-            time += 1;
+        tick: function (time, deltaTime) {
             // `this.el` is the element.
             // `object3D` is the three.js object.
             // `position` is a three.js Vector3.
+
             let cameraPosition = this.el.object3D.position;
             zombiPosition = ZOMBI_ELEMENT.object3D.position;
             let currentZombiRotaionY = ZOMBI_ELEMENT.getAttribute("rotation").y;
@@ -142,7 +149,6 @@ function gameStart(mazeArray, sceneElement, rigElement, cameraElement, objectEle
             let currentZombiBlockJ = Math.floor(zombiPosition.z + 0.5);
             if (gazeCheck(currentZombiRotaionY, currentCameraBlockI, currentCameraBlockJ,
                 currentZombiBlockI, currentZombiBlockJ, mazeArray)) {
-                foundTime = time;
                 memoryCameraBlock = [currentCameraBlockI, currentCameraBlockJ];
                 if (!isFound) {
                     isFound = true;
@@ -150,28 +156,61 @@ function gameStart(mazeArray, sceneElement, rigElement, cameraElement, objectEle
                 }
             }
 
+            if (!vrMode && isVrPosition) {
+                isVrPosition = false;
+                warnTextElement.setAttribute("position", "0 -0.01 -0.02");
+                warnTextElement.setAttribute("width", "0.05");
+                warnTextElement.setAttribute("height", "0.05");
+                RED_KEY_ELEMENT.setAttribute("position", `${redKeyPosition.x} ${redKeyPosition.y - 0.7} ${redKeyPosition.z}`);
+                redKeyPosition = RED_KEY_ELEMENT.object3D.position;
+                BLUE_KEY_ELEMENT.setAttribute("position", `${blueKeyPosition.x} ${blueKeyPosition.y - 0.7} ${blueKeyPosition.z}`);
+                blueKeyPosition = BLUE_KEY_ELEMENT.object3D.position;
+            }
+            if (vrMode && !isVrPosition) {
+                console.log(vrMode, !isVrPosition);
+                isVrPosition = true;
+                warnTextElement.setAttribute("position", "0 -0.3 -0.7");
+                warnTextElement.setAttribute("width", "5");
+                warnTextElement.setAttribute("height", "5");
+                RED_KEY_ELEMENT.setAttribute("position", `${redKeyPosition.x} ${redKeyPosition.y + 0.7} ${redKeyPosition.z}`);
+                redKeyPosition = RED_KEY_ELEMENT.object3D.position;
+                BLUE_KEY_ELEMENT.setAttribute("position", `${blueKeyPosition.x} ${blueKeyPosition.y + 0.7} ${blueKeyPosition.z}`);
+                blueKeyPosition = BLUE_KEY_ELEMENT.object3D.position;
+            }
+
             if (!hasRedKey &&
-                Math.pow(cameraPosition.x - RED_KEY_POSITION.x, 2) +
-                Math.pow(cameraPosition.z - RED_KEY_POSITION.z, 2) < 0.1) {
+                Math.pow(cameraPosition.x - redKeyPosition.x, 2) +
+                Math.pow(cameraPosition.z - redKeyPosition.z, 2) < 0.1) {
                 sceneElement.removeChild(RED_KEY_ELEMENT);
                 hasRedKey = true;
                 let redKeyInfoElement = document.createElement("a-image");
                 redKeyInfoElement.setAttribute("src", "#red-key-asset");
-                redKeyInfoElement.setAttribute("position", "-0.001 -0.015 -0.02");
-                redKeyInfoElement.setAttribute("width", "0.003");
-                redKeyInfoElement.setAttribute("height", "0.003");
+                if (vrMode) {
+                    redKeyInfoElement.setAttribute("position", "-0.3 -0.4 -0.7");
+                    redKeyInfoElement.setAttribute("scale", "0.3 0.3 0.3");
+                } else {
+                    redKeyInfoElement.setAttribute("position", "-0.001 -0.015 -0.02");
+                    redKeyInfoElement.setAttribute("width", "0.003");
+                    redKeyInfoElement.setAttribute("height", "0.003");
+                }
                 cameraElement.appendChild(redKeyInfoElement);
             }
             if (!hasBlueKey &&
-                Math.pow(cameraPosition.x - BLUE_KEY_POSITION.x, 2) +
-                Math.pow(cameraPosition.z - BLUE_KEY_POSITION.z, 2) < 0.1) {
+                Math.pow(cameraPosition.x - blueKeyPosition.x, 2) +
+                Math.pow(cameraPosition.z - blueKeyPosition.z, 2) < 0.1) {
                 sceneElement.removeChild(BLUE_KEY_ELEMENT);
                 hasBlueKey = true;
                 let blueKeyInfoElement = document.createElement("a-image");
                 blueKeyInfoElement.setAttribute("src", "#blue-key-asset");
-                blueKeyInfoElement.setAttribute("position", "0.001 -0.015 -0.02");
-                blueKeyInfoElement.setAttribute("width", "0.003");
-                blueKeyInfoElement.setAttribute("height", "0.003");
+                if (vrMode) {
+                    blueKeyInfoElement.setAttribute("position", "0.3 -0.4 -0.7");
+                    blueKeyInfoElement.setAttribute("scale", "0.3 0.3 0.3");
+                } else {
+                    blueKeyInfoElement.setAttribute("position", "0.001 -0.015 -0.02");
+                    blueKeyInfoElement.setAttribute("width", "0.003");
+                    blueKeyInfoElement.setAttribute("height", "0.003");
+                }
+
                 cameraElement.appendChild(blueKeyInfoElement);
             }
             if (hasRedKey && hasBlueKey) {
@@ -233,16 +272,21 @@ function gazeCheck(rotationY, cameraI, cameraJ, zombiI, zombiJ, mazeArray) {
 function gameClear(rigElement, cameraElement, time) {
     let textElement = document.createElement("a-text");
     textElement.setAttribute("value", "Game Clear!");
-    textElement.setAttribute("position", "-0.006 0.005 -0.02");
-    textElement.setAttribute("width", "0.05");
-    textElement.setAttribute("height", "0.05");
+    if (vrMode) {
+        textElement.setAttribute("position", "-0.3 0.005 -0.7");
+        textElement.setAttribute("scale", "0.5 0.5 0.5");
+    } else {
+        textElement.setAttribute("position", "-0.006 0.005 -0.02");
+        textElement.setAttribute("width", "0.05");
+        textElement.setAttribute("height", "0.05");
+    }
     textElement.setAttribute("color", "red");
     cameraElement.appendChild(textElement);
     rigElement.removeAttribute("movement-controls");
     cameraElement.removeAttribute("look-controls");
     setTimeout(() => {
         postForm("/vr_meiro/game_clear", {
-            "time": Math.round(time / 60)
+            "time": Math.round(time / 1000)
         });
     }, 1000);
 }
@@ -250,26 +294,33 @@ function gameClear(rigElement, cameraElement, time) {
 function gameOver(rigElement, cameraElement, zombiElement) {
     let cameraRotationY = cameraElement.getAttribute("rotation").y;
     let rigPosition = rigElement.getAttribute("position");
+    let rigRotationY = rigElement.getAttribute("rotation").y;
     let zombiDistance = 0.6;
     zombiElement.removeAttribute("animation-mixer");
     zombiElement.setAttribute("position",
-        `${rigPosition.x - zombiDistance * Math.sin(cameraRotationY * (Math.PI / 180))}
-         0.03 ${rigPosition.z - zombiDistance * Math.cos(cameraRotationY * (Math.PI / 180))}`)
-    zombiElement.setAttribute("rotation", `0 ${cameraRotationY} 0`);
+        `${rigPosition.x - zombiDistance * Math.sin((cameraRotationY + rigRotationY) * (Math.PI / 180))}
+         0.2 ${rigPosition.z - zombiDistance * Math.cos((cameraRotationY + rigRotationY) * (Math.PI / 180))}`)
+    zombiElement.setAttribute("rotation", `0 ${cameraRotationY + rigRotationY} 0`);
 
     let textElement = document.createElement("a-text");
     textElement.setAttribute("value", "Game Over");
-    textElement.setAttribute("position", "-0.006 0.005 -0.02");
-    textElement.setAttribute("width", "0.05");
-    textElement.setAttribute("height", "0.05");
+    if (vrMode) {
+        textElement.setAttribute("position", "-0.3 0.005 -0.7");
+        textElement.setAttribute("scale", "0.5 0.5 0.5");
+    } else {
+        textElement.setAttribute("position", "-0.006 0.005 -0.02");
+        textElement.setAttribute("width", "0.05");
+        textElement.setAttribute("height", "0.05");
+    }
     textElement.setAttribute("color", "red");
     cameraElement.appendChild(textElement);
 
-    rigElement.removeAttribute("movement-controls");
-    cameraElement.removeAttribute("look-controls");
-    setTimeout(() => {
-        window.location.href = "/vr_meiro/game_over";
-    }, 1000);
+    //rigElement.removeAttribute("movement-controls");
+    //rigElement.removeAttribute("rotation-controls");
+    //cameraElement.removeAttribute("look-controls");
+    // setTimeout(() => {
+    //     window.location.href = "/vr_meiro/game_over";
+    // }, 1000);
 }
 
 function postForm(url, data) {
@@ -350,14 +401,13 @@ function createPath(mazeArray, sceneElement) {
                     isGoArround = true;
                 }
             }
-            var heartShape = new THREE.Shape(points);
+            let heartShape = new THREE.Shape(points);
 
-            var geometry = new THREE.ShapeGeometry(heartShape);
-            var material = new THREE.MeshBasicMaterial({
+            let geometry = new THREE.ShapeGeometry(heartShape);
+            let material = new THREE.MeshBasicMaterial({
                 color: 0x00ff00
             });
-            var mesh = new THREE.Mesh(geometry, material);
-
+            let mesh = new THREE.Mesh(geometry, material);
             this.el.setObject3D('mesh', mesh);
         }
     });
@@ -569,8 +619,8 @@ function setObjects(sceneElement, rigElement, mazeArray, size) {
     const ZOMBI_ELEMENT = document.createElement("a-entity");
     ZOMBI_ELEMENT.id = "zombi"
     ZOMBI_ELEMENT.setAttribute("gltf-model", "#zombi-asset");
-    ZOMBI_ELEMENT.setAttribute("position", `${(size - 1) / 2} 0.03 ${(size - 1) / 2}`);
-    ZOMBI_ELEMENT.setAttribute("scale", "0.005 0.005 0.005");
+    ZOMBI_ELEMENT.setAttribute("position", `${(size - 1) / 2} 0.2 ${(size - 1) / 2}`);
+    ZOMBI_ELEMENT.setAttribute("scale", "0.01 0.01 0.01");
     sceneElement.appendChild(ZOMBI_ELEMENT);
 
     const ELEMENTS = [GOAL_ELEMENT, RED_KEY_ELEMENT, BLUE_KEY_ELEMENT, ZOMBI_ELEMENT];

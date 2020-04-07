@@ -59,8 +59,6 @@ class siteMapController extends Controller
             //vr_meiro
             $sitemap->add(URL::to('/vr_meiro'), '2020-04-06T19:00:00+02:00', '0.9', 'yearly');
             $sitemap->add(URL::to('/vr_meiro/play'), '2020-04-06T19:00:00+02:00', '0.9', 'yearly');
-            $sitemap->add(URL::to('/vr_meiro/game_clear'), '2020-04-06T19:00:00+02:00', '0.9', 'yearly');
-            $sitemap->add(URL::to('/vr_meiro/game_over'), '2020-04-06T19:00:00+02:00', '0.9', 'yearly');
         }
 
         // show your sitemap (options: 'xml' (default), 'html', 'txt', 'ror-rss', 'ror-rdf')
