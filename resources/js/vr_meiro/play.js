@@ -5,17 +5,17 @@ require('./rotation-controls');
 let vrMode = false;
 
 window.onload = function () {
-    const SIZE = 9; //maze size must be odd;
+    const SIZE = 15; //maze size must be odd;
     const MAZE_ARRAY = createMaze(SIZE);
     const SCENE_ELEMENT = document.getElementById("scene");
+    const MAZE_ELEMENT = document.getElementById("maze");
+    const RIG_ELEMENT = document.getElementById("rig");
     SCENE_ELEMENT.addEventListener('enter-vr', function () {
         vrMode = true;
     });
     SCENE_ELEMENT.addEventListener('exit-vr', function () {
         vrMode = false;
     });
-    const MAZE_ELEMENT = document.getElementById("maze");
-    const RIG_ELEMENT = document.getElementById("rig");
     const CAMERA_ELEMENT = document.getElementById("camera");
     createPath(MAZE_ARRAY, SCENE_ELEMENT);
     showMaze(MAZE_ELEMENT, MAZE_ARRAY, SIZE);
