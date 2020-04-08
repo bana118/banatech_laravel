@@ -21,7 +21,7 @@ module.exports.Component = AFRAME.registerComponent("rotation-controls", {
     this.system = sceneEl.systems['tracked-controls-webxr'] || { controllers: [] };
     this._lookVector = new THREE.Vector2();
   },
-  tick: function (t,dt) {
+  tick: function (t, dt) {
     this.updateRotation(dt);
   },
 
