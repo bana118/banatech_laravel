@@ -113,16 +113,6 @@ function gameOver() {
     UIkit.modal(modalElement).show();
 }
 
-window.test = function(){
-    var finalScore = document.getElementById("finalScore");
-    finalScore.innerHTML = "正解した数：" + correctCount + "\n間違えた数：" + wrongCount;
-    var twitterLink = document.getElementById("twitterLink");
-    twitterLink.href = "https://twitter.com/share?url=https://banateck.dip.jp/reiwa&text=令和で書き初め！%0a正解した数：" +
-        correctCount + "枚%0a間違えた数：" + wrongCount + "枚%0a";
-    var modalElement = document.getElementById("finishModal");
-    UIkit.modal(modalElement).show();
-}
-
 //ゲームの制限時間をはかる
 function correctCountDown() {
     var timer = setInterval(function () {

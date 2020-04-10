@@ -8,8 +8,8 @@
 @section('content')
 <div class="uk-container uk-container-center uk-background-default">
     <div class="uk-grid uk-flex-center">
-    <div class="uk-width-1-2@m uk-margin-top">
-            <a href = "/vr_meiro" class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin uk-link-toggle" uk-grid>
+        <div class="uk-width-1-2@m uk-margin-top">
+            <a href="/vr_meiro" class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin uk-link-toggle" uk-grid>
                 <div class="uk-flex-last@s uk-card-media-right uk-cover-container">
                     <img src="{{ asset('/img/sumnail/vr_meiro.png') }}" alt="VR迷路" uk-cover>
                     <canvas width="250" height="250"></canvas>
@@ -17,27 +17,13 @@
                 <div>
                     <div class="uk-card-body">
                         <h3 class="uk-card-title">VR迷路</h3>
-                        <p>VRじゃなくてもできる</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="uk-width-1-2@m uk-margin-top">
-            <a href = "/hakogucha" class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin uk-link-toggle" uk-grid>
-                <div class="uk-flex-last@s uk-card-media-right uk-cover-container">
-                    <img src="{{ asset('/img/sumnail/hakogucha.png') }}" alt="はこぐちゃ" uk-cover>
-                    <canvas width="250" height="250"></canvas>
-                </div>
-                <div>
-                    <div class="uk-card-body">
-                        <h3 class="uk-card-title">はこぐちゃ</h3>
-                        <p>落ちてくる箱を押して色をそろえる</p>
+                        <p>VRじゃなくてもできます</p>
                     </div>
                 </div>
             </a>
         </div>
         <div class="uk-width-1-2@m uk-margin">
-            <a href = "/reiwa" class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin uk-link-toggle" uk-grid>
+            <a href="/reiwa" class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin uk-link-toggle" uk-grid>
                 <div class="uk-flex-last@s uk-card-media-right uk-cover-container">
                     <img src="{{ asset('/img/sumnail/reiwa.png') }}" width="250" height="250" alt="令和で書き初め" uk-cover>
                     <canvas width="250" height="250"></canvas>
@@ -46,6 +32,20 @@
                     <div class="uk-card-body">
                         <h3 class="uk-card-title">令和で書き初め</h3>
                         <p>「令和」をひたすら書きまくる</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="uk-width-1-2@m uk-margin-top">
+            <a href="/hakogucha" class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin uk-link-toggle" uk-grid>
+                <div class="uk-flex-last@s uk-card-media-right uk-cover-container">
+                    <img src="{{ asset('/img/sumnail/hakogucha.png') }}" alt="はこぐちゃ" uk-cover>
+                    <canvas width="250" height="250"></canvas>
+                </div>
+                <div>
+                    <div class="uk-card-body">
+                        <h3 class="uk-card-title">はこぐちゃ</h3>
+                        <p>落ちてくる箱を押して色をそろえる</p>
                     </div>
                 </div>
             </a>
