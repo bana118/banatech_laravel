@@ -34,8 +34,6 @@
     <br>
     @endforeach
     <br>
-    <a href="/blog/edit/{{ $article->id }}">記事編集(管理者用)</a>
-    <a href="/blog/delete/{{ $article->id }}" onclick="return confirm('本当に削除しますか？')">記事削除(管理者用)</a>
     <span id="article_id" data-name="{{ $article->id }}"></span>
 </div>
 @endsection
