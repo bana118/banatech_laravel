@@ -23,11 +23,15 @@ onload = function () {
     correctImg = document.getElementById("correct");
     wrongImg = document.getElementById("wrong");
     can = document.getElementById("can");
-    var wrapCan = document.getElementById("wrap-can");
-    canW = wrapCan.clientWidth;
-    canH = canW * 2;
-    // canH = window.innerHeight * 2 / 3;
-    // canW = canH / 2;
+    var wrapCanWidth = document.getElementById("wrap-can").clientWidth;
+    if (wrapCanWidth*2 + 200 > window.innerHeight) { // 200は適当
+        canH = window.innerHeight - 200;
+        canW = canH / 2;
+    } else {
+        canW = wrapCanWidth;
+        canH = canW * 2;
+    }
+    var windowWidth = window.innerWidth / 3;
     can.width = canW;
     can.height = canH;
     can.style.width = `${canW}px`;
@@ -193,7 +197,6 @@ function onMove(event) {
     if (mf) {
         x = event.touches[0].clientX - event.touches[0].target.getBoundingClientRect().left;
         y = event.touches[0].clientY - event.touches[0].target.getBoundingClientRect().top;
-        console.log(x,y);
         drawLine();
         ox = x;
         oy = y;
@@ -239,7 +242,6 @@ function drawLine() {
     ct.beginPath();
     ct.moveTo(ox, oy);
     ct.lineTo(x, y);
-    console.log(ox, oy, x, y);
     ct.stroke();
 }
 
