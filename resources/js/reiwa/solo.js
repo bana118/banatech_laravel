@@ -31,7 +31,6 @@ onload = function () {
         canW = wrapCanWidth;
         canH = canW * 2;
     }
-    var windowWidth = window.innerWidth / 3;
     can.width = canW;
     can.height = canH;
     can.style.width = `${canW}px`;
