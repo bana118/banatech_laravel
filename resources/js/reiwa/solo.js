@@ -23,10 +23,15 @@ onload = function () {
     correctImg = document.getElementById("correct");
     wrongImg = document.getElementById("wrong");
     can = document.getElementById("can");
-    canH = window.innerHeight * 2 / 3;
-    canW = canH / 2;
+    var wrapCan = document.getElementById("wrap-can");
+    canW = wrapCan.clientWidth;
+    canH = canW * 2;
+    // canH = window.innerHeight * 2 / 3;
+    // canW = canH / 2;
     can.width = canW;
     can.height = canH;
+    can.style.width = `${canW}px`;
+    can.style.height = `${canH}px`;
     var testTensor = tf.fill([1, 32, 32, 3], 0);
     preloadModel();
     async function preloadModel() {
@@ -175,8 +180,8 @@ function onDown(event) {
     if (!sub && gameState == 1) {
         writeImgChange();
         mf = true;
-        ox = event.touches[0].pageX - event.target.getBoundingClientRect().left;
-        oy = event.touches[0].pageY - event.target.getBoundingClientRect().top;
+        ox = event.touches[0].clientX - event.touches[0].target.getBoundingClientRect().left;
+        oy = event.touches[0].clientY - event.touches[0].target.getBoundingClientRect().top;
         event.stopPropagation();
     } else if (gameState == 0) {
         writeImgChange();
@@ -186,8 +191,9 @@ function onDown(event) {
 
 function onMove(event) {
     if (mf) {
-        x = event.touches[0].pageX - event.target.getBoundingClientRect().left;
-        y = event.touches[0].pageY - event.target.getBoundingClientRect().top;
+        x = event.touches[0].clientX - event.touches[0].target.getBoundingClientRect().left;
+        y = event.touches[0].clientY - event.touches[0].target.getBoundingClientRect().top;
+        console.log(x,y);
         drawLine();
         ox = x;
         oy = y;
@@ -233,13 +239,14 @@ function drawLine() {
     ct.beginPath();
     ct.moveTo(ox, oy);
     ct.lineTo(x, y);
+    console.log(ox, oy, x, y);
     ct.stroke();
 }
 
 function clearCan() {
     if (!sub) {
         ct.fillStyle = "rgb(255,255,255)";
-        ct.fillRect(0, 0, can.getBoundingClientRect().width, can.getBoundingClientRect().height);
+        ct.fillRect(0, 0, can.width, can.height);
     }
 }
 
