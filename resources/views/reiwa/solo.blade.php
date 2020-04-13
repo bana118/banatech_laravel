@@ -17,8 +17,8 @@
 <div id="container" class="uk-container" style="touch-action: manipulation;">
     <div class="uk-frex" style="text-align:center;background-color:#CC9966;">
         <div class="uk-grid uk-margin-remove">
-            <div class="uk-width-2-3" style="position:relative;">
-                <canvas id="can" width="128px" height="256px"></canvas>
+            <div id="wrap-can" class="uk-width-2-3 uk-padding-remove" style="position:relative;">
+                <canvas id="can"></canvas>
             </div>
             <div class="uk-width-1-3">
                 <ul class="uk-list uk-list-divider" style="text-align:center;background-color:#FFFFFF;">
