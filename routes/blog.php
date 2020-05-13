@@ -88,34 +88,44 @@ Route::get('/blog/view/{articleId}', function ($articleId) {
 });
 
 Route::get('/blog/delete/{articleId}', function ($articleId) {
-    if (Auth::check()) {
-        $article = \App\Article::where('id', $articleId)->first();
-        $prevCategories = $article->categories()->get();
-        $deleteDirPath = "uploaded/article/" . $article->id;
-        File::deleteDirectory(public_path($deleteDirPath));
-        $article->delete();
-        foreach ($prevCategories as $prevCategory) {
-            if ($prevCategory->articles()->count() == 0) {
-                $prevCategory->delete();
-            }
-        }
-        return redirect('/blog');
+    $articleCount = \App\Article::where('id', $articleId)->count();
+    if ($articleCount == 0) {
+        return App::abort(404);
     } else {
-        return redirect('/admin/login');
+        if (Auth::check()) {
+            $article = \App\Article::where('id', $articleId)->first();
+            $prevCategories = $article->categories()->get();
+            $deleteDirPath = "uploaded/article/" . $article->id;
+            File::deleteDirectory(public_path($deleteDirPath));
+            $article->delete();
+            foreach ($prevCategories as $prevCategory) {
+                if ($prevCategory->articles()->count() == 0) {
+                    $prevCategory->delete();
+                }
+            }
+            return redirect('/blog');
+        } else {
+            return redirect('/admin/login');
+        }
     }
 });
 
 Route::get('/blog/edit/{articleId}', function ($articleId) {
-    if (Auth::check()) {
-        $article = \App\Article::where('id', $articleId)->first();
-        $editPath = public_path(("uploaded/" . $article->md_file));
-        $content = file_get_contents($editPath);
-        return view('blog.edit', [
-            'article' => $article,
-            'content' => $content
-        ]);
+    $articleCount = \App\Article::where('id', $articleId)->count();
+    if ($articleCount == 0) {
+        return App::abort(404);
     } else {
-        return redirect('/admin/login');
+        if (Auth::check()) {
+            $article = \App\Article::where('id', $articleId)->first();
+            $editPath = public_path(("uploaded/" . $article->md_file));
+            $content = file_get_contents($editPath);
+            return view('blog.edit', [
+                'article' => $article,
+                'content' => $content
+            ]);
+        } else {
+            return redirect('/admin/login');
+        }
     }
 });
 
@@ -268,10 +278,15 @@ Route::post('/blog/search', function (Request $request) {
 
 Route::get('/blog/category/{categoryId}', function ($categoryId) {
     $category = Category::where('id', $categoryId)->first();
-    $categoryName = $category->name;
-    $articles = $category->articles()->paginate(config('const.BLOG_SETTING.articles_per_page'));
-    return view('blog.search_category', [
-        'categoryName' => $categoryName,
-        'articles' => $articles
-    ]);
+    $categoryCount = \App\Category::where('id', $categoryId)->count();
+    if ($categoryCount == 0) {
+        return App::abort(404);
+    } else {
+        $categoryName = $category->name;
+        $articles = $category->articles()->paginate(config('const.BLOG_SETTING.articles_per_page'));
+        return view('blog.search_category', [
+            'categoryName' => $categoryName,
+            'articles' => $articles
+        ]);
+    }
 });
