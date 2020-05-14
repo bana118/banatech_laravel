@@ -247,7 +247,7 @@ Route::post('/blog/posted', function (Request $request) {
     }
 });
 
-Route::post('/blog/search', function (Request $request) {
+Route::get('/blog/search', function (Request $request) {
     $searchWord = $request->search;
     $idArray = array();
 
