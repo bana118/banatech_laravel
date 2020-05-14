@@ -13,12 +13,11 @@
 <div class="uk-container uk-container-center uk-background-default">
     <div class="uk-card uk-card-default uk-background-default">
         @yield('card_body')
-        <form class="uk-search uk-search-default" method="POST" name ="search" action="/blog/search">
-            @csrf
+        <form class="uk-search uk-search-default" method="GET" name ="search" action="/blog/search">
             <a href="javascript:document.search.submit()" uk-search-icon></a>
             <input class="uk-search-input" type="search" name="search" placeholder="Search...">
         </form>
-        {{ $articles->links('vendor.pagination.uikit-3') }}
+        {{ $articles->appends(request()->query())->links('vendor.pagination.uikit-3') }}
         <ul class="uk-list uk-list-divider">
             @foreach ($articles as $article)
             <li class="list-group">
