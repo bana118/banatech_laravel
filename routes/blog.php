@@ -11,12 +11,7 @@ Route::get('/blog', function () {
     ]);
 });
 
-Route::get('/blog/download_all_articles', function () {
-    zipDirectory(public_path() . '/uploaded/article/', public_path() . '/articles.zip');
-    return response()->download(public_path() . '/articles.zip');
-});
-
-function zipDirectory($dir, $file, $root = "")
+$zipDirectory = function($dir, $file, $root = "")
 {
     $zip = new ZipArchive();
     $res = $zip->open($file, ZipArchive::CREATE);
@@ -39,7 +34,6 @@ function zipDirectory($dir, $file, $root = "")
             RecursiveIteratorIterator::SELF_FIRST
         );
 
-        $list = array();
         foreach ($iterator as $pathname => $info) {
             $localpath = $root . mb_substr($pathname, $baseLen);
 
@@ -54,7 +48,12 @@ function zipDirectory($dir, $file, $root = "")
     } else {
         return false;
     }
-}
+};
+
+Route::get('/blog/download_all_articles', function () {
+    zipDirectory(public_path() . '/uploaded/article/', public_path() . '/articles.zip');
+    return response()->download(public_path() . '/articles.zip');
+});
 
 Route::get('/blog/all_categories', function () {
     $allCategories = Category::orderBy('name', 'asc')->paginate(config('const.BLOG_SETTING.categories_per_page'));
