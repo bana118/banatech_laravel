@@ -11,47 +11,45 @@ Route::get('/blog', function () {
     ]);
 });
 
-$zipDirectory = function($dir, $file, $root = "")
-{
-    $zip = new ZipArchive();
-    $res = $zip->open($file, ZipArchive::CREATE);
-
-    if ($res) {
-        if ($root != "") {
-            $zip->addEmptyDir($root);
-            $root .= DIRECTORY_SEPARATOR;
-        }
-
-        $baseLen = mb_strlen($dir);
-
-        $iterator = new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator(
-                $dir,
-                FilesystemIterator::SKIP_DOTS
-                    | FilesystemIterator::KEY_AS_PATHNAME
-                    | FilesystemIterator::CURRENT_AS_FILEINFO
-            ),
-            RecursiveIteratorIterator::SELF_FIRST
-        );
-
-        foreach ($iterator as $pathname => $info) {
-            $localpath = $root . mb_substr($pathname, $baseLen);
-
-            if ($info->isFile()) {
-                $zip->addFile($pathname, $localpath);
-            } else {
-                $res = $zip->addEmptyDir($localpath);
-            }
-        }
-
-        $zip->close();
-    } else {
-        return false;
-    }
-};
-
 Route::get('/blog/download_all_articles', function () {
-    zipDirectory(public_path() . '/uploaded/article/', public_path() . '/articles.zip');
+    $zipDirectory = function ($dir, $file, $root = "") {
+        $zip = new ZipArchive();
+        $res = $zip->open($file, ZipArchive::CREATE);
+
+        if ($res) {
+            if ($root != "") {
+                $zip->addEmptyDir($root);
+                $root .= DIRECTORY_SEPARATOR;
+            }
+
+            $baseLen = mb_strlen($dir);
+
+            $iterator = new RecursiveIteratorIterator(
+                new RecursiveDirectoryIterator(
+                    $dir,
+                    FilesystemIterator::SKIP_DOTS
+                        | FilesystemIterator::KEY_AS_PATHNAME
+                        | FilesystemIterator::CURRENT_AS_FILEINFO
+                ),
+                RecursiveIteratorIterator::SELF_FIRST
+            );
+
+            foreach ($iterator as $pathname => $info) {
+                $localpath = $root . mb_substr($pathname, $baseLen);
+
+                if ($info->isFile()) {
+                    $zip->addFile($pathname, $localpath);
+                } else {
+                    $res = $zip->addEmptyDir($localpath);
+                }
+            }
+
+            $zip->close();
+        } else {
+            return false;
+        }
+    };
+    $zipDirectory(public_path() . '/uploaded/article/', public_path() . '/articles.zip');
     return response()->download(public_path() . '/articles.zip');
 });
 
