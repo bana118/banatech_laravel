@@ -1,4 +1,4 @@
-name: Laravel
+name: Laravel_prod
 
 on:
   push:
@@ -22,7 +22,7 @@ jobs:
     - name: Create Database
       run: |
         mkdir -p database
-        touch database/database.sqlite
+        touch database/database.sqlite3
     - name: Generate key
       run: php artisan key:generate
     - name: Execute tests (Unit and Feature tests) via PHPUnit
