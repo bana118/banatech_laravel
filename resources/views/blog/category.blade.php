@@ -22,7 +22,7 @@
         <ul class="uk-list uk-list-divider">
             @foreach ($categories as $category)
             <li class="list-group">
-                <a href="/blog/category/{{ $category->name }}">{{ $category->name }}</a>
+                <a href="/blog/category/{{ $category->id }}">{{ $category->name }}</a>
             </li>
             @endforeach
         </ul>
