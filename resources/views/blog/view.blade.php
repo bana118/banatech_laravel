@@ -1,7 +1,8 @@
 @extends('base.base')
 
-@section('title', 'ばなてっく｜工業大学生のポートフォリオ')
-@section('description', '工業大学生によるプログラミングやガジェットに関するブログ兼Webアプリケーション置き場')
+@section('title')
+{{ $article->title }}
+@endsection
 @section('head')
 @include('base.head')
 <script src="{{ mix('js/blog/view.js') }}"></script>
