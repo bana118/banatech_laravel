@@ -113,3 +113,17 @@ $ sudo docker exec -i -t ${container_id} bash
 ```
 $ sudo docker exec -i -t ${container_id} bash
 ```
+
+## アップロードサイズ，ポストのサイズの上限解放
+php.iniを編集
+```
+$ sudo docker exec -i -t ${container_id} bash
+# php -i | grep php.ini
+# vim /etc/php/7.2/cli/php.ini
+```
+
+以下のように変更する
+```
+upload_max_filesize = 40m
+post_max_size = 50m
+```
