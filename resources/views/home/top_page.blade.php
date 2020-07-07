@@ -7,6 +7,7 @@
 @endsection
 @section('content')
 <div class="uk-container uk-container-center uk-background-default">
+    <h1>アプリ一覧</h1>
     <div class="uk-grid uk-flex-center">
         <div class="uk-width-1-2@m uk-margin-top">
             <a href="/vr_meiro" class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin uk-link-toggle" uk-grid>

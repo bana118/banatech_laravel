@@ -6,8 +6,7 @@
 @section('head')
 @include('base.head')
 <script src="{{ mix('js/blog/view.js') }}"></script>
-<script id="MathJax-script" async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
 </script>
 <link rel="stylesheet" href="{{ mix('/css/blog/view.css') }}">
 <meta property="og:url" content="{{ url()->current() }}" />
@@ -20,21 +19,23 @@
 @endsection
 @section('content')
 <div class="uk-container uk-container-center uk-background-default">
-    <h1 id="title">{{ $article->title }}</h1>
-    <h4>{{ $article->updated_at->format('Y年m月d日') }}</h4>
-    <p>
-        カテゴリー：
-        @foreach ($article->categories as $category)
-        <button class="uk-button uk-button-primary uk-button-small uk-border-rounde" onclick="location.href='/blog/category/{{$category->id}}'">{{$category->name}}</button>
-        @endforeach
-    </p>
-    <div id="markdown_content" src="{{ asset('uploaded/'.$article->md_file) }}"></div>
-    <h3 id="related-articles">関連記事</h3>
+  <h1 class="article-title">{{ $article->title }}</h1>
+  <h4>{{ $article->updated_at->format('Y年m月d日') }}</h4>
+  <p>
+    カテゴリー：
+    @foreach ($article->categories as $category)
+    <button class="uk-button uk-button-primary uk-button-small uk-border-rounded uk-margin-small-top uk-margin-small-bottom" onclick="location.href='/blog/category/{{$category->id}}'">{{$category->name}}</button>
+    @endforeach
+  </p>
+  <div id="markdown_content" src="{{ asset('uploaded/'.$article->md_file) }}"></div>
+  <h3 class="related-articles-label">関連記事</h3>
+  <p class="related-articles">
     @foreach ($relatedArticles as $relatedArticle)
-    <a href="/blog/view/{{ $relatedArticle->id }}">{{ $relatedArticle->title }}</a>
+    <a class="uk-link" href="/blog/view/{{ $relatedArticle->id }}">{{ $relatedArticle->title }}</a>
     <br>
     @endforeach
     <br>
-    <span id="article_id" data-name="{{ $article->id }}"></span>
+  </p>
+  <span id="article_id" data-name="{{ $article->id }}"></span>
 </div>
 @endsection
