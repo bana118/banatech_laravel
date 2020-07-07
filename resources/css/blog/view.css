@@ -1,4 +1,4 @@
-#title {
+.article-title {
     padding: 0.5em;
     /*文字周りの余白*/
     color: #010101;
@@ -14,6 +14,6 @@
     background: linear-gradient(transparent 70%, #a7d6ff 70%);
 }
 
-#related-articles {
+.related-articles-label {
     border-bottom: double 5px #FFC778;
 }
