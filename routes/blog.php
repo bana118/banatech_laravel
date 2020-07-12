@@ -181,6 +181,7 @@ Route::post('/blog/edited/{articleId}', function (Request $request, $articleId) 
         }
 
         $article->update();
+        $article->touch(); # update updated_at column
 
         return redirect('/blog');
     } else {
