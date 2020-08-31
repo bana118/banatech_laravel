@@ -17,3 +17,7 @@
 .related-articles-label {
     border-bottom: double 5px #FFC778;
 }
+
+p {
+    line-height: 1.7;
+}
