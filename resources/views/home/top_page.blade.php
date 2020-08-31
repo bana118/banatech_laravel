@@ -10,6 +10,20 @@
     <h1>アプリ一覧</h1>
     <div class="uk-grid uk-flex-center">
         <div class="uk-width-1-2@m uk-margin-top">
+            <a href="https://chrome.google.com/webstore/detail/github-jupyter-diff-viewe/bhncfkebhcnjhjpagogngbcdbapjdiej?hl=ja" class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin uk-link-toggle" uk-grid>
+                <div class="uk-flex-last@s uk-card-media-right uk-cover-container">
+                    <img src="{{ asset('/img/sumnail/github_jupyter_diff_viewer.png') }}" alt="Github Jupyter diff viewer" uk-cover>
+                    <canvas width="250" height="250"></canvas>
+                </div>
+                <div>
+                    <div class="uk-card-body">
+                        <h3 class="uk-card-title">Github Jupyter diff viewer</h3>
+                        <p>GithubのプルリクエストでJupyterファイルの差分を見やすくする</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="uk-width-1-2@m uk-margin-top">
             <a href="/vr_meiro" class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin uk-link-toggle" uk-grid>
                 <div class="uk-flex-last@s uk-card-media-right uk-cover-container">
                     <img src="{{ asset('/img/sumnail/vr_meiro.png') }}" alt="VR迷路" uk-cover>
@@ -79,7 +93,6 @@
                 </div>
             </a>
         </div>
-        <div class="uk-width-1-2@m uk-margin"></div>
     </div>
 </div>
 @endsection
