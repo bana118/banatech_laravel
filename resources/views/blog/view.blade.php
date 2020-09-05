@@ -20,7 +20,8 @@
 @section('content')
 <div class="uk-container uk-container-center uk-background-default">
   <h1 class="article-title">{{ $article->title }}</h1>
-  <h4>{{ $article->updated_at->format('Y年m月d日') }}</h4>
+  <p>作成: {{ $article->created_at->format('Y年m月d日') }}</p>
+  <p>更新: {{ $article->updated_at->format('Y年m月d日') }}</p>
   <p>
     カテゴリー：
     @foreach ($article->categories as $category)
@@ -28,7 +29,7 @@
     @endforeach
   </p>
   <div id="markdown_content" src="{{ asset('uploaded/'.$article->md_file) }}"></div>
-  <h3 class="related-articles-label">関連記事</h3>
+  <h2 class="related-articles-label">関連記事</h2>
   <p class="related-articles">
     @foreach ($relatedArticles as $relatedArticle)
     <a class="uk-link" href="/blog/view/{{ $relatedArticle->id }}">{{ $relatedArticle->title }}</a>
