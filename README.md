@@ -5,6 +5,8 @@ php 7.2
 # ローカル開発
 
 ```
+$ git clone https://github.com/bana118/banatech_laravel.git
+$ cd banatech_laravel
 $ cp .env.dev .env
 $ composer install
 $ php artisan key:generate
@@ -16,13 +18,16 @@ $ php artisan serve
 
 # デプロイ
 
+## dockerのインストール
+[Install Docker Engine \| Docker Documentation](https://docs.docker.com/engine/install/)
+
 ## 注意！
 
 docker run -v するとホスト側のディレクトリがコンテナ側のディレクトリを上書きします。public/uploaded ディレクトリやdatabase.sqlite3 ファイルはうっかり消しかねないのでバックアップ必須です。.env などもホスト側のものが使用されかねないので注意が必要です。docker内に入り.env のAPP_KEYを確かめる必要があります。
 そのときはdocker内に入り以下のコマンドを実行。
 
 ```
-$ sudo docker exec -i -t ${container_id} bash
+$ sudo docker exec -i -t banatech bash
 # cd /home/docker/code/banatech_laravel
 # composer install --optimize-autoloader --no-dev
 # npm install
@@ -33,15 +38,18 @@ $ sudo docker exec -i -t ${container_id} bash
 ## httpのみでデプロイ
 
 ```
-$ sudo cp .env.prod .env
-$ sudo cp nginx-app.conf.temp nginx-app.conf
-$ sudo chmod -R 777 storage
-$ sudo chmod -R 777 bootstrap/cache
-$ sudo chmod -R 777 database
-$ sudo chmod -R 777 public
+$ cd
+$ git clone https://github.com/bana118/banatech_laravel.git
+$ cd banatech_laravel
+$ cp .env.prod .env
+$ cp nginx-app.conf.temp nginx-app.conf
+$ chmod -R 777 storage
+$ chmod -R 777 bootstrap/cache
+$ chmod -R 777 database
+$ chmod -R 777 public
 $ sudo docker build -t banatech_laravel .
-$ sudo docker run -d -p 80:80 -p 443:443 -v /home/docker/code:/home/docker/code -v /etc/letsencrypt:/etc/letsencrypt banatech_laravel
-$ sudo docker exec -i -t ${container_id} bash
+$ sudo docker run --name banatech -d -p 80:80 -p 443:443 -v ~:/home/docker/code -v /etc/letsencrypt:/etc/letsencrypt banatech_laravel
+$ sudo docker exec -i -t banatech bash
 # cd /home/docker/code/banatech_laravel
 # composer install --optimize-autoloader --no-dev
 # npm install
@@ -51,18 +59,19 @@ $ sudo docker exec -i -t ${container_id} bash
 ## letsencryptで証明書取得
 
 ```
-$ apt-get install certbot
-$ sudo certbot certonly --webroot -w /home/docker/code/banatech_laravel/public -d mydomain.com
+$ apt install certbot
+$ sudo certbot certonly --webroot -w /home/docker/code/banatech_laravel/public -d example.com
 ```
 
 ## httpsでデプロイ
 
 ```
-$ sudo mv nginx-app.conf nginx-app.conf.temp
-$ sudo cp nginx-app.conf.prod nginx-app.conf
-$ sudo mkdir -p /home/docker/code/dhparam
-$ sudo openssl dhparam -out /home/docker/code/dhparam/dhparam4096.pem 4096
-$ sudo docker exec -i -t ${container_id} bash
+$ mv nginx-app.conf nginx-app.conf.temp
+$ cp nginx-app.conf.prod nginx-app.conf
+$ cd
+$ mkdir dhparam
+$ openssl dhparam -out ~/dhparam/dhparam4096.pem 4096
+$ sudo docker exec -i -t banatech bash
 # cd /home/docker/code/banatech_laravel
 # mv nginx-app.conf nginx-app.conf.temp
 # cp nginx-app.conf.prod nginx-app.conf
@@ -87,37 +96,37 @@ $ crontab -e
 crontabに以下追記
 
 ```
-0 4 1 * * sudo certbot renew && sudo docker restart ${container_id}
+0 4 1 * * sudo certbot renew && sudo docker restart banatech
 ```
 
 ## 更新
 
 ```
-$ sudo git pull
-$ sudo cp -pR ./ /home/docker/code/banatech_laravel
-$ docker restart ${container_id}
+$ git pull
+$ docker restart banatech
 ```
 
 必要に応じて
 
 ```
-$ sudo docker exec -i -t ${container_id} bash
+$ sudo docker exec -i -t banatech bash
 # composer update
 # composer install --optimize-autoloader --no-dev
-# npm install
+# php artisan migrate
+# npm ci
 # npm run prod
 ```
 
 ## docker内確認
 
 ```
-$ sudo docker exec -i -t ${container_id} bash
+$ sudo docker exec -i -t banatech bash
 ```
 
 ## アップロードサイズ，ポストのサイズの上限解放
 php.iniを編集
 ```
-$ sudo docker exec -i -t ${container_id} bash
+$ sudo docker exec -i -t banatech bash
 # vim /etc/php/7.2/fpm/php.ini
 ```
 
