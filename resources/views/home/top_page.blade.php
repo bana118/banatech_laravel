@@ -10,6 +10,20 @@
     <h1>アプリ一覧</h1>
     <div class="uk-grid uk-flex-center">
         <div class="uk-width-1-2@m uk-margin-top">
+            <a href="https://play.google.com/store/apps/details?id=net.banatech.app.android.sabi_alarm" class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin uk-link-toggle" uk-grid>
+                <div class="uk-flex-last@s uk-card-media-right uk-cover-container">
+                    <img src="{{ asset('/img/sumnail/sabi_alarm.png') }}" alt="sabi_alarm" uk-cover>
+                    <canvas width="250" height="250"></canvas>
+                </div>
+                <div>
+                    <div class="uk-card-body">
+                        <h3 class="uk-card-title">サビアラーム</h3>
+                        <p>アラーム音の再生開始時間を変更できるAndroidアラームアプリ</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="uk-width-1-2@m uk-margin-top">
             <a href="https://chrome.google.com/webstore/detail/github-jupyter-diff-viewe/bhncfkebhcnjhjpagogngbcdbapjdiej?hl=ja" class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin uk-link-toggle" uk-grid>
                 <div class="uk-flex-last@s uk-card-media-right uk-cover-container">
                     <img src="{{ asset('/img/sumnail/github_jupyter_diff_viewer.png') }}" alt="Github Jupyter diff viewer" uk-cover>
@@ -92,6 +106,8 @@
                     </div>
                 </div>
             </a>
+        </div>
+        <div class="uk-width-1-2@m uk-margin-top">
         </div>
     </div>
 </div>
