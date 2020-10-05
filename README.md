@@ -65,6 +65,8 @@ $ sudo apt install -y certbot
 $ sudo certbot certonly --webroot -w ~/banatech_laravel/public -d example.com
 ```
 
+メールアドレスの入力，規約の承諾などを行う．
+
 ## httpsでデプロイ
 
 ```
