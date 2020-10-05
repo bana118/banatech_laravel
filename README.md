@@ -28,7 +28,7 @@ docker run -v するとホスト側のディレクトリがコンテナ側のデ
 
 ```
 $ sudo docker exec -i -t banatech bash
-# cd /home/docker/code/banatech_laravel
+# cd ~/banatech_laravel
 # composer install --optimize-autoloader --no-dev
 # npm install
 # npm run prod
@@ -48,9 +48,9 @@ $ chmod -R 777 bootstrap/cache
 $ chmod -R 777 database
 $ chmod -R 777 public
 $ sudo docker build -t banatech_laravel .
-$ sudo docker run --name banatech -d -p 80:80 -p 443:443 -v ~:/home/docker/code -v /etc/letsencrypt:/etc/letsencrypt banatech_laravel
+$ sudo docker run --name banatech -d -p 80:80 -p 443:443 -v ~:/root -v /etc/letsencrypt:/etc/letsencrypt banatech_laravel
 $ sudo docker exec -i -t banatech bash
-# cd /home/docker/code/banatech_laravel
+# cd ~/banatech_laravel
 # composer install --optimize-autoloader --no-dev
 # npm install
 # npm run prod
@@ -59,8 +59,10 @@ $ sudo docker exec -i -t banatech bash
 ## letsencryptで証明書取得
 
 ```
-$ apt install certbot
-$ sudo certbot certonly --webroot -w /home/docker/code/banatech_laravel/public -d example.com
+$ sudo add-apt-repository ppa:certbot/certbot
+$ sudo apt update
+$ sudo apt install -y certbot
+$ sudo certbot certonly --webroot -w ~/banatech_laravel/public -d example.com
 ```
 
 ## httpsでデプロイ
@@ -72,7 +74,7 @@ $ cd
 $ mkdir dhparam
 $ openssl dhparam -out ~/dhparam/dhparam4096.pem 4096
 $ sudo docker exec -i -t banatech bash
-# cd /home/docker/code/banatech_laravel
+# cd ~/banatech_laravel
 # mv nginx-app.conf nginx-app.conf.temp
 # cp nginx-app.conf.prod nginx-app.conf
 # cp nginx-app.conf /etc/nginx/sites-available/default
@@ -82,10 +84,8 @@ $ sudo docker exec -i -t banatech bash
 ## letsencrypt更新確認
 
 ```
-$ sudo certbot renew --force-renew --dry-run --webroot-path /home/docker/code/banatech_laravel/public
+$ sudo certbot renew --force-renew --dry-run --webroot-path ~/banatech_laravel/public
 ```
-certbotのバージョンが0.32以前だと--dry-runでエラーが起きるそうです。
-[Problem with renew certificates - The request message was malformed :: Method not allowed - Help - Let's Encrypt Community Support](https://community.letsencrypt.org/t/problem-with-renew-certificates-the-request-message-was-malformed-method-not-allowed/107889)
 
 ## letsencrypt自動更新
 
@@ -93,7 +93,7 @@ certbotのバージョンが0.32以前だと--dry-runでエラーが起きるそ
 $ crontab -e
 ```
 
-crontabに以下追記
+crontabに以下を追記
 
 ```
 0 4 1 * * sudo certbot renew && sudo docker restart banatech
