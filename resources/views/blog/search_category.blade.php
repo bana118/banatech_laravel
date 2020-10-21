@@ -5,7 +5,7 @@
 
 @section('card_body')
 
-<div class="uk-card-body">
-    「{{ $categoryName }}」のカテゴリ検索結果
-</div>
+    <div class="uk-card-body">
+        「{{ $categoryName }}」のカテゴリ検索結果
+    </div>
 @endsection

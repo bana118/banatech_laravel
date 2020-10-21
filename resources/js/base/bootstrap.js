@@ -1,4 +1,4 @@
-window._ = require('lodash');
+window._ = require("lodash");
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -6,12 +6,11 @@ window._ = require('lodash');
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = require('axios');
+window.axios = require("axios");
 
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 try {
-    window.$ = window.jQuery = require('jquery');
-
+    window.$ = window.jQuery = require("jquery");
 } catch (e) {}
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
@@ -29,4 +28,3 @@ try {
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
-

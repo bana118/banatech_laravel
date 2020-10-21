@@ -13,4 +13,3 @@ Route::get('/sitemap', 'SiteMapController@sitemap');
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
-

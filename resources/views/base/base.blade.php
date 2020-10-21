@@ -37,7 +37,8 @@
                         <li class="uk-text-center uk-logo" style="padding: 0 0 25px 0;">
                             <a href="/">
                                 banaTECH
-                            </a></li>
+                            </a>
+                        </li>
                         <li>
                             <hr>
                         </li>

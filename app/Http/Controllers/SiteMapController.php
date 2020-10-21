@@ -35,12 +35,12 @@ class siteMapController extends Controller
             // get all blog article from db
             $articles = Article::orderBy('updated_at', 'desc')->get();
             foreach ($articles as $article) {
-                $sitemap->add(URL::to('/blog/view/'.$article->id), $article->updated_at, '0.8', 'yearly');
+                $sitemap->add(URL::to('/blog/view/' . $article->id), $article->updated_at, '0.8', 'yearly');
             }
             $sitemap->add(URL::to('/blog/all_categories'), $now, '0.7', 'monthly');
             $categories = Category::orderBy('updated_at', 'desc')->get();
             foreach ($categories as $category) {
-                $sitemap->add(URL::to('/blog/category/'.$category->id), $category->updated_at, '0.6', 'yearly');
+                $sitemap->add(URL::to('/blog/category/' . $category->id), $category->updated_at, '0.6', 'yearly');
             }
 
             //latex_editor

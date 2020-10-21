@@ -4,7 +4,7 @@
 @section('description', 'プログラミングやガジェットに関するブログ')
 
 @section('card_body')
-<div class="uk-card-body">
-    プログラミングやガジェットに関するブログ
-</div>
+    <div class="uk-card-body">
+        プログラミングやガジェットに関するブログ
+    </div>
 @endsection

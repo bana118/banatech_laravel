@@ -51,50 +51,50 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapHomeRoutes()
     {
         Route::middleware('web')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/home.php'));
+            ->namespace($this->namespace)
+            ->group(base_path('routes/home.php'));
     }
 
     protected function mapBlogRoutes()
     {
         Route::middleware('web')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/blog.php'));
+            ->namespace($this->namespace)
+            ->group(base_path('routes/blog.php'));
     }
 
     protected function mapLatexEditorRoutes()
     {
         Route::middleware('web')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/latex_editor.php'));
+            ->namespace($this->namespace)
+            ->group(base_path('routes/latex_editor.php'));
     }
 
     protected function mapKurukuruRoutes()
     {
         Route::middleware('web')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/kurukuru.php'));
+            ->namespace($this->namespace)
+            ->group(base_path('routes/kurukuru.php'));
     }
 
     protected function mapHakoguchaRoutes()
     {
         Route::middleware('web')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/hakogucha.php'));
+            ->namespace($this->namespace)
+            ->group(base_path('routes/hakogucha.php'));
     }
 
     protected function mapReiwaRoutes()
     {
         Route::middleware('web')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/reiwa.php'));
+            ->namespace($this->namespace)
+            ->group(base_path('routes/reiwa.php'));
     }
 
     protected function mapVrMeiroRoutes()
     {
         Route::middleware('web')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/vr_meiro.php'));
+            ->namespace($this->namespace)
+            ->group(base_path('routes/vr_meiro.php'));
     }
 
     /**

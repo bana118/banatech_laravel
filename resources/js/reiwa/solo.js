@@ -1,5 +1,5 @@
-import UIkit from 'uikit';
-import * as tf from '@tensorflow/tfjs';
+import UIkit from "uikit";
+import * as tf from "@tensorflow/tfjs";
 
 var can;
 var ct;
@@ -17,14 +17,15 @@ var canW, canH;
 var gameStartSE, correctSE, wrongSE, bgm; //BGM,SE
 var write1Img, write2Img, correctImg, wrongImg;
 var writeImgState = 1; //書いている画像のどっちを出すか
-onload = function () {
+onload = function() {
     write1Img = document.getElementById("write1");
     write2Img = document.getElementById("write2");
     correctImg = document.getElementById("correct");
     wrongImg = document.getElementById("wrong");
     can = document.getElementById("can");
     var wrapCanWidth = document.getElementById("wrap-can").clientWidth;
-    if (wrapCanWidth*2 + 200 > window.innerHeight) { // 200は適当
+    if (wrapCanWidth * 2 + 200 > window.innerHeight) {
+        // 200は適当
         canH = window.innerHeight - 200;
         canW = canH / 2;
     } else {
@@ -38,31 +39,34 @@ onload = function () {
     var testTensor = tf.fill([1, 32, 32, 3], 0);
     preloadModel();
     async function preloadModel() {
-        const model = await tf.loadLayersModel(location.origin + "/other/reiwa/model/model.json");
+        const model = await tf.loadLayersModel(
+            location.origin + "/other/reiwa/model/model.json"
+        );
         const pre = model.predict(testTensor, {
-            batchSize: 1
+            batchSize: 1,
         });
     }
     mam_draw_init();
     music_init();
-}
+};
 
 function music_init() {
     ct.font = canW / 9 + "px 'ＭＳ Ｐゴシック'";
     ct.fillStyle = "blue";
     ct.fillText("ロード中...", 0, canH / 2);
-    var manifest = [{
-        src: location.origin + "/music/reiwa/gamestart.mp3"
-    },
-    {
-        src: location.origin + "/music/reiwa/ariori.mp3"
-    },
-    {
-        src: location.origin + "/music/reiwa/correct.mp3"
-    },
-    {
-        src: location.origin + "/music/reiwa/wrong.mp3"
-    }
+    var manifest = [
+        {
+            src: location.origin + "/music/reiwa/gamestart.mp3",
+        },
+        {
+            src: location.origin + "/music/reiwa/ariori.mp3",
+        },
+        {
+            src: location.origin + "/music/reiwa/correct.mp3",
+        },
+        {
+            src: location.origin + "/music/reiwa/wrong.mp3",
+        },
     ];
     var loadQueue = new createjs.LoadQueue();
     loadQueue.installPlugin(createjs.Sound);
@@ -87,7 +91,7 @@ function music_init() {
         ct.font = canW / 9 + "px 'ＭＳ Ｐゴシック'";
         ct.fillStyle = "blue";
         ct.fillText("タッチでスタート！", 0, canH / 2);
-        ct.fillText("(音量注意！)", 0, (canH / 2) + (canW / 9));
+        ct.fillText("(音量注意！)", 0, canH / 2 + canW / 9);
         gameStartSE = new Music("gamestart", manifest[0].src);
         bgm = new Music("bgm", manifest[1].src);
         correctSE = new Music("correct", manifest[2].src);
@@ -113,17 +117,22 @@ function gameOver() {
     document.getElementById("clearButton").style.display = "none";
     document.getElementById("backButton").style.display = "inline-block";
     var finalScore = document.getElementById("finalScore");
-    finalScore.innerHTML = "正解した数：" + correctCount + "\n間違えた数：" + wrongCount;
+    finalScore.innerHTML =
+        "正解した数：" + correctCount + "\n間違えた数：" + wrongCount;
     var twitterLink = document.getElementById("twitterLink");
-    twitterLink.href = "https://twitter.com/share?url=https://banateck.tk/reiwa&text=令和で書き初め！%0a正解した数：" +
-        correctCount + "枚%0a間違えた数：" + wrongCount + "枚%0a&hashtags=令和で書き初め,令和,新元号";
+    twitterLink.href =
+        "https://twitter.com/share?url=https://banateck.tk/reiwa&text=令和で書き初め！%0a正解した数：" +
+        correctCount +
+        "枚%0a間違えた数：" +
+        wrongCount +
+        "枚%0a&hashtags=令和で書き初め,令和,新元号";
     var modalElement = document.getElementById("finishModal");
     UIkit.modal(modalElement).show();
 }
 
 //ゲームの制限時間をはかる
 function correctCountDown() {
-    var timer = setInterval(function () {
+    var timer = setInterval(function() {
         time--;
         document.getElementById("time").innerHTML = time;
         if (time < 1) {
@@ -145,7 +154,7 @@ function mam_draw_init() {
     can.addEventListener("mouseleave", onMouseUp, false);
     ct = can.getContext("2d");
     ct.strokeStyle = "#000000";
-    ct.lineWidth = 7 * can.width / 128;
+    ct.lineWidth = (7 * can.width) / 128;
     ct.lineJoin = "round";
     ct.lineCap = "round";
     clearCan();
@@ -183,8 +192,12 @@ function onDown(event) {
     if (!sub && gameState == 1) {
         writeImgChange();
         mf = true;
-        ox = event.touches[0].clientX - event.touches[0].target.getBoundingClientRect().left;
-        oy = event.touches[0].clientY - event.touches[0].target.getBoundingClientRect().top;
+        ox =
+            event.touches[0].clientX -
+            event.touches[0].target.getBoundingClientRect().left;
+        oy =
+            event.touches[0].clientY -
+            event.touches[0].target.getBoundingClientRect().top;
         event.stopPropagation();
     } else if (gameState == 0) {
         writeImgChange();
@@ -194,8 +207,12 @@ function onDown(event) {
 
 function onMove(event) {
     if (mf) {
-        x = event.touches[0].clientX - event.touches[0].target.getBoundingClientRect().left;
-        y = event.touches[0].clientY - event.touches[0].target.getBoundingClientRect().top;
+        x =
+            event.touches[0].clientX -
+            event.touches[0].target.getBoundingClientRect().left;
+        y =
+            event.touches[0].clientY -
+            event.touches[0].target.getBoundingClientRect().top;
         drawLine();
         ox = x;
         oy = y;
@@ -251,13 +268,14 @@ function clearCan() {
     }
 }
 
-window.gameClearCan = function () {
+window.gameClearCan = function() {
     if (gameState == 1) {
         clearCan();
     }
-}
+};
 
-function strokeCircle(num) { //num:何文字目か
+function strokeCircle(num) {
+    //num:何文字目か
     var p;
     if (num == 0) {
         p = 0;
@@ -265,13 +283,14 @@ function strokeCircle(num) { //num:何文字目か
         p = canW;
     }
     ct.beginPath();
-    ct.arc(canW / 2, canW / 2 + p, canW * 3 / 8, 0, Math.PI * 2, false);
-    ct.strokeStyle = 'red';
+    ct.arc(canW / 2, canW / 2 + p, (canW * 3) / 8, 0, Math.PI * 2, false);
+    ct.strokeStyle = "red";
     ct.stroke();
-    ct.strokeStyle = 'black';
+    ct.strokeStyle = "black";
 }
 
-function strokeCross(num) { //num:何文字目か
+function strokeCross(num) {
+    //num:何文字目か
     var p;
     if (num == 0) {
         p = 0;
@@ -292,17 +311,17 @@ function strokeCross(num) { //num:何文字目か
     ct.lineTo(x * 7, x * 2 + p);
     ct.lineTo(x * 6, x + p);
     ct.lineTo(x * 4, x * 3 + p);
-    ct.fillStyle = 'blue';
+    ct.fillStyle = "blue";
     ct.fill();
 }
 
-window.submit = function () {
+window.submit = function() {
     if (sub == false && gameState == 1) {
         sub = true;
-        var temp = document.createElement('canvas');
+        var temp = document.createElement("canvas");
         temp.width = 32;
         temp.height = 64;
-        var tempCtx = temp.getContext('2d');
+        var tempCtx = temp.getContext("2d");
         tempCtx.drawImage(can, 0, 0, temp.width, temp.height);
         var imageData = tempCtx.getImageData(0, 0, temp.width, temp.height);
         for (var i = 0; i < imageData.data.length / 4; i++) {
@@ -320,12 +339,14 @@ window.submit = function () {
         waTensor = waTensor.reshape([1, 32, 32, 3]);
         loadPretrainedModel();
         async function loadPretrainedModel() {
-            const model = await tf.loadLayersModel(location.origin + "/other/reiwa/model/model.json");
+            const model = await tf.loadLayersModel(
+                location.origin + "/other/reiwa/model/model.json"
+            );
             const reiPrediction = model.predict(reiTensor, {
-                batchSize: 1
+                batchSize: 1,
             });
             const waPrediction = model.predict(waTensor, {
-                batchSize: 1
+                batchSize: 1,
             });
             const rei1 = reiPrediction.arraySync()[0][0];
             const rei2 = reiPrediction.arraySync()[0][1];
@@ -335,15 +356,17 @@ window.submit = function () {
                 correctSE.play();
                 correctCount += 1;
                 time += 3;
-                document.getElementById("correctCount").innerHTML = correctCount;
+                document.getElementById(
+                    "correctCount"
+                ).innerHTML = correctCount;
                 strokeCircle(0);
                 strokeCircle(1);
             } else {
                 wrongImgChange();
                 wrongSE.play();
-                wrongCount += 1
+                wrongCount += 1;
                 document.getElementById("wrongCount").innerHTML = wrongCount;
-                if ((rei1 > 0.9 || rei2 > 0.9)) {
+                if (rei1 > 0.9 || rei2 > 0.9) {
                     strokeCircle(0);
                 } else {
                     strokeCross(0);
@@ -354,13 +377,13 @@ window.submit = function () {
                     strokeCross(1);
                 }
             }
-            setTimeout(function () {
+            setTimeout(function() {
                 sub = false;
                 clearCan();
             }, 2000);
         }
     }
-}
+};
 //効果音
 class Music {
     constructor(SOUND_ID, SOUND_PATH) {
@@ -368,7 +391,7 @@ class Music {
         this.src = SOUND_PATH;
         createjs.Sound.registerSound({
             id: SOUND_ID,
-            src: SOUND_PATH
+            src: SOUND_PATH,
         });
         this.volume = 1;
         this.instance = createjs.Sound.createInstance(this.SOUND_ID);
@@ -376,7 +399,7 @@ class Music {
     play() {
         this.instance.volume = this.volume;
         this.instance.play({
-            loop: 0
+            loop: 0,
         });
     }
     changeVolume(v) {
