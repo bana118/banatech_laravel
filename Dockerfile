@@ -5,7 +5,7 @@ FROM ubuntu:18.04
 ENV DEBIAN_FRONTEND=noninteractive
 
 #Author
-MAINTAINER banatech
+LABEL maintainer="banatech.net"
 
 CMD echo "now running..."
 
@@ -14,15 +14,15 @@ RUN apt update && \
     apt upgrade -y && \
     apt install -y \
     curl \
-	git \
-	nano \
+    git \
+    nano \
     vim-nox \
-	nginx \
+    nginx \
     supervisor \
     nodejs \
     npm \
     composer \
-	php \
+    php \
     php-zip \
     php-xml \
     php-json \
@@ -31,8 +31,8 @@ RUN apt update && \
     php-sqlite3 \
     php-bcmath \
     php-fpm \
-	certbot \
-	sqlite3 && \
+    certbot \
+    sqlite3 && \
     rm -rf /var/lib/apt/lists/*
 
 # update node npm
