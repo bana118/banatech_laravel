@@ -1,4 +1,4 @@
-import anime from 'animejs'
+import anime from "animejs";
 
 var controller; //サークル型コントローラー
 var board; //ゲームの盤面を2次元配列で記録
@@ -8,7 +8,7 @@ var scoreTime; //スコアアップ時のtimeを記録する用
 var mode; //ゲームをスタートしているかどうか 1:ゲーム中 0:ゲーム開始前 -1:ゲームオーバー
 var count; //ゲームスタート時のカウントダウン用
 
-onload = function () {
+onload = function() {
     controller = new Controller();
     board = new Board();
     document.getElementById("outputVolume").innerHTML = 100;
@@ -16,7 +16,8 @@ onload = function () {
     startSoundEffect.src = location.origin + "/music/kurukuru/gamestart.mp3";
     startSoundEffect.load();
     var countDownSoundEffect = document.getElementById("countDownSoundEffect");
-    countDownSoundEffect.src = location.origin + "/music/kurukuru/countdown.mp3";
+    countDownSoundEffect.src =
+        location.origin + "/music/kurukuru/countdown.mp3";
     countDownSoundEffect.load();
     var overSoundEffect = document.getElementById("overSoundEffect");
     overSoundEffect.src = location.origin + "/music/kurukuru/gameover.mp3";
@@ -43,7 +44,7 @@ const controllerSize = size * 2 + margin * 4; //コントローラーのサイ�
 const spanSize = 40; //コントローラーの隙間のサイズ
 
 //音量変更
-window.setVolume = function (value) {
+window.setVolume = function(value) {
     var startSoundEffect = document.getElementById("startSoundEffect");
     var moveSoundEffect = document.getElementById("moveSoundEffect");
     var rotateSoundEffect = document.getElementById("rotateSoundEffect");
@@ -60,21 +61,21 @@ window.setVolume = function (value) {
     overSoundEffect.voleme = volume;
     BGM.volume = volume;
     document.getElementById("outputVolume").innerHTML = value;
-}
+};
 
 function initScreen() {
     var screen = document.getElementById("screen");
     var ctx = screen.getContext("2d");
     var img = new Image();
     img.src = location.origin + "/img/kurukuru/gamestart.png";
-    img.onload = function () {
+    img.onload = function() {
         ctx.drawImage(img, 0, 0, backgroundSize, backgroundSize);
-    }
+    };
 }
 
 //ゲームの制限時間をはかる
 function countDown() {
-    var timer = setInterval(function () {
+    var timer = setInterval(function() {
         time--;
         document.getElementById("time").innerHTML = "time: " + time;
         if (time < 1) {
@@ -86,7 +87,9 @@ function countDown() {
 
 window.gameStart = function gameStart() {
     if (mode == 0) {
-        var countDownSoundEffect = document.getElementById("countDownSoundEffect");
+        var countDownSoundEffect = document.getElementById(
+            "countDownSoundEffect"
+        );
         var screen = document.getElementById("screen");
         var ctx = screen.getContext("2d");
         var img = new Image();
@@ -94,33 +97,34 @@ window.gameStart = function gameStart() {
         BGM.src = location.origin + "/music/kurukuru/mozegaku_09_idance.mp3";
         BGM.load();
         var startSoundEffect = document.getElementById("startSoundEffect");
-        startSoundEffect.src = location.origin + "/music/kurukuru/gamestart.mp3";
+        startSoundEffect.src =
+            location.origin + "/music/kurukuru/gamestart.mp3";
         startSoundEffect.load();
         BGM.currentTime = 0;
         if (count == 3) {
             countDownSoundEffect.play();
             img.src = location.origin + "/img/kurukuru/three.png";
-            img.onload = function () {
+            img.onload = function() {
                 ctx.drawImage(img, 0, 0, backgroundSize, backgroundSize);
                 count--;
                 setTimeout("gameStart()", 1000);
-            }
+            };
         } else if (count == 2) {
             countDownSoundEffect.play();
             img.src = location.origin + "/img/kurukuru/two.png";
-            img.onload = function () {
+            img.onload = function() {
                 ctx.drawImage(img, 0, 0, backgroundSize, backgroundSize);
                 count--;
                 setTimeout("gameStart()", 1000);
-            }
+            };
         } else if (count == 1) {
             countDownSoundEffect.play();
             img.src = location.origin + "/img/kurukuru/one.png";
-            img.onload = function () {
+            img.onload = function() {
                 ctx.drawImage(img, 0, 0, backgroundSize, backgroundSize);
                 count--;
                 setTimeout("gameStart()", 1000);
-            }
+            };
         } else if (count == 0) {
             if (BGM.readyState === 4) {
                 BGM.play();
@@ -129,8 +133,8 @@ window.gameStart = function gameStart() {
                 countDown();
                 startSoundEffect.play();
             } else {
-                BGM.addEventListener('canplaythrough', function BGMPlay(e) {
-                    BGM.removeEventListener('canplaythrough', BGMPlay);
+                BGM.addEventListener("canplaythrough", function BGMPlay(e) {
+                    BGM.removeEventListener("canplaythrough", BGMPlay);
                     BGM.play();
                     mode = 1;
                     ctx.clearRect(0, 0, backgroundSize, backgroundSize);
@@ -139,14 +143,17 @@ window.gameStart = function gameStart() {
                 });
             }
         }
-    } else if (mode == -1) { //ゲームオーバー画面から初期画面への移動]
-        var countDownSoundEffect = document.getElementById("countDownSoundEffect");
+    } else if (mode == -1) {
+        //ゲームオーバー画面から初期画面への移動]
+        var countDownSoundEffect = document.getElementById(
+            "countDownSoundEffect"
+        );
         countDownSoundEffect.play();
         mode = 0;
         reset();
         initScreen();
     }
-}
+};
 
 //ゲームオーバー処理
 function gameOver() {
@@ -159,9 +166,9 @@ function gameOver() {
     var ctx = screen.getContext("2d");
     var img = new Image();
     img.src = location.origin + "/img/kurukuru/gameover.png";
-    img.onload = function () {
+    img.onload = function() {
         ctx.drawImage(img, 0, 0, backgroundSize, backgroundSize);
-    }
+    };
 }
 
 //初期状態に戻す
@@ -189,42 +196,41 @@ function scoreUp() {
 }
 
 //ボタンからの操作
-window.buttonRight = function () {
+window.buttonRight = function() {
     if (mode == 1) {
         controller.moveRight();
     }
+};
 
-}
-
-window.buttonLeft = function () {
+window.buttonLeft = function() {
     if (mode == 1) {
         controller.moveLeft();
     }
-}
+};
 
-window.buttonUp = function () {
+window.buttonUp = function() {
     if (mode == 1) {
         controller.moveUp();
     }
-}
+};
 
-window.buttonDown = function () {
+window.buttonDown = function() {
     if (mode == 1) {
         controller.moveDown();
     }
-}
+};
 
-window.buttonClockwise = function () {
+window.buttonClockwise = function() {
     if (mode == 1) {
         blockClockwise(controller.x, controller.y);
     }
-}
+};
 
-window.buttonCounterClockwise = function () {
+window.buttonCounterClockwise = function() {
     if (mode == 1) {
         blockCounterClockwise(controller.x, controller.y);
     }
-}
+};
 
 document.onkeydown = keydown;
 
@@ -262,7 +268,6 @@ function blockClockwise(controllerX, controllerY) {
         rotate: [-90, 0],
         duration: 500,
     });
-
 }
 
 function blockCounterClockwise(controllerX, controllerY) {
@@ -277,8 +282,6 @@ function blockCounterClockwise(controllerX, controllerY) {
         rotate: [90, 0],
         duration: 500,
     });
-
-
 }
 
 class Board {
@@ -290,7 +293,7 @@ class Board {
             [3, 4, 5, 1, 2, 3],
             [4, 5, 1, 2, 3, 4],
             [5, 1, 2, 3, 4, 5],
-            [1, 2, 3, 4, 5, 1]
+            [1, 2, 3, 4, 5, 1],
         ];
     }
 
@@ -302,7 +305,7 @@ class Board {
             [3, 4, 5, 1, 2, 3],
             [4, 5, 1, 2, 3, 4],
             [5, 1, 2, 3, 4, 5],
-            [1, 2, 3, 4, 5, 1]
+            [1, 2, 3, 4, 5, 1],
         ];
         this.paint();
     }
@@ -312,8 +315,11 @@ class Board {
         var i, j;
         for (i = 0; i < 5; i++) {
             for (j = 0; j < 5; j++) {
-                if (this.array[i][j] == this.array[i][j + 1] && this.array[i][j] == this.array[i + 1][j] &&
-                    this.array[i][j] == this.array[i + 1][j + 1]) {
+                if (
+                    this.array[i][j] == this.array[i][j + 1] &&
+                    this.array[i][j] == this.array[i + 1][j] &&
+                    this.array[i][j] == this.array[i + 1][j + 1]
+                ) {
                     this.array[i][j] = 0;
                     this.array[i][j + 1] = 0;
                     this.array[i + 1][j] = 0;
@@ -322,7 +328,6 @@ class Board {
                 }
             }
         }
-
     }
 
     //盤面を画面に反映
@@ -349,17 +354,29 @@ class Board {
 
     boardClockwise(controllerX, controllerY) {
         var temp = this.array[controllerX][controllerY];
-        this.array[controllerX][controllerY] = this.array[controllerX][controllerY + 1];
-        this.array[controllerX][controllerY + 1] = this.array[controllerX + 1][controllerY + 1];
-        this.array[controllerX + 1][controllerY + 1] = this.array[controllerX + 1][controllerY];
+        this.array[controllerX][controllerY] = this.array[controllerX][
+            controllerY + 1
+        ];
+        this.array[controllerX][controllerY + 1] = this.array[controllerX + 1][
+            controllerY + 1
+        ];
+        this.array[controllerX + 1][controllerY + 1] = this.array[
+            controllerX + 1
+        ][controllerY];
         this.array[controllerX + 1][controllerY] = temp;
     }
 
     boardCounterClockwise(controllerX, controllerY) {
         var temp = this.array[controllerX][controllerY];
-        this.array[controllerX][controllerY] = this.array[controllerX + 1][controllerY];
-        this.array[controllerX + 1][controllerY] = this.array[controllerX + 1][controllerY + 1];
-        this.array[controllerX + 1][controllerY + 1] = this.array[controllerX][controllerY + 1];
+        this.array[controllerX][controllerY] = this.array[controllerX + 1][
+            controllerY
+        ];
+        this.array[controllerX + 1][controllerY] = this.array[controllerX + 1][
+            controllerY + 1
+        ];
+        this.array[controllerX + 1][controllerY + 1] = this.array[controllerX][
+            controllerY + 1
+        ];
         this.array[controllerX][controllerY + 1] = temp;
     }
 }
@@ -367,8 +384,8 @@ class Controller {
     constructor() {
         this.x = 0;
         this.y = 0;
-        this.controller = document.getElementById('controller');
-        this.ctx = this.controller.getContext('2d');
+        this.controller = document.getElementById("controller");
+        this.ctx = this.controller.getContext("2d");
         this.position();
     }
 
@@ -385,8 +402,18 @@ class Controller {
         this.ctx.beginPath();
         this.ctx.lineWidth = 2;
         this.ctx.strokeRect(1, 1, controllerSize - 2, controllerSize - 2);
-        this.ctx.clearRect(controllerSize / 2 - spanSize / 2, 0, spanSize, controllerSize);
-        this.ctx.clearRect(0, controllerSize / 2 - spanSize / 2, controllerSize, spanSize);
+        this.ctx.clearRect(
+            controllerSize / 2 - spanSize / 2,
+            0,
+            spanSize,
+            controllerSize
+        );
+        this.ctx.clearRect(
+            0,
+            controllerSize / 2 - spanSize / 2,
+            controllerSize,
+            spanSize
+        );
     }
 
     moveRight() {
@@ -476,9 +503,9 @@ function fillRed(block) {
     if (!block || !block.getContext) {
         return false;
     }
-    var ctx = block.getContext('2d');
+    var ctx = block.getContext("2d");
     ctx.beginPath();
-    ctx.fillStyle = 'red';
+    ctx.fillStyle = "red";
     ctx.fillRect(0, 0, size, size);
 }
 
@@ -486,9 +513,9 @@ function fillBlue(block) {
     if (!block || !block.getContext) {
         return false;
     }
-    var ctx = block.getContext('2d');
+    var ctx = block.getContext("2d");
     ctx.beginPath();
-    ctx.fillStyle = 'blue';
+    ctx.fillStyle = "blue";
     ctx.fillRect(0, 0, size, size);
 }
 
@@ -496,9 +523,9 @@ function fillGreen(block) {
     if (!block || !block.getContext) {
         return false;
     }
-    var ctx = block.getContext('2d');
+    var ctx = block.getContext("2d");
     ctx.beginPath();
-    ctx.fillStyle = 'green';
+    ctx.fillStyle = "green";
     ctx.fillRect(0, 0, size, size);
 }
 
@@ -506,9 +533,9 @@ function fillYellow(block) {
     if (!block || !block.getContext) {
         return false;
     }
-    var ctx = block.getContext('2d');
+    var ctx = block.getContext("2d");
     ctx.beginPath();
-    ctx.fillStyle = 'yellow';
+    ctx.fillStyle = "yellow";
     ctx.fillRect(0, 0, size, size);
 }
 
@@ -516,8 +543,8 @@ function fillPurple(block) {
     if (!block || !block.getContext) {
         return false;
     }
-    var ctx = block.getContext('2d');
+    var ctx = block.getContext("2d");
     ctx.beginPath();
-    ctx.fillStyle = 'purple';
+    ctx.fillStyle = "purple";
     ctx.fillRect(0, 0, size, size);
 }

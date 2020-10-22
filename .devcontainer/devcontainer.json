@@ -1,0 +1,21 @@
+{
+    "name": "banatech_laravel",
+    "dockerFile": "Dockerfile",
+    "forwardPorts": [8000],
+    "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash"
+    },
+    "extensions": [
+        "onecentlin.laravel-blade",
+        "shufo.vscode-blade-formatter",
+        "ryannaddy.laravel-artisan",
+        "bmewburn.vscode-intelephense-client",
+        "felixfbecker.php-debug",
+        "dbaeumer.vscode-eslint",
+        "rvest.vs-code-prettier-eslint",
+        "esbenp.prettier-vscode",
+        "hookyqr.beautify",
+        "junstyle.php-cs-fixer",
+        "ms-azuretools.vscode-docker"
+    ]
+}

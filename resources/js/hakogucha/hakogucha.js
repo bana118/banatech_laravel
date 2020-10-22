@@ -1,5 +1,5 @@
-import anime from 'animejs'
-import { Howl, Howler } from 'howler';
+import anime from "animejs";
+import { Howl, Howler } from "howler";
 
 var board;
 var player;
@@ -18,31 +18,31 @@ var startSoundEffect;
 var overSoundEffect;
 var BGM;
 
-onload = function () {
+onload = function() {
     board = new Board();
     player = new Player();
     reset();
     pushSoundEffect = new Howl({
-        src: [location.origin + "/music/hakogucha/push.mp3"]
+        src: [location.origin + "/music/hakogucha/push.mp3"],
     });
     moveSoundEffect = new Howl({
-        src: [location.origin + "/music/hakogucha/move.mp3"]
+        src: [location.origin + "/music/hakogucha/move.mp3"],
     });
     deleteSoundEffect = new Howl({
-        src: [location.origin + "/music/hakogucha/delete.mp3"]
+        src: [location.origin + "/music/hakogucha/delete.mp3"],
     });
     punchSoundEffect = new Howl({
-        src: [location.origin + "/music/hakogucha/punch.mp3"]
+        src: [location.origin + "/music/hakogucha/punch.mp3"],
     });
     startSoundEffect = new Howl({
-        src: [location.origin + "/music/hakogucha/gamestart.mp3"]
+        src: [location.origin + "/music/hakogucha/gamestart.mp3"],
     });
     overSoundEffect = new Howl({
-        src: [location.origin + "/music/hakogucha/gameover.mp3"]
+        src: [location.origin + "/music/hakogucha/gameover.mp3"],
     });
     BGM = new Howl({
         src: [location.origin + "/music/hakogucha/bgm.mp3"],
-        loop: true
+        loop: true,
     });
     document.getElementById("outputVolume").innerHTML = 100;
 };
@@ -70,48 +70,47 @@ function keydown(event) {
 }
 
 //ボタンからの操作
-window.buttonRight = function () {
+window.buttonRight = function() {
     if (mode == 1) {
         player.moveRight();
     }
+};
 
-}
-
-window.buttonLeft = function () {
+window.buttonLeft = function() {
     if (mode == 1) {
         player.moveLeft();
     }
-}
+};
 
-window.buttonUp = function () {
+window.buttonUp = function() {
     if (mode == 1) {
         player.moveUp();
     }
-}
+};
 
-window.buttonDown = function () {
+window.buttonDown = function() {
     if (mode == 1) {
         player.moveDown();
     }
-}
+};
 
-window.buttonPunch = function () {
+window.buttonPunch = function() {
     if (mode == 1) {
         player.punch();
     }
-}
+};
 
 function initScreen() {
     var screen = document.getElementById("screen");
     var ctx = screen.getContext("2d");
     var img = new Image();
     img.src = location.origin + "/img/hakogucha/hakogucha.png";
-    img.onload = function () {
+    img.onload = function() {
         ctx.drawImage(img, 0, 0, backgroundSize, backgroundSize);
-    }
+    };
 }
 
-window.gameStart = function () {
+window.gameStart = function() {
     if (mode == 0) {
         var screen = document.getElementById("screen");
         var ctx = screen.getContext("2d");
@@ -120,12 +119,13 @@ window.gameStart = function () {
         ctx.font = "30px 'ＭＳ Ｐゴシック'";
         ctx.fillText("Ready...", 120, 160);
         setTimeout(Go, 1000);
-    } else if (mode == -1) { //ゲームオーバー画面から初期画面への移動
+    } else if (mode == -1) {
+        //ゲームオーバー画面から初期画面への移動
         mode = 0;
         reset();
         initScreen();
     }
-}
+};
 
 function Go() {
     var screen = document.getElementById("screen");
@@ -138,7 +138,7 @@ function Go() {
     board.random_generate(0);
     startSoundEffect.play();
     countDown();
-    setTimeout(function () {
+    setTimeout(function() {
         var screen = document.getElementById("screen");
         var ctx = screen.getContext("2d");
         ctx.clearRect(0, 0, backgroundSize, backgroundSize);
@@ -198,28 +198,28 @@ function scoreUp(num) {
     if (combo != 0 && comboTimeID !== null) {
         clearTimeout(comboTimeID);
     }
-    score += 100 * num * (2 ** combo);
+    score += 100 * num * 2 ** combo;
     combo++;
-    document.getElementById("combo").innerHTML = combo + " combo"
-    comboTimeID = setTimeout(function () {
+    document.getElementById("combo").innerHTML = combo + " combo";
+    comboTimeID = setTimeout(function() {
         combo = 0;
-        document.getElementById("combo").innerHTML = combo + " combo"
+        document.getElementById("combo").innerHTML = combo + " combo";
     }, 2000);
     document.getElementById("score").innerHTML = "score: " + score;
 }
 
 //音量変更
-window.setVolume = function (value) {
+window.setVolume = function(value) {
     var volume = value / 100;
     Howler.volume(volume);
     document.getElementById("outputVolume").innerHTML = value;
-}
+};
 
 function ladderSet() {
     for (var i = 0; i < 10; i++) {
         for (var j = 2; j < 9; j++) {
             var ladder = document.getElementById("l-" + (9 * i + j));
-            var ctx = ladder.getContext('2d');
+            var ctx = ladder.getContext("2d");
             ctx.beginPath();
             ctx.linewidth = 3;
             ctx.strokeStyle = "#8B4513";
@@ -246,7 +246,7 @@ class Board {
             [0, 0, 0, 0, 0, 0, 0, 40, 10],
             [0, 0, 0, 0, 0, 0, 0, 30, 20],
             [0, 0, 0, 0, 0, 0, 0, 10, 40],
-            [0, 0, 0, 0, 0, 0, 0, 20, 30]
+            [0, 0, 0, 0, 0, 0, 0, 20, 30],
         ];
         this.blockInterval = 70;
     }
@@ -263,7 +263,7 @@ class Board {
             [0, 0, 0, 0, 0, 0, 0, 40, 10],
             [0, 0, 0, 0, 0, 0, 0, 30, 20],
             [0, 0, 0, 0, 0, 0, 0, 10, 40],
-            [0, 0, 0, 0, 0, 0, 0, 20, 30]
+            [0, 0, 0, 0, 0, 0, 0, 20, 30],
         ];
         this.paint();
     }
@@ -305,30 +305,28 @@ class Board {
     //ブロックを生成
     generate(color, i) {
         if (mode != 3 && mode != -1) {
-            var block = document.getElementById("b-" + (9 * i));
+            var block = document.getElementById("b-" + 9 * i);
             this.array[i][0] = color;
             this.paint();
             anime({
                 targets: block,
                 translateX: [-10, 10],
-                direction: 'alternate',
+                direction: "alternate",
                 loop: 2,
                 duration: 300,
-                easing: 'easeInOutSine',
-                complete: function (anim) {
+                easing: "easeInOutSine",
+                complete: function(anim) {
                     anime.set(this.animatables[0].target, {
-                        translateX: 0
+                        translateX: 0,
                     });
-                    board.air([
-                        [i, 0]
-                    ]);
-                    setTimeout(function () {
+                    board.air([[i, 0]]);
+                    setTimeout(function() {
                         board.random_generate(i);
                     }, board.blockInterval);
-                }
+                },
             });
         } else if (mode == 3) {
-            setTimeout(function () {
+            setTimeout(function() {
                 board.random_generate(i);
             }, board.blockInterval);
         }
@@ -380,7 +378,11 @@ class Board {
         for (var pair of airList) {
             i = pair[0];
             j = pair[1];
-            if (j != 8 && board.array[i][j] != 0 && countList[airList.indexOf(pair)] != 0) {
+            if (
+                j != 8 &&
+                board.array[i][j] != 0 &&
+                countList[airList.indexOf(pair)] != 0
+            ) {
                 var block = document.getElementById("b-" + (9 * i + j));
                 board.array[i][j + 1] = tempList[airList.indexOf(pair)];
                 board.array[i][j] = nextList[airList.indexOf(pair)];
@@ -388,16 +390,25 @@ class Board {
                     targets: block,
                     translateY: [0, 40],
                     duration: 200,
-                    complete: function (anim) {
+                    complete: function(anim) {
                         anime.set(this.animatables[0].target, {
-                            translateY: 0
+                            translateY: 0,
                         });
-                        var num = Number(this.animatables[0].target.id.slice(2));
+                        var num = Number(
+                            this.animatables[0].target.id.slice(2)
+                        );
                         var blockP = [Math.floor(num / 9), Math.floor(num) % 9];
-                        if (blockP[0] == player.x && blockP[1] + 1 == player.y) {
+                        if (
+                            blockP[0] == player.x &&
+                            blockP[1] + 1 == player.y
+                        ) {
                             gameOver();
                         }
-                        if (flg == 0 && blockP.toString() == airList[0].toString() && mode != -1) {
+                        if (
+                            flg == 0 &&
+                            blockP.toString() == airList[0].toString() &&
+                            mode != -1
+                        ) {
                             flg = 1;
                             var newAirList = [];
                             for (var x of airList) {
@@ -406,9 +417,12 @@ class Board {
                             board.paint();
                             board.air(newAirList);
                         }
-                        if (flg == 0 && blockP.toString() == airList[airList.length - 1]
-                            .toString() &&
-                            mode != -1) {
+                        if (
+                            flg == 0 &&
+                            blockP.toString() ==
+                                airList[airList.length - 1].toString() &&
+                            mode != -1
+                        ) {
                             flg = 1;
                             var newAirList = [];
                             for (var x of airList) {
@@ -417,14 +431,13 @@ class Board {
                             board.paint();
                             board.air(newAirList);
                         }
-                    }
+                    },
                 });
             } else if (j == 8) {
                 this.judge(i, j);
             }
         }
     }
-
 
     judge(i, j) {
         var color = Math.floor(this.array[i][j] / 10);
@@ -437,25 +450,47 @@ class Board {
     }
 
     collect(i, j, previousI, previousJ, color, deleteList) {
-        if (i < 9 && Math.floor(this.array[i + 1][j] / 10) == color && i + 1 != previousI && deleteList.length < 70) { //苦肉の策
+        if (
+            i < 9 &&
+            Math.floor(this.array[i + 1][j] / 10) == color &&
+            i + 1 != previousI &&
+            deleteList.length < 70
+        ) {
+            //苦肉の策
             deleteList.push([i + 1, j]);
             this.collect(i + 1, j, i, j, color, deleteList);
         }
-        if (i > 0 && Math.floor(this.array[i - 1][j] / 10) == color && i - 1 != previousI && deleteList.length < 70) {
+        if (
+            i > 0 &&
+            Math.floor(this.array[i - 1][j] / 10) == color &&
+            i - 1 != previousI &&
+            deleteList.length < 70
+        ) {
             deleteList.push([i - 1, j]);
             this.collect(i - 1, j, i, j, color, deleteList);
         }
-        if (j < 8 && Math.floor(this.array[i][j + 1] / 10) == color && j + 1 != previousJ && deleteList.length < 70) {
+        if (
+            j < 8 &&
+            Math.floor(this.array[i][j + 1] / 10) == color &&
+            j + 1 != previousJ &&
+            deleteList.length < 70
+        ) {
             deleteList.push([i, j + 1]);
             this.collect(i, j + 1, i, j, color, deleteList);
         }
-        if (j > 0 && Math.floor(this.array[i][j - 1] / 10) == color && j - 1 != previousJ && deleteList.length < 70) {
+        if (
+            j > 0 &&
+            Math.floor(this.array[i][j - 1] / 10) == color &&
+            j - 1 != previousJ &&
+            deleteList.length < 70
+        ) {
             deleteList.push([i, j - 1]);
             this.collect(i, j - 1, i, j, color, deleteList);
         }
     }
 
-    delete(deleteList, airFlg) { //airFlgは空中のブロックを消したかどうか
+    delete(deleteList, airFlg) {
+        //airFlgは空中のブロックを消したかどうか
         if (airFlg == 0) {
             scoreUp(deleteList.length);
         }
@@ -478,7 +513,7 @@ class Board {
         }
         if (airFlg == 0) {
             deleteSoundEffect.play();
-            var airDeleteList = board.collectAir().filter(function (element) {
+            var airDeleteList = board.collectAir().filter(function(element) {
                 var count = 0;
                 for (var e of allAirList) {
                     if (e.toString() == element.toString()) {
@@ -498,17 +533,22 @@ class Board {
             board.array[i][j] = 0;
             anime({
                 targets: block,
-                background: ['rgba(0, 0, 0, 1)', 'rgba(255, 255, 0, 1)'],
+                background: ["rgba(0, 0, 0, 1)", "rgba(255, 255, 0, 1)"],
                 duration: 500,
-                begin: function (anim) {
+                begin: function(anim) {
                     if (mode != -1) {
                         mode = 3;
                     }
-                    this.animatables[0].target.getContext('2d').clearRect(0, 0, size, size);
+                    this.animatables[0].target
+                        .getContext("2d")
+                        .clearRect(0, 0, size, size);
                 },
-                complete: function (anim) {
-                    var blockI = Math.floor(Number(this.animatables[0].target.id.slice(2)) / 9);
-                    var blockJ = Number(this.animatables[0].target.id.slice(2)) % 9;
+                complete: function(anim) {
+                    var blockI = Math.floor(
+                        Number(this.animatables[0].target.id.slice(2)) / 9
+                    );
+                    var blockJ =
+                        Number(this.animatables[0].target.id.slice(2)) % 9;
                     if (mode != -1) {
                         mode = 1;
                     }
@@ -524,9 +564,9 @@ class Board {
                         board.air(airList);
                     }
                     anime.set(this.animatables[0].target, {
-                        background: 'rgba(0, 0, 0, 0)'
+                        background: "rgba(0, 0, 0, 0)",
                     });
-                }
+                },
             });
         }
     }
@@ -559,7 +599,6 @@ class Board {
             }
         }
     }
-
 }
 
 class Player {
@@ -570,7 +609,7 @@ class Player {
         this.moveDuration = 100;
         this.pushDuration = 300;
         this.state = 0; //向いている方向 0:右 1:左 2:下
-        this.player = document.getElementById('player');
+        this.player = document.getElementById("player");
         this.position();
     }
 
@@ -592,9 +631,15 @@ class Player {
             this.player.style.left = this.x * size + "px";
             this.player.src = location.origin + "/img/hakogucha/rightwalk.png";
             moveSoundEffect.play();
-            this.moveStop()
-        } else if (this.x < 8 && board.array[this.x + 1][this.y] != 0 && board.array[this.x + 2][this.y] == 0) {
-            var block = document.getElementById("b-" + ((this.x + 1) * 9 + this.y));
+            this.moveStop();
+        } else if (
+            this.x < 8 &&
+            board.array[this.x + 1][this.y] != 0 &&
+            board.array[this.x + 2][this.y] == 0
+        ) {
+            var block = document.getElementById(
+                "b-" + ((this.x + 1) * 9 + this.y)
+            );
             board.array[this.x + 2][this.y] = board.array[this.x + 1][this.y];
             board.array[this.x + 1][this.y] = 0;
             pushSoundEffect.play();
@@ -602,32 +647,35 @@ class Player {
                 targets: block,
                 translateX: [0, 40],
                 duration: player.pushDuration,
-                begin: function (anim) {
+                begin: function(anim) {
                     if (mode != -1) {
                         mode = 2;
                     }
-                    player.player.src = location.origin + "/img/hakogucha/rightpush.png";
+                    player.player.src =
+                        location.origin + "/img/hakogucha/rightpush.png";
                 },
-                complete: function (anim) {
+                complete: function(anim) {
                     if (mode != -1) {
                         mode = 1;
                     }
-                    var blockI = Math.floor(Number(this.animatables[0].target.id.slice(2)) / 9);
-                    var blockJ = Number(this.animatables[0].target.id.slice(2)) % 9;
-                    player.player.src = location.origin + "/img/hakogucha/rightwalk.png";
+                    var blockI = Math.floor(
+                        Number(this.animatables[0].target.id.slice(2)) / 9
+                    );
+                    var blockJ =
+                        Number(this.animatables[0].target.id.slice(2)) % 9;
+                    player.player.src =
+                        location.origin + "/img/hakogucha/rightwalk.png";
                     anime.set(this.animatables[0].target, {
-                        translateX: 0
+                        translateX: 0,
                     });
                     board.paint();
-                    board.air([
-                        [blockI + 1, blockJ]
-                    ]);
+                    board.air([[blockI + 1, blockJ]]);
                     var airList = [];
                     for (var y = 0; y < blockJ; y++) {
                         airList.push([blockI, y]);
                     }
                     board.air(airList);
-                }
+                },
             });
         }
         this.state = 0;
@@ -639,9 +687,15 @@ class Player {
             this.player.style.left = this.x * size + "px";
             this.player.src = location.origin + "/img/hakogucha/leftwalk.png";
             moveSoundEffect.play();
-            this.moveStop()
-        } else if (this.x > 1 && board.array[this.x - 1][this.y] != 0 && board.array[this.x - 2][this.y] == 0) {
-            var block = document.getElementById("b-" + ((this.x - 1) * 9 + this.y));
+            this.moveStop();
+        } else if (
+            this.x > 1 &&
+            board.array[this.x - 1][this.y] != 0 &&
+            board.array[this.x - 2][this.y] == 0
+        ) {
+            var block = document.getElementById(
+                "b-" + ((this.x - 1) * 9 + this.y)
+            );
             board.array[this.x - 2][this.y] = board.array[this.x - 1][this.y];
             board.array[this.x - 1][this.y] = 0;
             pushSoundEffect.play();
@@ -649,32 +703,35 @@ class Player {
                 targets: block,
                 translateX: [0, -40],
                 duration: player.pushDuration,
-                begin: function (anim) {
+                begin: function(anim) {
                     if (mode != -1) {
                         mode = 2;
                     }
-                    player.player.src = location.origin + "/img/hakogucha/leftpush.png";
+                    player.player.src =
+                        location.origin + "/img/hakogucha/leftpush.png";
                 },
-                complete: function (anim) {
+                complete: function(anim) {
                     if (mode != -1) {
                         mode = 1;
                     }
-                    var blockI = Math.floor(Number(this.animatables[0].target.id.slice(2)) / 9);
-                    var blockJ = Number(this.animatables[0].target.id.slice(2)) % 9;
-                    player.player.src = location.origin + "/img/hakogucha/leftwalk.png";
+                    var blockI = Math.floor(
+                        Number(this.animatables[0].target.id.slice(2)) / 9
+                    );
+                    var blockJ =
+                        Number(this.animatables[0].target.id.slice(2)) % 9;
+                    player.player.src =
+                        location.origin + "/img/hakogucha/leftwalk.png";
                     anime.set(this.animatables[0].target, {
-                        translateX: 0
+                        translateX: 0,
                     });
                     board.paint();
-                    board.air([
-                        [blockI - 1, blockJ]
-                    ]);
+                    board.air([[blockI - 1, blockJ]]);
                     var airList = [];
                     for (var y = 0; y < blockJ; y++) {
                         airList.push([blockI, y]);
                     }
                     board.air(airList);
-                }
+                },
             });
         }
         this.state = 1;
@@ -684,7 +741,7 @@ class Player {
         if (this.y > 2 && board.array[this.x][this.y - 1] == 0) {
             this.y = this.y - 1;
             this.player.style.top = this.y * size + "px";
-            this.moveStop()
+            this.moveStop();
         }
         this.state = 2;
         this.player.src = location.origin + "/img/hakogucha/ladder.png";
@@ -695,18 +752,19 @@ class Player {
         if (this.y < 8 && board.array[this.x][this.y + 1] == 0) {
             this.y = this.y + 1;
             this.player.style.top = this.y * size + "px";
-            this.moveStop()
+            this.moveStop();
         }
         this.state = 2;
         this.player.src = location.origin + "/img/hakogucha/ladder.png";
         moveSoundEffect.play();
     }
 
-    moveStop() { //移動時の硬直
+    moveStop() {
+        //移動時の硬直
         if (mode != -1) {
             mode = 2;
         }
-        setTimeout(function () {
+        setTimeout(function() {
             if (mode != -1) {
                 mode = 1;
             }
@@ -714,29 +772,39 @@ class Player {
     }
 
     punch() {
-        if (this.x < 9 && this.state == 0 && board.array[this.x + 1][this.y] % 10 != 0) {
-            var block = document.getElementById("b-" + ((this.x + 1) * 9 + this.y));
-            var ctx = block.getContext('2d');
-            if (Math.floor(board.array[this.x + 1][this.y] / 10) == 4 && board.array[this.x + 1][this.y] !=
-                43) {
+        if (
+            this.x < 9 &&
+            this.state == 0 &&
+            board.array[this.x + 1][this.y] % 10 != 0
+        ) {
+            var block = document.getElementById(
+                "b-" + ((this.x + 1) * 9 + this.y)
+            );
+            var ctx = block.getContext("2d");
+            if (
+                Math.floor(board.array[this.x + 1][this.y] / 10) == 4 &&
+                board.array[this.x + 1][this.y] != 43
+            ) {
                 board.array[this.x + 1][this.y]++;
                 punchSoundEffect.play();
                 anime({
                     targets: block,
                     duration: player.punchDuration,
-                    begin: function (anim) {
+                    begin: function(anim) {
                         if (mode != -1) {
                             mode = 2;
                         }
-                        player.player.src = location.origin + "/img/hakogucha/rightpush.png";
+                        player.player.src =
+                            location.origin + "/img/hakogucha/rightpush.png";
                     },
-                    complete: function (anim) {
+                    complete: function(anim) {
                         if (mode != -1) {
                             mode = 1;
                         }
-                        player.player.src = location.origin + "/img/hakogucha/rightwalk.png";
+                        player.player.src =
+                            location.origin + "/img/hakogucha/rightwalk.png";
                         board.paint();
-                    }
+                    },
                 });
             } else {
                 board.array[this.x + 1][this.y] = 0;
@@ -748,21 +816,26 @@ class Player {
                     scale: [1, 5],
                     rotate: [0, 90],
                     duration: player.punchDuration,
-                    begin: function (anim) {
+                    begin: function(anim) {
                         if (mode != -1) {
                             mode = 2;
                         }
-                        player.player.src = location.origin + "/img/hakogucha/rightpush.png";
+                        player.player.src =
+                            location.origin + "/img/hakogucha/rightpush.png";
                         ctx.clearRect(5, 0, size - 10, size);
                         ctx.clearRect(0, 5, size, size - 10);
                     },
-                    complete: function (anim) {
+                    complete: function(anim) {
                         if (mode != -1) {
                             mode = 1;
                         }
-                        var blockI = Math.floor(Number(this.animatables[0].target.id.slice(2)) / 9);
-                        var blockJ = Number(this.animatables[0].target.id.slice(2)) % 9;
-                        player.player.src = location.origin + "/img/hakogucha/rightwalk.png";
+                        var blockI = Math.floor(
+                            Number(this.animatables[0].target.id.slice(2)) / 9
+                        );
+                        var blockJ =
+                            Number(this.animatables[0].target.id.slice(2)) % 9;
+                        player.player.src =
+                            location.origin + "/img/hakogucha/rightwalk.png";
                         anime.set(this.animatables[0].target, {
                             scale: 1,
                             rotate: 0,
@@ -773,33 +846,42 @@ class Player {
                             airList.push([blockI, y]);
                         }
                         board.air(airList);
-                    }
+                    },
                 });
             }
-
-        } else if (this.x > 0 && this.state == 1 && board.array[this.x - 1][this.y] % 10 != 0) {
-            var block = document.getElementById("b-" + ((this.x - 1) * 9 + this.y));
-            var ctx = block.getContext('2d');
-            if ((Math.floor(board.array[this.x - 1][this.y] / 10) == 4 && board.array[this.x - 1][this.y] !=
-                43)) {
+        } else if (
+            this.x > 0 &&
+            this.state == 1 &&
+            board.array[this.x - 1][this.y] % 10 != 0
+        ) {
+            var block = document.getElementById(
+                "b-" + ((this.x - 1) * 9 + this.y)
+            );
+            var ctx = block.getContext("2d");
+            if (
+                Math.floor(board.array[this.x - 1][this.y] / 10) == 4 &&
+                board.array[this.x - 1][this.y] != 43
+            ) {
                 board.array[this.x - 1][this.y]++;
                 punchSoundEffect.play();
                 anime({
                     targets: block,
                     duration: player.punchDuration,
-                    begin: function (anim) {
+                    begin: function(anim) {
                         if (mode != -1) {
                             mode = 2;
                         }
-                        player.player.src = location.origin + "/img/hakogucha/leftpush.png";
+                        player.player.src =
+                            location.origin + "/img/hakogucha/leftpush.png";
                     },
-                    complete: function (anim) {
+                    complete: function(anim) {
                         if (mode != -1) {
                             mode = 1;
                         }
-                        player.player.src = location.origin + "/img/hakogucha/leftwalk.png";
+                        player.player.src =
+                            location.origin + "/img/hakogucha/leftwalk.png";
                         board.paint();
-                    }
+                    },
                 });
             } else {
                 board.array[this.x - 1][this.y] = 0;
@@ -811,21 +893,26 @@ class Player {
                     scale: [1, 5],
                     rotate: [0, 90],
                     duration: player.punchDuration,
-                    begin: function (anim) {
+                    begin: function(anim) {
                         if (mode != -1) {
                             mode = 2;
                         }
-                        player.player.src = location.origin + "/img/hakogucha/leftpush.png";
+                        player.player.src =
+                            location.origin + "/img/hakogucha/leftpush.png";
                         ctx.clearRect(5, 0, size - 10, size);
                         ctx.clearRect(0, 5, size, size - 10);
                     },
-                    complete: function (anim) {
+                    complete: function(anim) {
                         if (mode != -1) {
                             mode = 1;
                         }
-                        var blockI = Math.floor(Number(this.animatables[0].target.id.slice(2)) / 9);
-                        var blockJ = Number(this.animatables[0].target.id.slice(2)) % 9;
-                        player.player.src = location.origin + "/img/hakogucha/leftwalk.png";
+                        var blockI = Math.floor(
+                            Number(this.animatables[0].target.id.slice(2)) / 9
+                        );
+                        var blockJ =
+                            Number(this.animatables[0].target.id.slice(2)) % 9;
+                        player.player.src =
+                            location.origin + "/img/hakogucha/leftwalk.png";
                         anime.set(this.animatables[0].target, {
                             scale: 1,
                             rotate: 0,
@@ -836,32 +923,42 @@ class Player {
                             airList.push([blockI, y]);
                         }
                         board.air(airList);
-                    }
+                    },
                 });
             }
-        } else if (this.y < 8 && this.state == 2 && board.array[this.x][this.y + 1] % 10 != 0) {
-            var block = document.getElementById("b-" + (this.x * 9 + this.y + 1));
-            var ctx = block.getContext('2d');
-            if ((Math.floor(board.array[this.x][this.y + 1] / 10) == 4 && board.array[this.x][this.y + 1] !=
-                43)) {
+        } else if (
+            this.y < 8 &&
+            this.state == 2 &&
+            board.array[this.x][this.y + 1] % 10 != 0
+        ) {
+            var block = document.getElementById(
+                "b-" + (this.x * 9 + this.y + 1)
+            );
+            var ctx = block.getContext("2d");
+            if (
+                Math.floor(board.array[this.x][this.y + 1] / 10) == 4 &&
+                board.array[this.x][this.y + 1] != 43
+            ) {
                 board.array[this.x][this.y + 1]++;
                 punchSoundEffect.play();
                 anime({
                     targets: block,
                     duration: player.punchDuration,
-                    begin: function (anim) {
+                    begin: function(anim) {
                         if (mode != -1) {
                             mode = 2;
                         }
-                        player.player.src = location.origin + "/img/hakogucha/punch2.png";
+                        player.player.src =
+                            location.origin + "/img/hakogucha/punch2.png";
                     },
-                    complete: function (anim) {
+                    complete: function(anim) {
                         if (mode != -1) {
                             mode = 1;
                         }
-                        player.player.src = location.origin + "/img/hakogucha/ladder.png";
+                        player.player.src =
+                            location.origin + "/img/hakogucha/ladder.png";
                         board.paint();
-                    }
+                    },
                 });
             } else {
                 board.array[this.x][this.y + 1] = 0;
@@ -873,25 +970,27 @@ class Player {
                     scale: [1, 5],
                     rotate: [0, 90],
                     duration: player.punchDuration,
-                    begin: function (anim) {
+                    begin: function(anim) {
                         if (mode != -1) {
                             mode = 2;
                         }
-                        player.player.src = location.origin + "/img/hakogucha/punch2.png";
+                        player.player.src =
+                            location.origin + "/img/hakogucha/punch2.png";
                         ctx.clearRect(5, 0, size - 10, size);
                         ctx.clearRect(0, 5, size, size - 10);
                     },
-                    complete: function (anim) {
+                    complete: function(anim) {
                         if (mode != -1) {
                             mode = 1;
                         }
-                        player.player.src = location.origin + "/img/hakogucha/ladder.png";
+                        player.player.src =
+                            location.origin + "/img/hakogucha/ladder.png";
                         anime.set(this.animatables[0].target, {
                             scale: 1,
                             rotate: 0,
                         });
                         board.paint();
-                    }
+                    },
                 });
             }
         }
@@ -899,7 +998,7 @@ class Player {
 }
 
 function strokeCross(block) {
-    var ctx = block.getContext('2d');
+    var ctx = block.getContext("2d");
     ctx.beginPath();
     ctx.moveTo(10, 5);
     ctx.lineTo(5, 10);
@@ -913,12 +1012,12 @@ function strokeCross(block) {
     ctx.lineTo(35, 10);
     ctx.lineTo(30, 5);
     ctx.lineTo(20, 15);
-    ctx.fillStyle = 'black';
+    ctx.fillStyle = "black";
     ctx.fill();
 }
 
 function strokeCrack1(block) {
-    var ctx = block.getContext('2d');
+    var ctx = block.getContext("2d");
     ctx.lineWidth = 3;
     ctx.beginPath();
     ctx.moveTo(20, 0);
@@ -929,7 +1028,7 @@ function strokeCrack1(block) {
 }
 
 function strokeCrack2(block) {
-    var ctx = block.getContext('2d');
+    var ctx = block.getContext("2d");
     ctx.lineWidth = 3;
     ctx.beginPath();
     ctx.moveTo(20, 0);
@@ -949,7 +1048,7 @@ function fillClear(block) {
     if (!block || !block.getContext) {
         return false;
     }
-    var ctx = block.getContext('2d');
+    var ctx = block.getContext("2d");
     ctx.clearRect(0, 0, size, size);
 }
 
@@ -957,9 +1056,9 @@ function fillRed(block) {
     if (!block || !block.getContext) {
         return false;
     }
-    var ctx = block.getContext('2d');
+    var ctx = block.getContext("2d");
     ctx.beginPath();
-    ctx.fillStyle = 'red';
+    ctx.fillStyle = "red";
     ctx.fillRect(0, 0, size, size);
 }
 
@@ -967,9 +1066,9 @@ function fillBlue(block) {
     if (!block || !block.getContext) {
         return false;
     }
-    var ctx = block.getContext('2d');
+    var ctx = block.getContext("2d");
     ctx.beginPath();
-    ctx.fillStyle = 'blue';
+    ctx.fillStyle = "blue";
     ctx.fillRect(0, 0, size, size);
 }
 
@@ -977,9 +1076,9 @@ function fillGreen(block) {
     if (!block || !block.getContext) {
         return false;
     }
-    var ctx = block.getContext('2d');
+    var ctx = block.getContext("2d");
     ctx.beginPath();
-    ctx.fillStyle = 'green';
+    ctx.fillStyle = "green";
     ctx.fillRect(0, 0, size, size);
 }
 
@@ -987,8 +1086,8 @@ function fillGray(block) {
     if (!block || !block.getContext) {
         return false;
     }
-    var ctx = block.getContext('2d');
+    var ctx = block.getContext("2d");
     ctx.beginPath();
-    ctx.fillStyle = 'gray';
+    ctx.fillStyle = "gray";
     ctx.fillRect(0, 0, size, size);
 }

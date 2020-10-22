@@ -8,6 +8,11 @@ server {
     listen      80;
     # the domain name it will serve for
     server_name banatech.net; # substitute your machine's IP address or FQDN
+
+    # gzip compression
+    gzip_static on;
+    gunzip on;
+
     root /home/docker/code/banatech_laravel/public;
     charset     utf-8;
 

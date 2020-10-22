@@ -6,7 +6,7 @@ name: Http_status
 # events but only for the master branch
 on:
   schedule:
-    - cron: '0 5 * * *'
+    - cron: "0 5 * * *"
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -17,13 +17,12 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
-    - name: HTTP Status
-      uses: lakuapik/gh-actions-http-status@v1
-      with:
-        # List website urls in JSON (eg: ["http://github.com", "https://education.github.com"])
-        sites: '["http://banatech.net", "https://banatech.net"]'
-        # List expected HTTP status codes in JSON (eg: [301, 200])
-        expected: '[301, 200]'
-
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      - name: HTTP Status
+        uses: lakuapik/gh-actions-http-status@v1
+        with:
+          # List website urls in JSON (eg: ["http://github.com", "https://education.github.com"])
+          sites: '["http://banatech.net", "https://banatech.net"]'
+          # List expected HTTP status codes in JSON (eg: [301, 200])
+          expected: "[301, 200]"

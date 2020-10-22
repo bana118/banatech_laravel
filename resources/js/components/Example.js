@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
 
 export default class Example extends Component {
     render() {
@@ -10,7 +10,9 @@ export default class Example extends Component {
                         <div className="card">
                             <div className="card-header">Example Component</div>
 
-                            <div className="card-body">I'm an example component!</div>
+                            <div className="card-body">
+                                I'm an example component!
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -19,6 +21,6 @@ export default class Example extends Component {
     }
 }
 
-if (document.getElementById('example')) {
-    ReactDOM.render(<Example />, document.getElementById('example'));
+if (document.getElementById("example")) {
+    ReactDOM.render(<Example />, document.getElementById("example"));
 }

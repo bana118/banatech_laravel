@@ -1,13 +1,18 @@
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-162005627-1"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    window.dataLayer = window.dataLayer || [];
 
-  gtag('config', 'UA-162005627-1');
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-162005627-1');
+
 </script>
-<script data-ad-client="ca-pub-3817107084963630" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script data-ad-client="ca-pub-3817107084963630" async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="bana">
@@ -22,5 +27,8 @@
 <title>
     @yield('title')
 </title>
-<link rel="stylesheet" href="{{ mix('/css/base/app.css') }}">
-<script src="{{ mix('/js/base/app.js') }}"></script>
+<link rel="stylesheet" href="{{ mix('/css/base/base.css') }}">
+<link rel="stylesheet" href="{{ mix('/css/base/fontawesome.css') }}">
+<link rel="stylesheet" href="{{ mix('/css/base/uikit.css') }}">
+<script async src="{{ mix('/js/base/uikit.js') }}"></script>
+<script src="{{ mix('/js/base/bootstrap.js') }}"></script>

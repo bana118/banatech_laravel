@@ -1,4 +1,5 @@
 # banatech_laravel
+
 laravel 6.0
 php 7.2
 
@@ -11,20 +12,44 @@ $ cp .env.dev .env
 $ composer install
 $ php artisan key:generate
 $ php artisan migrate
-$ npm i
+$ npm ci
 $ npm run dev
 $ php artisan serve
 ```
 
+# ローカル開発([VSCode Remote Containers](https://code.visualstudio.com/docs/remote/containers))
+
+[Visual Studio Code](https://azure.microsoft.com/ja-jp/products/visual-studio-code/)と[Remote \- Containers 拡張](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)を用いてコンテナ内で開発．  
+Windows，Mac などではファイル IO が遅いので注意．  
+VSCode の Remote Containers 拡張を用いてコンテナ内でこのリポジトリを開く．
+
+```
+$ git clone https://github.com/bana118/banatech_laravel.git
+$ code banatech_laravel
+```
+
+コンテナ内で以下のコマンドを実行
+
+```
+# cp .env.dev .env
+# composer install
+# php artisan key:generate
+# php artisan migrate
+# npm ci
+# npm run dev
+# php artisan serve
+```
+
 # デプロイ
 
-## dockerのインストール
+## docker のインストール
+
 [Install Docker Engine \| Docker Documentation](https://docs.docker.com/engine/install/)
 
 ## 注意！
 
-docker run -v するとホスト側のディレクトリがコンテナ側のディレクトリを上書きします。public/uploaded ディレクトリやdatabase.sqlite3 ファイルはうっかり消しかねないのでバックアップ必須です。.env などもホスト側のものが使用されかねないので注意が必要です。docker内に入り.env のAPP_KEYを確かめる必要があります。
-そのときはdocker内に入り以下のコマンドを実行。
+docker run -v するとホスト側のディレクトリがコンテナ側のディレクトリを上書きします。public/uploaded ディレクトリや database.sqlite3 ファイルはうっかり消しかねないのでバックアップ必須です。.env などもホスト側のものが使用されかねないので注意が必要です。docker 内に入り.env の APP_KEY を確かめる必要があります。
+そのときは docker 内に入り以下のコマンドを実行。
 
 ```
 $ sudo docker exec -i -t banatech bash
@@ -35,7 +60,7 @@ $ sudo docker exec -i -t banatech bash
 # php artisan key:generate
 ```
 
-## httpのみでデプロイ
+## http のみでデプロイ
 
 ```
 $ cd
@@ -52,11 +77,11 @@ $ sudo docker run --name banatech -d -p 80:80 -p 443:443 -v ~:/root -v /etc/lets
 $ sudo docker exec -i -t banatech bash
 # cd ~/banatech_laravel
 # composer install --optimize-autoloader --no-dev
-# npm install
+# npm ci
 # npm run prod
 ```
 
-## letsencryptで証明書取得
+## letsencrypt で証明書取得
 
 ```
 $ sudo add-apt-repository ppa:certbot/certbot
@@ -67,7 +92,7 @@ $ sudo certbot certonly --webroot -w ~/banatech_laravel/public -d example.com
 
 メールアドレスの入力，規約の承諾などを行う．
 
-## httpsでデプロイ
+## https でデプロイ
 
 ```
 $ mv nginx-app.conf nginx-app.conf.temp
@@ -83,19 +108,19 @@ $ sudo docker exec -i -t banatech bash
 # supervisorctl restart nginx
 ```
 
-## letsencrypt更新確認
+## letsencrypt 更新確認
 
 ```
 $ sudo certbot renew --force-renew --dry-run --webroot-path ~/banatech_laravel/public
 ```
 
-## letsencrypt自動更新
+## letsencrypt 自動更新
 
 ```
 $ crontab -e
 ```
 
-crontabに以下を追記
+crontab に以下を追記
 
 ```
 0 4 1 * * sudo certbot renew && sudo docker restart banatech
@@ -119,20 +144,23 @@ $ sudo docker exec -i -t banatech bash
 # npm run prod
 ```
 
-## docker内確認
+## docker 内確認
 
 ```
 $ sudo docker exec -i -t banatech bash
 ```
 
 ## アップロードサイズ，ポストのサイズの上限解放
-php.iniを編集
+
+php.ini を編集
+
 ```
 $ sudo docker exec -i -t banatech bash
 # vim /etc/php/7.2/fpm/php.ini
 ```
 
 以下のように変更する
+
 ```
 post_max_size = 128M
 upload_max_filesize = 64M

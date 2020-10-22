@@ -12,9 +12,10 @@
     </div>
     <script src="{{ mix('/js/marked.js') }}"></script>
     <script>
-        window.onload = function () {
+        window.onload = function() {
             document.getElementById("content").innerHTML = marked("# テスト");
         }
+
     </script>
 </body>
 

@@ -6,6 +6,10 @@ server {
     listen 80;
     listen [::]:80;
     server_name banatech.net;
+
+    # gzip compression
+    gzip_static on;
+    gunzip on;
     location /.well-known {
         root /home/docker/code/banatech_laravel/public;
     }
@@ -29,6 +33,13 @@ server {
     # the port your site will be served on
     listen      443 ssl http2;
     listen [::]:443 ssl http2;
+    # the domain name it will serve for
+    server_name banatech.net; # substitute your machine's IP address or FQDN
+
+    # gzip compression
+    gzip_static on;
+    gunzip on;
+
     # ssl config
     ssl_certificate     /etc/letsencrypt/live/banatech.net/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/banatech.net/privkey.pem;
@@ -47,8 +58,6 @@ server {
     ssl_stapling on;
     ssl_stapling_verify on;
     ssl_trusted_certificate /etc/letsencrypt/live/banatech.net/chain.pem;
-    # the domain name it will serve for
-    server_name banatech.net; # substitute your machine's IP address or FQDN
     charset     utf-8;
 
     root /home/docker/code/banatech_laravel/public;

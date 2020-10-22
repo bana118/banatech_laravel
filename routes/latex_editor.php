@@ -10,9 +10,8 @@ Route::post('/latex_editor/save', function (Request $request) {
     $filename = 'document.tex';
     $headers = [
         'Content-Type' => 'text/plain',
-        'content-Disposition' => 'attachment; filename="'.$filename.'"',
+        'content-Disposition' => 'attachment; filename="' . $filename . '"',
     ];
     $data = $request->input('tex');
     return response()->make($data, 200, $headers);
 });
-
