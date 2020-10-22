@@ -4,7 +4,8 @@
 @section('head')
     @include('base.head')
     <script src="{{ mix('js/reiwa/solo.js') }}"></script>
-    <script src="{{ mix('js/reiwa/createjs.js') }}"></script>
+    <script src="{{ mix('js/reiwa/preloadjs.js') }}"></script>
+    <script src="{{ mix('js/reiwa/soundjs.js') }}"></script>
     <meta property="og:url" content="{{ url()->current() }}" />
     <meta property="og:locale" content="ja_JP">
     <meta property="og:title" content="ばなてっく" />

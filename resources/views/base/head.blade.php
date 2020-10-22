@@ -27,5 +27,7 @@
 <title>
     @yield('title')
 </title>
-<link rel="stylesheet" href="{{ mix('/css/base/app.css') }}">
-<script src="{{ mix('/js/base/app.js') }}"></script>
+<link rel="stylesheet" href="{{ mix('/css/base/base.css') }}">
+<link rel="stylesheet" href="{{ mix('/css/base/uikit.css') }}">
+<script src="{{ mix('/js/base/uikit.js') }}" async></script>
+<script src="{{ mix('/js/base/bootstrap.js') }}"></script>
