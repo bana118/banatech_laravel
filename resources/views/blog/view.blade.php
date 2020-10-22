@@ -8,7 +8,8 @@
     <script src="{{ mix('js/blog/view.js') }}"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
     </script>
-    <link rel="stylesheet" href="{{ mix('/css/blog/view.css') }}">
+    <link rel="preload" href="{{ mix('/css/blog/view.css') }}" as="style">
+    <link rel="stylesheet" href="{{ mix('/css/blog/view.css') }}" media="print" onload="this.media='all'">
     <meta property="og:url" content="{{ url()->current() }}" />
     <meta property="og:locale" content="ja_JP">
     <meta property="og:title" content="ばなてっく" />
