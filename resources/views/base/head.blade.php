@@ -27,8 +27,11 @@
 <title>
     @yield('title')
 </title>
-<link rel="stylesheet" href="{{ mix('/css/base/base.css') }}">
-<link rel="stylesheet" href="{{ mix('/css/base/fontawesome.css') }}">
-<link rel="stylesheet" href="{{ mix('/css/base/uikit.css') }}">
+<link rel="preload" href="{{ mix('/css/base/base.css') }}" as="style">
+<link rel="stylesheet" href="{{ mix('/css/base/base.css') }}" media="print" onload="this.media='all'">
+<link rel="preload" href="{{ mix('/css/base/fontawesome.css') }}" as="style">
+<link rel="stylesheet" href="{{ mix('/css/base/fontawesome.css') }}" media="print" onload="this.media='all'">
+<link rel="preload" href="{{ mix('/css/base/uikit.css') }}" as="style">
+<link rel="stylesheet" href="{{ mix('/css/base/uikit.css') }}" media="print" onload="this.media='all'">
 <script async src="{{ mix('/js/base/uikit.js') }}"></script>
 <script src="{{ mix('/js/base/bootstrap.js') }}"></script>
