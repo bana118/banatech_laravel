@@ -21,14 +21,6 @@ mix.js("resources/js/base/uikit.js", "public/js/base/")
     )
     .sass("resources/sass/base/base.scss", "public/css/base/base.css")
     .less("resources/less/base/uikit.less", "public/css/base/uikit.css");
-// .styles(
-//     [
-//         "public/css/base/sass.css",
-//         "public/css/base/less.css",
-//         "resources/css/base/app.css",
-//     ],
-//     "public/css/base/app.css"
-// );
 
 // blog
 mix.js("resources/js/blog/view.js", "public/js/blog/").sass(
@@ -50,13 +42,6 @@ mix.js("resources/js/reiwa/reiwa.js", "public/js/reiwa/")
     .js("resources/js/reiwa/solo.js", "public/js/reiwa/")
     .js("resources/js/reiwa/createjs/preloadjs.js", "public/js/reiwa/")
     .js("resources/js/reiwa/createjs/soundjs.js", "public/js/reiwa");
-// .scripts(
-//     [
-//         "resources/js/reiwa/createjs/preloadjs.min.js",
-//         "resources/js/reiwa/createjs/soundjs.min.js",
-//     ],
-//     "public/js/reiwa/createjs.js"
-// );
 
 // vr_meiro
 mix.js("resources/js/vr_meiro/intro.js", "public/js/vr_meiro/").js(
