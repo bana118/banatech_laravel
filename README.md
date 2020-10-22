@@ -1,7 +1,9 @@
 # banatech_laravel
-
-laravel 6.0
-php 7.2
+![PHP](https://img.shields.io/static/v1?label=php&message=v7.2&color=474A8A&logo=php)
+![Laravel](https://img.shields.io/static/v1?label=Laravel&message=v6.0&color=F05340&logo=laravel)
+![Node.js](https://img.shields.io/static/v1?label=Node.js&message=v12.16.3&color=339933&logo=node.js)  
+[![Laravel_prod](https://github.com/bana118/banatech_laravel/workflows/Laravel_prod/badge.svg)](https://github.com/bana118/banatech_laravel/actions?query=workflow%3ALaravel_prod)
+[![Http_status](https://github.com/bana118/banatech_laravel/workflows/Http_status/badge.svg)](https://github.com/bana118/banatech_laravel/actions?query=workflow%3AHttp_status)
 
 # ローカル開発
 
