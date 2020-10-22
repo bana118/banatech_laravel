@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <script src="{{ mix('/js/base/app.js') }}"></script>
+    <script src="{{ mix('/js/base/bootstrap.js') }}"></script>
     <script src="{{ mix('js/vr_meiro/play.js') }}"></script>
     <meta property="og:url" content="{{ url()->current() }}" />
     <meta property="og:locale" content="ja_JP">
