@@ -37,10 +37,7 @@ mix.js("resources/js/blog/view.js", "public/js/blog/").sass(
 );
 
 //latex_editor
-mix.js("resources/js/latex_editor/editor.js", "public/js/latex_editor/").sass(
-    "resources/sass/latex_editor/hilightjs.scss",
-    "public/css/latex_editor/hilightjs.css"
-);
+mix.js("resources/js/latex_editor/editor.js", "public/js/latex_editor/");
 
 // kurukuru
 mix.js("resources/js/kurukuru/kurukuru.js", "public/js/kurukuru/");
