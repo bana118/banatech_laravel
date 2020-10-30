@@ -7,8 +7,6 @@ ENV DEBIAN_FRONTEND=noninteractive
 #Author
 LABEL maintainer="banatech.net"
 
-CMD echo "now running..."
-
 # Install required packages and remove the apt packages cache when done.
 RUN apt update && \
     apt upgrade -y && \
