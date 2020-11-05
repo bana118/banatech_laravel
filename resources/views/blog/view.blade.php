@@ -3,6 +3,9 @@
 @section('title')
     {{ $article->title }}
 @endsection
+@section('description')
+    {{ $description }}
+@endsection
 @section('head')
     @include('base.head')
     <script src="{{ mix('js/blog/view.js') }}"></script>
