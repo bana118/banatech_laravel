@@ -11,8 +11,8 @@
     <link rel="stylesheet" href="{{ mix('/css/blog/view.css') }}">
     <meta property="og:url" content="{{ url()->current() }}" />
     <meta property="og:locale" content="ja_JP">
-    <meta property="og:title" content="ばなてっく" />
-    <meta property="og:description" content="{{ $article->title }}" />
+    <meta property="og:title" content="{{ $article->title }}" />
+    <meta property="og:description" content="{{ $description }}" />
     <meta property="og:image" content="{{ asset('img/favicon/android-chrome-512x512.png') }}" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="{{ Config::get('const.TWITTERID') }}" />

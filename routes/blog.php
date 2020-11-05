@@ -77,10 +77,25 @@ Route::get('/blog/view/{articleId}', function ($articleId) {
             }
         }
         $relatedArticles = Article::whereIn('id', $relatedArticleIdList)->orderBy('updated_at', 'desc')->take(3)->get();
-        return view('blog.view', [
-            'article' => $article,
-            'relatedArticles' => $relatedArticles
-        ]);
+
+        $mdFilePath = public_path(("uploaded/" . $article->md_file));
+        $imgReg = '/!\[.*\]\(.*\)|!\[.*\]\[.*\]|\[.*\]: .*"".*""/';
+        $contentExceptImg = preg_replace($imgReg, "", file_get_contents($mdFilePath));
+        $descriptionLength = 100;
+        if (mb_strlen($contentExceptImg) > $descriptionLength) {
+            $description = mb_substr($contentExceptImg, 0, $descriptionLength) . "...";
+            return view('blog.view', [
+                'article' => $article,
+                'relatedArticles' => $relatedArticles,
+                'description' => $description
+            ]);
+        } else {
+            return view('blog.view', [
+                'article' => $article,
+                'relatedArticles' => $relatedArticles,
+                'description' => $contentExceptImg
+            ]);
+        }
     }
 });
 

@@ -1,6 +1,6 @@
 @extends('base.base')
 @section('title', 'VR迷路')
-@section('description', 'JavaScript、anime.js、を用いたパズルゲーム。ブロックを回転させ同じ色のブロックを4つそろえよう')
+@section('description', 'Webで遊べるVR迷路')
 @section('head')
     @include('base.head')
     <meta property="og:url" content="{{ url()->current() }}" />
