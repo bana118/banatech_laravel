@@ -100,7 +100,6 @@ Route::get('/blog/view/{articleId}', function ($articleId) {
         $content = preg_replace($emphasizeReg, '$1$2$3$4$5$6', $content);
         $content = preg_replace($linkReg, '$1', $content);
         $content = preg_replace('/\n/', '', $content);
-        var_dump($content);
 
         $descriptionLength = 100;
         if (mb_strlen($content) > $descriptionLength) {
