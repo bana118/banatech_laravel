@@ -79,11 +79,30 @@ Route::get('/blog/view/{articleId}', function ($articleId) {
         $relatedArticles = Article::whereIn('id', $relatedArticleIdList)->orderBy('updated_at', 'desc')->take(3)->get();
 
         $mdFilePath = public_path(("uploaded/" . $article->md_file));
-        $imgReg = '/!\[.*\]\(.*\)|!\[.*\]\[.*\]|\[.*\]: .*"".*""/';
-        $contentExceptImg = preg_replace($imgReg, "", file_get_contents($mdFilePath));
+
+        $imgReg = '/!\[.*\]\(.*\)|!\[.*\]\[.*\]|\[.*\]: .*\"\".*\"\"/';
+        $htmlReg = '/<(\".*?\"|\'.*?\'|[^\'\"])*?>/';
+        $headerReg = '/^#+ /';
+        $brockquoteReg = '/^>.*$/';
+        $horizontalReg = '/^(\* ){3,}$|^\*{3,}$|^(- ){3,}|^-{3,}$|^(_ ){3,}$|^_{3,}$/';
+        $codeReg = '/```.*\n(.*\n)*```/';
+        $emphasizeReg = '/\*(.*)\*|_(.*)_|\*\*(.*)\*\*|__(.*)__|~~(.*)~~/';
+        $linkReg = '/\[(.*)\]\(.*\)/';
+
+        $content = file_get_contents($mdFilePath);
+        $content = preg_replace($imgReg, "", $content);
+        $content = preg_replace($htmlReg, "", $content);
+        $content = preg_replace($headerReg, "", $content);
+        $content = preg_replace($brockquoteReg, "", $content);
+        $content = preg_replace($horizontalReg, "", $content);
+        $content = preg_replace($codeReg, "", $content);
+        $content = preg_replace($emphasizeReg, "$1$2$3$4$5", $content);
+        $content = preg_replace($linkReg, "$1", $content);
+        $content = preg_replace('/\n/', "", $content);
+
         $descriptionLength = 100;
-        if (mb_strlen($contentExceptImg) > $descriptionLength) {
-            $description = mb_substr($contentExceptImg, 0, $descriptionLength) . "...";
+        if (mb_strlen($content) > $descriptionLength) {
+            $description = mb_substr($content, 0, $descriptionLength) . "...";
             return view('blog.view', [
                 'article' => $article,
                 'relatedArticles' => $relatedArticles,
@@ -93,7 +112,7 @@ Route::get('/blog/view/{articleId}', function ($articleId) {
             return view('blog.view', [
                 'article' => $article,
                 'relatedArticles' => $relatedArticles,
-                'description' => $contentExceptImg
+                'description' => $content
             ]);
         }
     }
