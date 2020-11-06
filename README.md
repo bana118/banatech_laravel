@@ -20,6 +20,12 @@ $ npm run dev
 $ php artisan serve
 ```
 
+## 管理者アカウント作成
+
+```
+$ php artisan voyager:admin your@email.com --create
+```
+
 # ローカル開発([VSCode Remote Containers](https://code.visualstudio.com/docs/remote/containers))
 
 [Visual Studio Code](https://azure.microsoft.com/ja-jp/products/visual-studio-code/)と[Remote \- Containers 拡張](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)を用いてコンテナ内で開発．  
@@ -69,6 +75,7 @@ $ sudo docker exec -i -t banatech bash
 $ cd
 $ git clone https://github.com/bana118/banatech_laravel.git
 $ cd banatech_laravel
+$ touch database/database.sqlite3
 $ cp .env.prod .env
 $ cp nginx-app.conf.temp nginx-app.conf
 $ chmod -R 777 storage
@@ -82,6 +89,7 @@ $ sudo docker exec -i -t banatech bash
 # composer install --optimize-autoloader --no-dev
 # npm ci
 # npm run prod
+# php artisan voyager:admin your@email.com --create
 ```
 
 ## letsencrypt で証明書取得
