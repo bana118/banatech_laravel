@@ -1,4 +1,8 @@
 window.onload = function() {
-    const bgroup = document.getElementById("bgroup");
-    bgroup.style.display = "inline-block";
+    const penguinImg = document.getElementById("penguinImg");
+    console.log(penguinImg);
+    penguinImg.addEventListener("click", () => {
+        const bgroup = document.getElementById("bgroup");
+        bgroup.style.display = "inline-block";
+    });
 };
