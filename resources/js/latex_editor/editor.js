@@ -2,6 +2,8 @@ import "ace-builds";
 import "ace-builds/webpack-resolver";
 import { parse, HtmlGenerator } from "latex.js";
 
+window.$ = window.jQuery = require("jquery");
+
 var editor;
 window.onload = function() {
     editor = ace.edit("editor", {

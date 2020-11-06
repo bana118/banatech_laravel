@@ -4,6 +4,7 @@
 @section('description', 'JavaScript、anime.jsを用いたパズルゲーム。ブロックを回転させ同じ色のブロックを4つそろえよう')
 @section('head')
     @include('base.head')
+    <script src="{{ mix('js/kurukuru/kurukuru.js') }}"></script>
     <meta property="og:type" content="article" />
     <meta property="og:url" content="{{ url()->current() }}" />
     <meta property="og:locale" content="ja_JP">

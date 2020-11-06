@@ -14,7 +14,6 @@ const CompressionPlugin = require("compression-webpack-plugin");
 
 // base
 mix.js("resources/js/base/uikit.js", "public/js/base/")
-    .js("resources/js/base/bootstrap.js", "public/js/base/")
     .sass(
         "resources/sass/base/fontawesome.scss",
         "public/css/base/fontawesome.css"
@@ -40,8 +39,14 @@ mix.js("resources/js/hakogucha/hakogucha.js", "public/js/hakogucha/");
 // reiwa
 mix.js("resources/js/reiwa/reiwa.js", "public/js/reiwa/")
     .js("resources/js/reiwa/solo.js", "public/js/reiwa/")
-    .js("resources/js/reiwa/createjs/preloadjs.js", "public/js/reiwa/")
-    .js("resources/js/reiwa/createjs/soundjs.js", "public/js/reiwa");
+    .copy(
+        "resources/js/reiwa/createjs/preloadjs.min.js",
+        "public/js/reiwa/preloadjs.min.js"
+    )
+    .copy(
+        "resources/js/reiwa/createjs/soundjs.min.js",
+        "public/js/reiwa/soundjs.min.js"
+    );
 
 // vr_meiro
 mix.js("resources/js/vr_meiro/intro.js", "public/js/vr_meiro/").js(

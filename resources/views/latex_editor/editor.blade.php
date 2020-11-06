@@ -4,6 +4,8 @@
 @section('description', 'latex.jsを用いたLaTeXのリアルタイムプレビューができるエディター')
 @section('head')
     @include('base.head')
+    <script src="{{ mix('js/latex_editor/editor.js') }}"></script>
+    <meta name="csrf-token" content='@csrf'>
     <meta property="og:type" content="article" />
     <meta property="og:url" content="{{ url()->current() }}" />
     <meta property="og:locale" content="ja_JP">

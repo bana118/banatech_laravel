@@ -2,6 +2,8 @@ require("aframe");
 require("aframe-extras");
 require("./rotation-controls");
 
+window.$ = window.jQuery = require("jquery");
+
 let vrMode = false;
 
 window.onload = function() {

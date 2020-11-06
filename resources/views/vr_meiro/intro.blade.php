@@ -3,6 +3,7 @@
 @section('description', 'Webで遊べるVR迷路。ゾンビから逃げろ！')
 @section('head')
     @include('base.head')
+    <script src="{{ mix('js/vr_meiro/intro.js') }}"></script>
     <meta property="og:type" content="article" />
     <meta property="og:url" content="{{ url()->current() }}" />
     <meta property="og:locale" content="ja_JP">
@@ -15,7 +16,7 @@
 @section('content')
     <div class="uk-container uk-container-center uk-background-default" style="touch-action: manipulation;">
         <div class="uk-frex start" style="position: relative;text-align:center;">
-            <img src="{{ asset('img/sumnail/vr_meiro.png') }}" onClick="start();" width="400">
+            <img id="mazeImg" src="{{ asset('img/sumnail/vr_meiro.png') }}" width="400">
             <div id="bgroup" class="uk-button-group"
                 style="display:none; position:absolute;top: 0;left: 0;right: 0;bottom: 0;margin: auto;width:100px;height:100px;">
                 <button type="button" class="uk-button uk-button-primary"
