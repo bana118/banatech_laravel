@@ -77,72 +77,19 @@ window.onload = function() {
 
     const target = document.getElementById("markdown_content");
     const url = target.getAttribute("src");
-    fetch(url).then(response => {
-        console.log(response);
-    });
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                target.append("This content failed to load.");
+                throw new Error("Network response was not ok");
+            }
+            return response.text();
+        })
+        .then(data => {
+            target.insertAdjacentHTML("beforeend", marked(data));
+            MathJax.typeset();
+        })
+        .catch(error => {
+            target.append("This content failed to load.");
+        });
 };
-// $(document).ready(function() {
-//     var target = $("#markdown_content");
-//     var renderer = new marked.Renderer();
-//     renderer.code = function(code, language) {
-//         if (language.indexOf(":") != -1) {
-//             var lang = language.split(":")[0];
-//             var fileName = language.split(":")[1].trim();
-//             return (
-//                 "<pre>" +
-//                 '<div class="uk-badge" style="display: inline-block;">' +
-//                 fileName +
-//                 " " +
-//                 "</div>" +
-//                 '<code class="hljs">' +
-//                 hljs.highlightAuto(code, [lang]).value +
-//                 "</code></pre>"
-//             );
-//         } else {
-//             return (
-//                 "<pre" +
-//                 '><code class="hljs">' +
-//                 hljs.highlightAuto(code).value +
-//                 "</code></pre>"
-//             );
-//         }
-//     };
-//     renderer.image = function(href, title, text) {
-//         var fileName = href.split("/").pop();
-//         var articleId = $("#article_id").data("name");
-//         var imgPath =
-//             location.origin + "/uploaded/article/" + articleId + "/image";
-//         return (
-//             '<img src="' +
-//             imgPath +
-//             "/" +
-//             fileName +
-//             '" alt="' +
-//             text +
-//             '" class="img-fluid">'
-//         );
-//     };
-
-//     marked.setOptions({
-//         renderer: renderer,
-//         gfm: true,
-//         tables: true,
-//         breaks: true,
-//         pedantic: false,
-//         sanitize: false,
-//         smartLists: false,
-//         smartypants: false,
-//     });
-
-//     $.ajax({
-//         url: target[0].attributes["src"].value,
-//     }).then(
-//         function(data) {
-//             target.append(marked(data));
-//             MathJax.typeset();
-//         },
-//         function() {
-//             target.append("This content failed to load.");
-//         }
-//     );
-// });
