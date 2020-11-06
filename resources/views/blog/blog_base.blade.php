@@ -1,6 +1,7 @@
 @extends('base.base')
 @section('head')
     @include('base.head')
+    <meta property="og:type" content="article" />
     <meta property="og:url" content="{{ url()->current() }}" />
     <meta property="og:locale" content="ja_JP">
     <meta property="og:title" content="ばなてっく" />

@@ -4,14 +4,12 @@
 @section('description', 'latex.jsを用いたLaTeXのリアルタイムプレビューができるエディター')
 @section('head')
     @include('base.head')
-    <script src="{{ mix('js/latex_editor/editor.js') }}"></script>
-    <meta name="csrf-token" content='@csrf'>
-    <!--to save tex file with post form-->
+    <meta property="og:type" content="article" />
     <meta property="og:url" content="{{ url()->current() }}" />
     <meta property="og:locale" content="ja_JP">
-    <meta property="og:title" content="ばなてっく" />
-    <meta property="og:description" content="LaTeXEditor" />
-    <meta property="og:image" content="{{ asset('img/sumnail/latex_editor.png') }}" />
+    <meta property="og:title" content="LaTeXEditor" />
+    <meta property="og:description" content="latex.jsを用いたLaTeXのリアルタイムプレビューができるエディター" />
+    <meta property="og:image" content="{{ asset('img/favicon/android-chrome-512x512.png') }}" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="{{ Config::get('const.TWITTERID') }}" />
 @endsection

@@ -6,11 +6,12 @@
     <script src="{{ mix('js/reiwa/solo.js') }}"></script>
     <script src="{{ mix('js/reiwa/preloadjs.js') }}"></script>
     <script src="{{ mix('js/reiwa/soundjs.js') }}"></script>
+    <meta property="og:type" content="article" />
     <meta property="og:url" content="{{ url()->current() }}" />
     <meta property="og:locale" content="ja_JP">
-    <meta property="og:title" content="ばなてっく" />
-    <meta property="og:description" content="令和で書き初め" />
-    <meta property="og:image" content="{{ asset('img/sumnail/reiwa.png') }}" />
+    <meta property="og:title" content="令和で書き初め" />
+    <meta property="og:description" content="「令和」を100秒以内に書きまくれ！手書き文字を人工知能が判定" />
+    <meta property="og:image" content="{{ asset('img/favicon/android-chrome-512x512.png') }}" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="{{ Config::get('const.TWITTERID') }}" />
 @endsection

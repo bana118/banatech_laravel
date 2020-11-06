@@ -3,11 +3,12 @@
 @section('description', 'Webで遊べるVR迷路')
 @section('head')
     @include('base.head')
+    <meta property="og:type" content="article" />
     <meta property="og:url" content="{{ url()->current() }}" />
     <meta property="og:locale" content="ja_JP">
-    <meta property="og:title" content="ばなてっく" />
-    <meta property="og:description" content="VR迷路Web" />
-    <meta property="og:image" content="{{ asset('img/sumnail/vr_meiro.png') }}" />
+    <meta property="og:title" content="VR迷路" />
+    <meta property="og:description" content="Webで遊べるVR迷路。ゾンビから逃げろ！" />
+    <meta property="og:image" content="{{ asset('img/favicon/android-chrome-512x512.png') }}" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="{{ Config::get('const.TWITTERID') }}" />
 @endsection
