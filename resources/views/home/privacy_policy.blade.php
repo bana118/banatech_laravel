@@ -15,7 +15,7 @@
 @endsection
 @section('content')
     <div class="uk-container uk-container-center uk-background-default">
-        <h2>プライバシーポリシー(個人情報保護方針)</h2>
+        <h1>プライバシーポリシー(個人情報保護方針)</h1>
         <p>「{{ config('app.url') }}」（以下、当サイト）を利用される方は、以下に記載する諸条件に同意したものとみなします。</p>
         <p>&nbsp;</p>
         <h2>アクセス解析ツールについて</h2>

@@ -15,8 +15,7 @@
 @endsection
 @section('content')
     <div class="uk-container uk-container-center uk-background-default">
-        <h1>アプリ一覧</h1>
-        <h2>今まで作成したWeb&モバイルアプリケーション</h2>
+        <h1>製作物</h1>
         <div class="uk-grid uk-flex-center">
             <div class="uk-width-1-2@m uk-margin-top">
                 <a href="https://play.google.com/store/apps/details?id=net.banatech.app.android.sabi_alarm"
