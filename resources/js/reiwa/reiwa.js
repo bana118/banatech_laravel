@@ -1,4 +1,4 @@
-window.start = function (){
-    var bgroup = document.getElementById("bgroup");
-    bgroup.style.display="inline-block";
-}
+window.onload = function() {
+    const bgroup = document.getElementById("bgroup");
+    bgroup.style.display = "inline-block";
+};
