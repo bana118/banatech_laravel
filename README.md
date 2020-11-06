@@ -10,6 +10,7 @@
 ```
 $ git clone https://github.com/bana118/banatech_laravel.git
 $ cd banatech_laravel
+$ touch database/database.sqlite3
 $ cp .env.dev .env
 $ composer install
 $ php artisan key:generate
