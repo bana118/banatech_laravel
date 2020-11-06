@@ -80,14 +80,13 @@ Route::get('/blog/view/{articleId}', function ($articleId) {
 
         $mdFilePath = public_path(("uploaded/" . $article->md_file));
 
-        # テーブルはdescriptionから消していない
         $imgReg = '/!\[.*?\]\(.*?\)|!\[.*?\]\[.*?\]|\[.*?\]: .*?\"\".*?\"\"/';
         $htmlReg = '/<(\".*?\"|\'.*?\'|[^\'\"])*?>/';
         $headerReg = '/^#+? /m';
         $brockquoteReg = '/^>.*$/m';
         $horizontalReg = '/^(\* ){3,}$|^\*{3,}$|^(- ){3,}|^-{3,}$|^(_ ){3,}$|^_{3,}$/m';
         $codeReg = '/^```.*?\r?\n(.*?\r?\n)*?```/m';
-        $tableReg = '/^( *\|[^\r?\n]+\| *\r?\n)((?: *\|:?[-]+:?)+\| *)(\r?\n(?: *\|[^\r?\n]+\| *\r?\n)*)?$/m';
+        $tableReg = '/^( *\|[^\n]+\| *\r?\n)((?: *\|:?[-]+:?)+\| *)(\r?\n(?: *\|[^\n]+\| *\r?\n?)*)?$/m';
         $emphasizeReg = '/\*(.*?)\*|_(.*?)_|\*\*(.*?)\*\*|__(.*?)__|~~(.*?)~~|`+?(.*?)`+?/';
         $linkReg = '/\[(.*?)\]\((https?|ftp)(:\/\/[-_.!~*\\\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)\)/';
 
@@ -101,9 +100,9 @@ Route::get('/blog/view/{articleId}', function ($articleId) {
         $content = preg_replace($tableReg, '', $content);
         $content = preg_replace($emphasizeReg, '$1$2$3$4$5$6', $content);
         $content = preg_replace($linkReg, '$1', $content);
-        $content = preg_replace('/\r?\n?/', '', $content);
+        $content = preg_replace('/\r?\n/', '', $content);
 
-        $descriptionLength = 100;
+        $descriptionLength = 120;
         if (mb_strlen($content) > $descriptionLength) {
             $description = mb_substr($content, 0, $descriptionLength) . '...';
             return view('blog.view', [
