@@ -1,14 +1,14 @@
 @extends('base.base')
 
 @section('title', 'ばなてっく｜工業大学生のポートフォリオ')
-@section('description', '工業大学生によるプログラミングやガジェットに関するブログ兼アプリケーション置き場')
+@section('description', '工業大学生による技術ブログ兼アプリケーション置き場')
 @section('head')
     @include('base.head')
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{{ url()->current() }}" />
     <meta property="og:locale" content="ja_JP">
     <meta property="og:title" content="ばなてっく" />
-    <meta property="og:description" content="工業大学生によるプログラミングやガジェットに関するブログ兼アプリケーション置き場" />
+    <meta property="og:description" content="工業大学生による技術ブログ兼アプリケーション置き場" />
     <meta property="og:image" content="{{ asset('img/favicon/android-chrome-512x512.png') }}" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="{{ Config::get('const.TWITTERID') }}" />

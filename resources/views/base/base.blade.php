@@ -66,12 +66,12 @@
                         banaTECH
                     </a>
                 </h3>
-                <p class="uk-flex uk-flex-center">
-                    工業大学生によるプログラミングやガジェットに関するブログ兼アプリケーション置き場
+                <p class="uk-flex uk-flex-center uk-text-small">
+                    工業大学生による技術ブログ兼アプリケーション置き場
                 </p>
-                <p id="copyright" class="uk-flex uk-flex-center uk-margin-small">
+                <div id="copyright" class="uk-flex uk-flex-center uk-text-meta uk-margin-small">
                     Copyright&copy; banaTECH 2020 All Rights Reserved
-                </p>
+                </div>
             </div>
         </footer>
     </div>

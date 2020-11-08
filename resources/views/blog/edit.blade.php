@@ -1,7 +1,7 @@
 @extends('base.base')
 
 @section('title', '記事編集')
-@section('description', '工業大学生によるプログラミングやガジェットに関するブログ兼Webアプリケーション置き場')
+@section('description', '工業大学生による技術ブログ兼アプリケーション置き場')
 @section('head')
     @include('base.head')
 @endsection
