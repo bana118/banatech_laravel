@@ -57,9 +57,9 @@
         <footer>
             <div id="footer" class="uk-flex uk-flex-column uk-flex-center uk-background-default uk-margin-top">
                 <ul class="uk-flex uk-flex-center uk-subnav uk-subnav-divider uk-margin-top">
-                    <li><a href="">製作物</a></li>
-                    <li><a href="">ブログ</a></li>
-                    <li><a href="">プライバシーポリシー</a></li>
+                    <li><a href="/">製作物</a></li>
+                    <li><a href="/blog">ブログ</a></li>
+                    <li><a href="/privacy_policy">プライバシーポリシー</a></li>
                 </ul>
                 <h3 id="copyright" class="uk-flex uk-flex-center uk-margin-remove">
                     <a class="uk-navbar-item uk-logo" href="/">
