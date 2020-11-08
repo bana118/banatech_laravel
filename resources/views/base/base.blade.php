@@ -54,6 +54,26 @@
             </div>
         </div>
         @yield('content')
+        <footer>
+            <div id="footer" class="uk-flex uk-flex-column uk-flex-center uk-background-default uk-margin-top">
+                <ul class="uk-flex uk-flex-center uk-subnav uk-subnav-divider uk-margin-top">
+                    <li><a href="">製作物</a></li>
+                    <li><a href="">ブログ</a></li>
+                    <li><a href="">プライバシーポリシー</a></li>
+                </ul>
+                <h3 id="copyright" class="uk-flex uk-flex-center uk-margin-remove">
+                    <a class="uk-navbar-item uk-logo" href="/">
+                        banaTECH
+                    </a>
+                </h3>
+                <p class="uk-flex uk-flex-center">
+                    工業大学生によるプログラミングやガジェットに関するブログ兼アプリケーション置き場
+                </p>
+                <p id="copyright" class="uk-flex uk-flex-center uk-margin-small">
+                    Copyright&copy; banaTECH 2020 All Rights Reserved
+                </p>
+            </div>
+        </footer>
     </div>
 </body>
 
