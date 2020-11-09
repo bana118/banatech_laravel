@@ -80,23 +80,23 @@ Route::get('/blog/view/{articleId}', function ($articleId) {
 
         $mdFilePath = public_path(("uploaded/" . $article->md_file));
 
+        $codeReg = '/^```.*?\r?\n(.*?\r?\n)*?```/m';
         $imgReg = '/!\[.*?\]\(.*?\)|!\[.*?\]\[.*?\]|\[.*?\]: .*?\"\".*?\"\"/';
         $htmlReg = '/<(\".*?\"|\'.*?\'|[^\'\"])*?>/';
         $headerReg = '/^#+? /m';
         $brockquoteReg = '/^>.*$/m';
         $horizontalReg = '/^(\* ){3,}$|^\*{3,}$|^(- ){3,}|^-{3,}$|^(_ ){3,}$|^_{3,}$/m';
-        $codeReg = '/^```.*?\r?\n(.*?\r?\n)*?```/m';
         $tableReg = '/^( *\|[^\n]+\| *\r?\n)((?: *\|:?[-]+:?)+\| *)(\r?\n(?: *\|[^\n]+\| *\r?\n?)*)?$/m';
         $emphasizeReg = '/\*(.*?)\*|_(.*?)_|\*\*(.*?)\*\*|__(.*?)__|~~(.*?)~~|`+?(.*?)`+?/';
         $linkReg = '/\[(.*?)\]\((https?|ftp)(:\/\/[-_.!~*\\\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)\)/';
 
         $content = file_get_contents($mdFilePath);
+        $content = preg_replace($codeReg, '', $content);
         $content = preg_replace($imgReg, '', $content);
         $content = preg_replace($htmlReg, '', $content);
         $content = preg_replace($headerReg, '', $content);
         $content = preg_replace($brockquoteReg, '', $content);
         $content = preg_replace($horizontalReg, '', $content);
-        $content = preg_replace($codeReg, '', $content);
         $content = preg_replace($tableReg, '', $content);
         $content = preg_replace($emphasizeReg, '$1$2$3$4$5$6', $content);
         $content = preg_replace($linkReg, '$1', $content);
