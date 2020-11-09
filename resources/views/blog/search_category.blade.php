@@ -1,7 +1,7 @@
 @extends('blog.blog_base')
 
 @section('title', '「' . $categoryName . '」のカテゴリ検索結果')
-@section('description', 'プログラミングやガジェットに関する技術ブログの「' . $searchWord . '」のカテゴリ検索結果')
+@section('description', 'プログラミングやガジェットに関する技術ブログの「' . $categoryName . '」のカテゴリ検索結果')
 
 @section('card_body')
 
