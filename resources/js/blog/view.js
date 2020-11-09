@@ -75,7 +75,7 @@ window.onload = function() {
         smartypants: false,
     });
 
-    const target = document.getElementById("markdown_content");
+    const target = document.getElementById("markdownContent");
     const url = target.getAttribute("src");
     fetch(url)
         .then(response => {
