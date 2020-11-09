@@ -1,6 +1,5 @@
 body {
     background-color: #eeeeee;
-    /*ページ全体の背景色*/
 }
 
 .uk-navbar-container.uk-light:not(.uk-navbar-transparent):not(.uk-navbar-primary) {
@@ -9,6 +8,13 @@ body {
 
 #mobile-navbar .uk-offcanvas-bar {
     box-shadow: 2px 0 5px 0 #0e0e0e;
+}
+
+#scrollUp {
+    position: fixed;
+    right: 50px;
+    bottom: 50px;
+    visibility: hidden;
 }
 
 #mobile-navbar li:nth-child(1),
