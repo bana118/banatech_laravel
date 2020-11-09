@@ -75,6 +75,9 @@
             </div>
         </footer>
     </div>
+    <div id="scrollUp">
+        <a class="scrollup" href="#" uk-totop uk-scroll></a>
+    </div>
 </body>
 
 </html>

@@ -13,7 +13,7 @@ const CompressionPlugin = require("compression-webpack-plugin");
  */
 
 // base
-mix.js("resources/js/base/uikit.js", "public/js/base/")
+mix.js("resources/js/base/base.js", "public/js/base/")
     .sass(
         "resources/sass/base/fontawesome.scss",
         "public/css/base/fontawesome.css"

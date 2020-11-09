@@ -10,6 +10,13 @@ body {
     box-shadow: 2px 0 5px 0 #0e0e0e;
 }
 
+#scrollUp {
+    position: fixed;
+    right: 50px;
+    bottom: 50px;
+    visibility: hidden;
+}
+
 #mobile-navbar li:nth-child(1),
 #mobile-navbar li:nth-child(2),
 #mobile-navbar li:nth-child(3) {
