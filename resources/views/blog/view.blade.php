@@ -34,7 +34,7 @@
                     onclick="location.href='/blog/category/{{ $category->id }}'">{{ $category->name }}</button>
             @endforeach
         </p>
-        <div id="markdown_content" src="{{ asset('uploaded/' . $article->md_file) }}"></div>
+        <div id="markdownContent" src="{{ asset('uploaded/' . $article->md_file) }}"></div>
         <h2 class="related-articles-label">関連記事</h2>
         <p class="related-articles">
             @foreach ($relatedArticles as $relatedArticle)

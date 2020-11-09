@@ -11,13 +11,17 @@
     /*下線*/
 }
 
-#markdown_content h1 {
+#markdownContent h1 {
     font-size: 2em;
     background: linear-gradient(transparent 70%, #a7d6ff 70%);
 }
 
+#markdownContent {
+    word-wrap: break-word;
+}
+
 .related-articles-label {
-    border-bottom: double 5px #FFC778;
+    border-bottom: double 5px #ffc778;
 }
 
 p {
