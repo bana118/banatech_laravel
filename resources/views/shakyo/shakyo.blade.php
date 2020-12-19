@@ -4,7 +4,7 @@
 @section('description', '手書き文字認識のデータセット作成用写経アプリ．手書き文字認識用の手書き文字をタッチやマウスでガンガン書いて保存できます．')
 @section('head')
     @include('base.head')
-    <script src="{{ mix('js/shakyo/app.js') }}"></script>
+    <script src="{{ mix('js/shakyo/app.js') }}" defer></script>
     <meta property="og:type" content="article" />
     <meta property="og:url" content="{{ url()->current() }}" />
     <meta property="og:locale" content="ja_JP">
