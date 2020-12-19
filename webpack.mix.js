@@ -54,6 +54,9 @@ mix.js("resources/js/vr_meiro/intro.js", "public/js/vr_meiro/").js(
     "public/js/vr_meiro/"
 );
 
+// shakyo
+mix.react("resources/js/shakyo/app.js", "public/js/shakyo");
+
 if (mix.inProduction()) {
     mix.version();
     // gzip compression

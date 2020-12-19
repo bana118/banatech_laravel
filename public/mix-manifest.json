@@ -10,6 +10,7 @@
     "/js/latex_editor/editor.js": "/js/latex_editor/editor.js",
     "/js/reiwa/reiwa.js": "/js/reiwa/reiwa.js",
     "/js/reiwa/solo.js": "/js/reiwa/solo.js",
+    "/js/shakyo/app.js": "/js/shakyo/app.js",
     "/js/vr_meiro/intro.js": "/js/vr_meiro/intro.js",
     "/js/vr_meiro/play.js": "/js/vr_meiro/play.js",
     "/js/reiwa/preloadjs.min.js": "/js/reiwa/preloadjs.min.js",
