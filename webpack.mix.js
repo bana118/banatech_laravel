@@ -55,7 +55,7 @@ mix.js("resources/js/vr_meiro/intro.js", "public/js/vr_meiro/").js(
 );
 
 // shakyo
-mix.ts("resources/js/shakyo/app.tsx", "public/js/shakyo");
+mix.ts("resources/js/shakyo/App.tsx", "public/js/shakyo");
 
 if (mix.inProduction()) {
     mix.version();
