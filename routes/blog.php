@@ -11,7 +11,7 @@ Route::get('/blog', function () {
     ]);
 });
 
-Route::get('/blog/download_all_articles', function () {
+Route::get('/blog/get-all-articles', function () {
     $zipDirectory = function ($dir, $file, $root = "") {
         $zip = new ZipArchive();
         $res = $zip->open($file, ZipArchive::CREATE);
@@ -49,8 +49,8 @@ Route::get('/blog/download_all_articles', function () {
             return false;
         }
     };
-    $zipDirectory(public_path() . '/uploaded/article/', public_path() . '/articles.zip');
-    return response()->download(public_path() . '/articles.zip');
+    $zipDirectory(public_path() . '/uploaded/article/', public_path() . '/article.zip');
+    return response()->download(public_path() . '/article.zip');
 });
 
 Route::get('/blog/all_categories', function () {
