@@ -125,7 +125,9 @@ Route::get('/blog/delete/{articleId}', function ($articleId) {
     if ($articleCount == 0) {
         return App::abort(404);
     } else {
-        if (Auth::check()) {
+        if (!Auth::check()) {
+            return redirect('/admin/login');
+        } else {
             $article = \App\Article::where('id', $articleId)->first();
             $prevCategories = $article->categories()->get();
             $deleteDirPath = "uploaded/article/" . $article->id;
@@ -137,8 +139,6 @@ Route::get('/blog/delete/{articleId}', function ($articleId) {
                 }
             }
             return redirect('/blog');
-        } else {
-            return redirect('/admin/login');
         }
     }
 });
@@ -148,7 +148,9 @@ Route::get('/blog/edit/{articleId}', function ($articleId) {
     if ($articleCount == 0) {
         return App::abort(404);
     } else {
-        if (Auth::check()) {
+        if (!Auth::check()) {
+            return redirect('/admin/login');
+        } else {
             $article = \App\Article::where('id', $articleId)->first();
             $editPath = public_path(("uploaded/" . $article->md_file));
             $content = file_get_contents($editPath);
@@ -156,14 +158,14 @@ Route::get('/blog/edit/{articleId}', function ($articleId) {
                 'article' => $article,
                 'content' => $content
             ]);
-        } else {
-            return redirect('/admin/login');
         }
     }
 });
 
 Route::post('/blog/edited/{articleId}', function (Request $request, $articleId) {
-    if (Auth::check()) {
+    if (!Auth::check()) {
+        return redirect('/admin/login');
+    } else {
         $validator = Validator::make($request->all(), [
             'title' => 'required|max:255',
             'category' => 'required|max:255',
@@ -220,21 +222,21 @@ Route::post('/blog/edited/{articleId}', function (Request $request, $articleId) 
         $article->touch(); # update updated_at column
 
         return redirect('/blog');
-    } else {
-        return redirect('/admin/login');
     }
 });
 
 Route::get('/blog/post', function () {
-    if (Auth::check()) {
-        return view('blog.post');
-    } else {
+    if (!Auth::check()) {
         return redirect('/admin/login');
+    } else {
+        return view('blog.post');
     }
 });
 
 Route::post('/blog/posted', function (Request $request) {
-    if (Auth::check()) {
+    if (!Auth::check()) {
+        return redirect('/admin/login');
+    } else {
         $validator = Validator::make($request->all(), [
             'title' => 'required|max:255',
             'category' => 'required|max:255',
@@ -276,8 +278,6 @@ Route::post('/blog/posted', function (Request $request) {
             }
         }
         return redirect('/blog');
-    } else {
-        return redirect('/admin/login');
     }
 });
 
