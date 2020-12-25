@@ -8,7 +8,6 @@
 !/public/favicon.ico
 !/public/robots.txt
 !/public/.htaccess
-!/public/mix-manifest.json
 /storage/*.key
 /vendor
 .env
