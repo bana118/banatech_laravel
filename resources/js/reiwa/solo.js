@@ -121,7 +121,9 @@ function gameOver() {
         "正解した数：" + correctCount + "\n間違えた数：" + wrongCount;
     var twitterLink = document.getElementById("twitterLink");
     twitterLink.href =
-        "https://twitter.com/share?url=https://banateck.tk/reiwa&text=令和で書き初め！%0a正解した数：" +
+        "https://twitter.com/share?url=" +
+        location.origin +
+        "/reiwa&text=令和で書き初め！%0a正解した数：" +
         correctCount +
         "枚%0a間違えた数：" +
         wrongCount +

@@ -33,7 +33,6 @@ window.onload = function() {
                 "<pre>" +
                 '<div class="uk-badge" style="display: inline-block;">' +
                 fileName +
-                " " +
                 "</div>" +
                 '<code class="hljs">' +
                 hljs.highlightAuto(code, [lang]).value +
