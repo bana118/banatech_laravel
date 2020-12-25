@@ -8,14 +8,12 @@ on:
 
 jobs:
   laravel-tests:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
 
     steps:
       - uses: actions/checkout@v2
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.prod', '.env');"
-      - name: Downgrade composer to 1
-        run: sudo composer self-update --1
       - name: Install Dependencies with composer
         run: composer install
       - name: Directory Permissions
