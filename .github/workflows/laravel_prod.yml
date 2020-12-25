@@ -15,7 +15,7 @@ jobs:
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.prod', '.env');"
       - name: Downgrade composer to 1
-        run: composer self-update --1
+        run: sudo composer self-update --1
       - name: Install Dependencies with composer
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
       - name: Directory Permissions
