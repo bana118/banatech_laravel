@@ -25,17 +25,8 @@ jobs:
         run: composer install
       - name: Directory Permissions
         run: chmod -R 777 storage bootstrap/cache
-      - name: Create Database
-        run: |
-          mkdir -p database
-          touch database/database.sqlite3
       - name: Generate key
         run: php artisan key:generate
-      - name: Execute tests (Unit and Feature tests) via PHPUnit
-        env:
-          DB_CONNECTION: sqlite
-          DB_DATABASE: database/database.sqlite3
-        run: vendor/bin/phpunit
       - name: Use Node.js
         uses: actions/setup-node@v1
         with:
@@ -44,3 +35,8 @@ jobs:
         run: npm install
       - name: Build with npm
         run: npm run prod
+      - name: Execute tests (Unit and Feature tests) via PHPUnit
+        env:
+          DB_CONNECTION: sqlite
+          DB_DATABASE: database/database.sqlite3
+        run: vendor/bin/phpunit
