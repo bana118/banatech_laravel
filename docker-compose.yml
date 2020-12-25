@@ -3,7 +3,7 @@ services:
   web:
     image: banatech_laravel
     volumes:
-      - /home/docker/code:/home/docker/code
+      - ~/banatech_laravel:~:/root/banatech_laravel
       - /etc/letsencrypt:/etc/letsencrypt
     ports:
       - "80:80"
