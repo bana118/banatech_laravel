@@ -1,7 +1,7 @@
 #imagename: banatech_laravel
 FROM ubuntu:18.04
 
-# avoid freeze while configuring tzdata 
+# avoid freeze while configuring tzdata
 ENV DEBIAN_FRONTEND=noninteractive
 
 #Author
@@ -38,8 +38,6 @@ RUN npm install n -g
 RUN n stable
 RUN apt purge -y nodejs npm
 ENV PATH $PATH:/usr/local/bin/node
-# add our code
-COPY . /home/docker/code/banatech_laravel
 
 # install packages, but it doesn't work so do it manually in docker
 
@@ -66,7 +64,6 @@ COPY . /home/docker/code/banatech_laravel
 
 # setup all the configfiles
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
-COPY nginx-app.conf /etc/nginx/sites-available/default
 COPY supervisor-app.conf /etc/supervisor/conf.d/
 
 # create socket file for php-fpm
