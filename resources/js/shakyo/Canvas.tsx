@@ -49,7 +49,6 @@ export const Canvas = (props: CanvasProps): ReactElement => {
             drawLine(x, y);
             setPositionX(x);
             setPositionY(y);
-            event.preventDefault();
             event.stopPropagation();
         }
     };
