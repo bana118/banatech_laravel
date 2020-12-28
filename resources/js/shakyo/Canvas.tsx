@@ -3,6 +3,7 @@ import React, { ReactElement, useState, useRef, useEffect } from "react";
 interface CanvasProps {
     width: number;
     hight: number;
+    updateCanvas: (canvas: HTMLCanvasElement) => void;
 }
 
 export const Canvas = (props: CanvasProps): ReactElement => {
@@ -13,6 +14,39 @@ export const Canvas = (props: CanvasProps): ReactElement => {
     const [isDrawing, setIsDrawing] = useState(false);
     const [positionX, setPositionX] = useState(0);
     const [positionY, setPositionY] = useState(0);
+
+    useEffect(() => {
+        const canvas = canvasRef?.current;
+        if (canvas != null) {
+            const context = canvas.getContext("2d");
+            setCanvasContext(context);
+            // At this point, canvasContext is still undefined
+            if (context != null) {
+                context.fillStyle = "rgb(255,255,255)";
+                context.fillRect(
+                    0,
+                    0,
+                    context.canvas.width,
+                    context.canvas.height
+                );
+                context.strokeStyle = "#000000";
+                context.lineWidth = 5;
+                context.lineJoin = "round";
+                context.lineCap = "round";
+                context.save();
+            } else {
+                console.log("canvasContext loading error");
+            }
+        } else {
+            console.log("canvasRef loading error");
+        }
+    }, []);
+
+    useEffect(() => {
+        if (canvasContext != null) {
+            props.updateCanvas(canvasContext.canvas);
+        }
+    }, [canvasContext]);
 
     const drawLine = (x: number, y: number) => {
         if (canvasContext != null) {
@@ -77,25 +111,6 @@ export const Canvas = (props: CanvasProps): ReactElement => {
         }
     };
 
-    useEffect(() => {
-        const canvas = canvasRef?.current;
-        if (canvas != null) {
-            const context = canvas.getContext("2d");
-            setCanvasContext(context);
-            // At this point, canvasContext is still undefined
-            if (context != null) {
-                context.strokeStyle = "#000000";
-                context.lineWidth = 5;
-                context.lineJoin = "round";
-                context.lineCap = "round";
-                context.save();
-            } else {
-                console.log("canvasContext loading error");
-            }
-        } else {
-            console.log("canvasRef loading error");
-        }
-    }, []);
     return (
         <div style={wrapperStyle}>
             <canvas
