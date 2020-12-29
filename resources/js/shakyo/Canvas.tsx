@@ -2,7 +2,7 @@ import React, { ReactElement, useState, useRef, useEffect } from "react";
 
 interface CanvasProps {
     width: number;
-    hight: number;
+    height: number;
     updateCanvas: (canvas: HTMLCanvasElement) => void;
 }
 
@@ -40,7 +40,7 @@ export const Canvas = (props: CanvasProps): ReactElement => {
         } else {
             console.log("canvasRef loading error");
         }
-    }, []);
+    }, [props.width, props.height]);
 
     useEffect(() => {
         if (canvasContext != null) {
@@ -116,7 +116,7 @@ export const Canvas = (props: CanvasProps): ReactElement => {
             <canvas
                 ref={canvasRef}
                 width={props.width}
-                height={props.hight}
+                height={props.height}
                 style={canvasStyle}
                 onTouchStart={onTouchDrawStart}
                 onTouchEnd={onTouchDrawEnd}
