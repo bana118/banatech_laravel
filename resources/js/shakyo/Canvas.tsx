@@ -2,6 +2,7 @@ import React, { ReactElement, useState, useRef, useEffect } from "react";
 
 interface CanvasProps {
     size: number;
+    lineWidth: number;
     updateCanvas: (canvas: HTMLCanvasElement) => void;
 }
 
@@ -34,13 +35,13 @@ export const Canvas = (props: CanvasProps): ReactElement => {
                     context.canvas.height
                 );
                 context.strokeStyle = "#000000";
-                context.lineWidth = 5;
+                context.lineWidth = props.lineWidth;
                 context.lineJoin = "round";
                 context.lineCap = "round";
                 context.save();
             }
         }
-    }, [props.size]);
+    }, [props.size, props.lineWidth]);
 
     const drawLine = (x: number, y: number) => {
         if (canvasContext != null) {
