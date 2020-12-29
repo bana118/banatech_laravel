@@ -12,7 +12,6 @@ const App: React.FC = () => {
     const [count, setCount] = useState(1);
     const [canvasSize, setCanvasSize] = useState(256);
     const [lineWidth, setLineWidth] = useState(5);
-    const [milliSeconds, setMilliSeconds] = useState(0);
     return (
         <React.Fragment>
             <Canvas
@@ -38,12 +37,7 @@ const App: React.FC = () => {
                 max={50}
                 min={1}
             />
-            <Timer
-                milliSeconds={milliSeconds}
-                updateMilliSeconds={setMilliSeconds}
-                milliInterval={10}
-                count={count}
-            />
+            <Timer count={count} />
         </React.Fragment>
     );
 };
