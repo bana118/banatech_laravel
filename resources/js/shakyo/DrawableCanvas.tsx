@@ -6,7 +6,7 @@ interface CanvasProps {
     updateCanvas: (canvas: HTMLCanvasElement) => void;
 }
 
-export const Canvas = (props: CanvasProps): ReactElement => {
+export const DrawableCanvas = (props: CanvasProps): ReactElement => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const [canvasContext, setCanvasContext] = useState<
         CanvasRenderingContext2D | undefined | null

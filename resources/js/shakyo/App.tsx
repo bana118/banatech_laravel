@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
-import { Canvas } from "./Canvas";
+import { DrawableCanvas } from "./DrawableCanvas";
 import { DownloadLink } from "./DownloadLink";
 import { SizeChanger } from "./SizeChanger";
 import { Timer } from "./Timer";
@@ -14,7 +14,7 @@ const App: React.FC = () => {
     const [lineWidth, setLineWidth] = useState(5);
     return (
         <React.Fragment>
-            <Canvas
+            <DrawableCanvas
                 size={canvasSize}
                 lineWidth={lineWidth}
                 updateCanvas={setCanvas}
