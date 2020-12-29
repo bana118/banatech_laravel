@@ -7,10 +7,12 @@ const App: React.FC = () => {
     const [canvas, setCanvas] = useState<HTMLCanvasElement | undefined>(
         undefined
     );
+    const [count, setCount] = useState(1);
     return (
         <React.Fragment>
             <Canvas width={256} hight={256} updateCanvas={setCanvas} />
-            <DownloadLink canvas={canvas} />
+            <p>現在{count}枚目</p>
+            <DownloadLink canvas={canvas} updateCount={setCount} />
         </React.Fragment>
     );
 };
