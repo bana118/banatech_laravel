@@ -12,6 +12,7 @@ export const Timer = (props: TimerProps): ReactElement => {
     const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | undefined>(
         undefined
     );
+    const [milliSecondsArray, setMilliSecondsArray] = useState<number[]>([]);
 
     useEffect(() => {
         if (isStarted) {
@@ -26,6 +27,8 @@ export const Timer = (props: TimerProps): ReactElement => {
     useEffect(() => {
         if (timeoutId != null) {
             clearTimeout(timeoutId);
+            props.updateMilliSeconds(0);
+            setMilliSecondsArray([...milliSecondsArray, props.milliSeconds]);
         }
     }, [props.count]);
 
@@ -35,11 +38,18 @@ export const Timer = (props: TimerProps): ReactElement => {
     const startTimer = () => {
         setIsStarted(true);
     };
+    const stopTimer = () => {
+        if (timeoutId != null) {
+            clearTimeout(timeoutId);
+        }
+    };
 
     return (
         <React.Fragment>
             <p>{props.milliSeconds}ms</p>
+            <p>{milliSecondsArray}</p>
             <button onClick={startTimer}>開始</button>
+            <button onClick={stopTimer}>停止</button>
         </React.Fragment>
     );
 };
