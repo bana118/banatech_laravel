@@ -76,7 +76,7 @@ $ cd
 $ git clone https://github.com/bana118/banatech_laravel.git
 $ cd banatech_laravel
 $ touch database/database.sqlite3
-$ cp .env.prod .env
+$ cp .env.production .env
 $ cp nginx-app.conf.temp nginx-app.conf
 $ chmod -R 777 storage
 $ chmod -R 777 bootstrap/cache
