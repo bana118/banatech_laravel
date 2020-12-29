@@ -42,24 +42,24 @@ ENV PATH $PATH:/usr/local/bin/node
 # install packages, but it doesn't work so do it manually in docker
 
 # install laravel and etc
-# RUN cd /home/docker/code/banatech_laravel && composer install --optimize-autoloader --no-dev
+# RUN cd /root/banatech_laravel && composer install --optimize-autoloader --no-dev
 
 # install npm packages
-# RUN cd /home/docker/code/banatech_laravel && npm install
+# RUN cd /root/banatech_laravel && npm install
 
 # clear laravel caches
 # This app doesn't seem to delete the route cache...
-# RUN cd /home/docker/code/banatech_laravel && php artisan config:cache
-# RUN cd /home/docker/code/banatech_laravel && php artisan config:cache && php artisan route:cache
+# RUN cd /root/banatech_laravel && php artisan config:cache
+# RUN cd /root/banatech_laravel && php artisan config:cache && php artisan route:cache
 
 # generate app key
-# RUN cd /home/docker/code/banatech_laravel && php artisan key:generate
+# RUN cd /root/banatech_laravel && php artisan key:generate
 
 # migrate
-# RUN cd /home/docker/code/banatech_laravel && php artisan migrate
+# RUN cd /root/banatech_laravel && php artisan migrate
 
 # compile css and js
-# RUN cd /home/docker/code/banatech_laravel && npm run prod
+# RUN cd /root/banatech_laravel && npm run prod
 
 
 # setup all the configfiles

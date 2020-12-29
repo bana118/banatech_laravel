@@ -11,7 +11,7 @@ server {
     gzip_static on;
     gunzip on;
     location /.well-known {
-        root /home/docker/code/banatech_laravel/public;
+        root /root/banatech_laravel/public;
     }
     #sitemap
     location /sitemap.xml {
@@ -49,9 +49,9 @@ server {
     ssl_protocols TLSv1.2 TLSv1.3;
     ssl_prefer_server_ciphers on;
     #add_header Strict-Transport-Security 'max-age=31536000;';
-    #ssl_dhparam /home/docker/code/dhparam/dhparam1024.pem;
-    #ssl_dhparam /home/docker/code/dhparam/dhparam2048.pem;
-    ssl_dhparam /home/docker/code/dhparam/dhparam4096.pem;
+    #ssl_dhparam /root/dhparam/dhparam1024.pem;
+    #ssl_dhparam /root/dhparam/dhparam2048.pem;
+    ssl_dhparam /root/dhparam/dhparam4096.pem;
     ssl_session_cache shared:SSL:50m;
     ssl_session_timeout 1d;
     ssl_session_tickets off;
@@ -60,7 +60,7 @@ server {
     ssl_trusted_certificate /etc/letsencrypt/live/banatech.net/chain.pem;
     charset     utf-8;
 
-    root /home/docker/code/banatech_laravel/public;
+    root /root/banatech_laravel/public;
     location / {
         try_files $uri $uri/ /index.php?$query_string;
     }

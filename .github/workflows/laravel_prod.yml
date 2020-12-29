@@ -8,27 +8,25 @@ on:
 
 jobs:
   laravel-tests:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "7.4"
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.production', '.env');"
+      - name: Touch database
+        run: touch database/database.sqlite3
       - name: Install Dependencies with composer
-        run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+        run: composer install
       - name: Directory Permissions
         run: chmod -R 777 storage bootstrap/cache
-      - name: Create Database
-        run: |
-          mkdir -p database
-          touch database/database.sqlite3
       - name: Generate key
         run: php artisan key:generate
-      - name: Execute tests (Unit and Feature tests) via PHPUnit
-        env:
-          DB_CONNECTION: sqlite
-          DB_DATABASE: database/database.sqlite3
-        run: vendor/bin/phpunit
       - name: Use Node.js
         uses: actions/setup-node@v1
         with:
@@ -37,3 +35,8 @@ jobs:
         run: npm install
       - name: Build with npm
         run: npm run prod
+      - name: Execute tests (Unit and Feature tests) via PHPUnit
+        env:
+          DB_CONNECTION: sqlite
+          DB_DATABASE: database/database.sqlite3
+        run: vendor/bin/phpunit

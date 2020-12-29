@@ -13,7 +13,7 @@ server {
     gzip_static on;
     gunzip on;
 
-    root /home/docker/code/banatech_laravel/public;
+    root /root/banatech_laravel/public;
     charset     utf-8;
 
     location / {
@@ -24,7 +24,7 @@ server {
 
     #letsencrypt認証用
     location /.well-known {
-        root /home/docker/code/banatech_laravel/public;
+        root /root/banatech_laravel/public;
     }
 
     location = /favicon.ico { access_log off; log_not_found off; }
