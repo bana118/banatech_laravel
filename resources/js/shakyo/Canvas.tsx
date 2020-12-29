@@ -1,8 +1,7 @@
 import React, { ReactElement, useState, useRef, useEffect } from "react";
 
 interface CanvasProps {
-    width: number;
-    height: number;
+    size: number;
     updateCanvas: (canvas: HTMLCanvasElement) => void;
 }
 
@@ -17,11 +16,16 @@ export const Canvas = (props: CanvasProps): ReactElement => {
 
     useEffect(() => {
         const canvas = canvasRef?.current;
-        if (canvas != null) {
+        if (canvas == null) {
+            console.log("canvasRef loading error");
+        } else {
             const context = canvas.getContext("2d");
-            setCanvasContext(context);
             // At this point, canvasContext is still undefined
-            if (context != null) {
+            if (context == null) {
+                console.log("canvasContext loading error");
+            } else {
+                setCanvasContext(context);
+                props.updateCanvas(context.canvas);
                 context.fillStyle = "rgb(255,255,255)";
                 context.fillRect(
                     0,
@@ -34,19 +38,9 @@ export const Canvas = (props: CanvasProps): ReactElement => {
                 context.lineJoin = "round";
                 context.lineCap = "round";
                 context.save();
-            } else {
-                console.log("canvasContext loading error");
             }
-        } else {
-            console.log("canvasRef loading error");
         }
-    }, [props.width, props.height]);
-
-    useEffect(() => {
-        if (canvasContext != null) {
-            props.updateCanvas(canvasContext.canvas);
-        }
-    }, [canvasContext]);
+    }, [props.size]);
 
     const drawLine = (x: number, y: number) => {
         if (canvasContext != null) {
@@ -115,8 +109,8 @@ export const Canvas = (props: CanvasProps): ReactElement => {
         <div style={wrapperStyle}>
             <canvas
                 ref={canvasRef}
-                width={props.width}
-                height={props.height}
+                width={props.size}
+                height={props.size}
                 style={canvasStyle}
                 onTouchStart={onTouchDrawStart}
                 onTouchEnd={onTouchDrawEnd}

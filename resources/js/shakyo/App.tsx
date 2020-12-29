@@ -12,9 +12,13 @@ const App: React.FC = () => {
     const [size, setSize] = useState(256);
     return (
         <React.Fragment>
-            <Canvas width={size} height={size} updateCanvas={setCanvas} />
+            <Canvas size={size} updateCanvas={setCanvas} />
             <p>現在{count}枚目</p>
-            <DownloadLink canvas={canvas} updateCount={setCount} />
+            <DownloadLink
+                canvas={canvas}
+                count={count}
+                updateCount={setCount}
+            />
             <SizeChanger size={size} updateSize={setSize} />
         </React.Fragment>
     );

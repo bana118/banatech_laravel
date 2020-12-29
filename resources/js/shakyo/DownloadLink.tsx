@@ -1,35 +1,39 @@
-import React, { ReactElement, useState, useRef, useEffect } from "react";
+import React, { ReactElement, useRef } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 
 interface DownloadButtonProps {
     canvas: HTMLCanvasElement | undefined;
+    count: number;
     updateCount: (count: number) => void;
 }
 
 export const DownloadLink = (props: DownloadButtonProps): ReactElement => {
     const anchorRef = useRef<HTMLAnchorElement | null>(null);
-    const [count, setCount] = useState(1);
     useHotkeys("ctrl+s", (event: KeyboardEvent) => {
         const anchor = anchorRef.current;
-        if (anchor != null) {
-            downloadCanvas();
+        if (anchor == null) {
+            console.log("anchor loading error");
+        } else {
             anchor.click();
         }
         event.preventDefault();
     });
-    useEffect(() => {
-        props.updateCount(count);
-    }, [count]);
     const downloadCanvas = () => {
         const anchor = anchorRef.current;
-        if (anchor != null) {
-            if (props.canvas != null) {
+        if (anchor == null) {
+            console.log("anchor loading error");
+        } else {
+            if (props.canvas == null) {
+                console.log("canvas loading error");
+            } else {
                 const base64 = props.canvas.toDataURL("image/png");
-                anchor.download = `${count}.png`;
-                setCount(count + 1);
+                anchor.download = `${props.count}.png`;
+                props.updateCount(props.count + 1);
                 anchor.href = base64;
                 const context = props.canvas.getContext("2d");
-                if (context != null) {
+                if (context == null) {
+                    console.log("context loading error");
+                } else {
                     context.fillStyle = "rgb(255,255,255)";
                     context.fillRect(
                         0,
@@ -37,14 +41,8 @@ export const DownloadLink = (props: DownloadButtonProps): ReactElement => {
                         context.canvas.width,
                         context.canvas.height
                     );
-                } else {
-                    console.log("context loading error");
                 }
-            } else {
-                console.log("canvas loading error");
             }
-        } else {
-            console.log("anchor loading error");
         }
     };
     return (
