@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { Canvas } from "./Canvas";
 import { DownloadLink } from "./DownloadLink";
 import { SizeChanger } from "./SizeChanger";
+import { Timer } from "./Timer";
 
 const App: React.FC = () => {
     const [canvas, setCanvas] = useState<HTMLCanvasElement | undefined>(
@@ -11,6 +12,7 @@ const App: React.FC = () => {
     const [count, setCount] = useState(1);
     const [canvasSize, setCanvasSize] = useState(256);
     const [lineWidth, setLineWidth] = useState(5);
+    const [milliSeconds, setMilliSeconds] = useState(0);
     return (
         <React.Fragment>
             <Canvas
@@ -33,8 +35,14 @@ const App: React.FC = () => {
             <SizeChanger
                 size={lineWidth}
                 updateSize={setLineWidth}
-                max={20}
+                max={50}
                 min={1}
+            />
+            <Timer
+                milliSeconds={milliSeconds}
+                updateMilliSeconds={setMilliSeconds}
+                milliInterval={10}
+                count={count}
             />
         </React.Fragment>
     );
