@@ -17,8 +17,11 @@ export const ColorChanger = (props: ColorChangerProps): ReactElement => {
     };
     return (
         <div className="uk-margin">
-            <p>{props.propertyName}</p>
+            <div>
+                <label htmlFor={props.propertyName}>{props.propertyName}</label>
+            </div>
             <input
+                id={props.propertyName}
                 className="uk-input uk-form-width-small uk-form-small"
                 type="text"
                 value={inputValue}
