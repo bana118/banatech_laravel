@@ -76,7 +76,7 @@ $ cd
 $ git clone https://github.com/bana118/banatech_laravel.git
 $ cd banatech_laravel
 $ touch database/database.sqlite3
-$ cp .env.prod .env
+$ cp .env.production .env
 $ cp nginx-app.conf.temp nginx-app.conf
 $ chmod -R 777 storage
 $ chmod -R 777 bootstrap/cache
@@ -101,13 +101,11 @@ $ sudo apt install -y certbot
 $ sudo certbot certonly --webroot -w ~/banatech_laravel/public -d example.com
 ```
 
-メールアドレスの入力，規約の承諾などを行う．
+メールアドレスの入力，規約の承諾，メール配信の有無の回答を行う．
 
 ## https でデプロイ
 
 ```
-$ mv nginx-app.conf nginx-app.conf.temp
-$ cp nginx-app.conf.prod nginx-app.conf
 $ cd
 $ mkdir dhparam
 $ openssl dhparam -out ~/dhparam/dhparam4096.pem 4096

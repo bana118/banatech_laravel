@@ -18,7 +18,7 @@ jobs:
         with:
           php-version: "7.4"
       - name: Copy .env
-        run: php -r "file_exists('.env') || copy('.env.prod', '.env');"
+        run: php -r "file_exists('.env') || copy('.env.production', '.env');"
       - name: Touch database
         run: touch database/database.sqlite3
       - name: Install Dependencies with composer

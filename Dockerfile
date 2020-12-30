@@ -38,8 +38,6 @@ RUN npm install n -g
 RUN n stable
 RUN apt purge -y nodejs npm
 ENV PATH $PATH:/usr/local/bin/node
-# add our code
-COPY . /root/banatech_laravel
 
 # install packages, but it doesn't work so do it manually in docker
 
@@ -66,7 +64,6 @@ COPY . /root/banatech_laravel
 
 # setup all the configfiles
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
-COPY nginx-app.conf /etc/nginx/sites-available/default
 COPY supervisor-app.conf /etc/supervisor/conf.d/
 
 # create socket file for php-fpm
