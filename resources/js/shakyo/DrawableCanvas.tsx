@@ -3,6 +3,8 @@ import React, { ReactElement, useState, useRef, useEffect } from "react";
 interface CanvasProps {
     size: number;
     lineWidth: number;
+    hexLineColor: string;
+    hexCanvasColor: string;
     updateCanvas: (canvas: HTMLCanvasElement) => void;
 }
 
@@ -49,21 +51,21 @@ export const DrawableCanvas = (props: CanvasProps): ReactElement => {
             } else {
                 setCanvasContext(context);
                 props.updateCanvas(context.canvas);
-                context.fillStyle = "rgb(255,255,255)";
+                context.fillStyle = props.hexCanvasColor;
                 context.fillRect(
                     0,
                     0,
                     context.canvas.width,
                     context.canvas.height
                 );
-                context.strokeStyle = "#000000";
+                context.strokeStyle = props.hexLineColor;
                 context.lineWidth = props.lineWidth;
                 context.lineJoin = "round";
                 context.lineCap = "round";
                 context.save();
             }
         }
-    }, [props.size, props.lineWidth]);
+    }, [props.size, props.lineWidth, props.hexLineColor, props.hexCanvasColor]);
 
     const drawLine = (x: number, y: number) => {
         if (canvasContextRef.current != null) {
