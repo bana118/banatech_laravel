@@ -18,16 +18,16 @@
         <h1>製作物</h1>
         <div class="uk-grid uk-flex-center">
             <div class="uk-width-1-2@m uk-margin-top">
-                <a href="/shakyo"
+                <a href="/shodou"
                     class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin uk-link-toggle" uk-grid>
                     <div class="uk-flex-last@s uk-card-media-right uk-cover-container">
-                        <img src="{{ asset('/img/sumnail/shakyo.png') }}" alt="shakyo" uk-cover>
+                        <img src="{{ asset('/img/sumnail/shodou.png') }}" alt="shodou" uk-cover>
                         <canvas width="250" height="250"></canvas>
                     </div>
                     <div>
                         <div class="uk-card-body">
-                            <h3 class="uk-card-title">デジタル写経</h3>
-                            <p>手書き文字認識のデータセット作成用デジタル写経アプリ</p>
+                            <h3 class="uk-card-title">デジタル書道</h3>
+                            <p>手書き文字認識のデータセット作成用デジタル書道アプリ</p>
                         </div>
                     </div>
                 </a>
