@@ -15,6 +15,6 @@
     <meta name="twitter:site" content="{{ Config::get('const.TWITTERID') }}" />
 @endsection
 @section('content')
-    <div id="app">
+    <div id="app" class="uk-background-default">
     </div>
 @endsection
