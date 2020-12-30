@@ -56,7 +56,7 @@ const App: React.FC = () => {
                     hexColor={hexCanvasColor}
                     updateHexColor={setHexCanvasColor}
                 />
-                <h1>デジタル写経</h1>
+                <h1>デジタル書道</h1>
                 <p>
                     キャンバスに書いた文字を保存ボタンでダウンロードすることができます．
                 </p>

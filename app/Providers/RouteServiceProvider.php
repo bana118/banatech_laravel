@@ -102,7 +102,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::middleware('web')
             ->namespace($this->namespace)
-            ->group(base_path('routes/shakyo.php'));
+            ->group(base_path('routes/shodou.php'));
     }
 
     /**
