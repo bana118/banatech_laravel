@@ -1,6 +1,7 @@
 import React, { ReactElement } from "react";
 
 interface SizeChangerProps {
+    propertyName: string;
     size: number;
     max: number;
     min: number;
@@ -15,10 +16,14 @@ export const SizeChanger = (props: SizeChangerProps): ReactElement => {
         }
     };
     return (
-        <input
-            type="number"
-            value={props.size}
-            onChange={(event) => updateWithValidation(event.target.value)}
-        />
+        <div className="uk-margin">
+            <p>{props.propertyName}</p>
+            <input
+                className="uk-input uk-form-width-small uk-form-small"
+                type="number"
+                value={props.size}
+                onChange={(event) => updateWithValidation(event.target.value)}
+            />
+        </div>
     );
 };

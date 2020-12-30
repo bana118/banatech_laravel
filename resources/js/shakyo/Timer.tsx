@@ -5,6 +5,9 @@ interface TimerProps {
     count: number;
 }
 
+// milliSeconds
+const INTERVAL = 50;
+
 export const Timer = (props: TimerProps): ReactElement => {
     const anchorRef = useRef<HTMLAnchorElement | null>(null);
     useHotkeys("ctrl+a", (event: KeyboardEvent) => {
@@ -26,12 +29,11 @@ export const Timer = (props: TimerProps): ReactElement => {
         undefined
     );
     const [milliSeconds, setMilliSeconds] = useState(0);
-    const milliInterval = 50;
     const [milliSecondsArray, setMilliSecondsArray] = useState<number[]>([]);
 
     useEffect(() => {
         if (isStarted) {
-            const id = setTimeout(countTime, milliInterval);
+            const id = setTimeout(countTime, INTERVAL);
             setTimeoutId(id);
             return () => {
                 clearTimeout(id);
@@ -48,7 +50,7 @@ export const Timer = (props: TimerProps): ReactElement => {
     }, [props.count]);
 
     const countTime = () => {
-        setMilliSeconds(milliSeconds + milliInterval);
+        setMilliSeconds(milliSeconds + INTERVAL);
     };
     const startTimer = () => {
         setMilliSeconds(0);
@@ -79,13 +81,16 @@ export const Timer = (props: TimerProps): ReactElement => {
 
     return (
         <React.Fragment>
+            <div className="uk-margin">
+                <a onClick={startTimer}>タイマー開始(Ctrl+a)</a>
+            </div>
+            <div className="uk-margin">
+                <a ref={anchorRef} onClick={finish}>
+                    タイマー停止(Ctrl+d)
+                </a>
+            </div>
             <p>{milliSeconds}ms</p>
-            <p>{milliSecondsArray}</p>
-            <a onClick={startTimer}>タイマー開始(Ctrl+a)</a>
-            <br />
-            <a ref={anchorRef} onClick={finish}>
-                タイマー終了(Ctrl+d)
-            </a>
+            <p>{milliSecondsArray.join(",")}</p>
         </React.Fragment>
     );
 };

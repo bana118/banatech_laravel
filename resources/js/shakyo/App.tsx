@@ -19,25 +19,37 @@ const App: React.FC = () => {
                 lineWidth={lineWidth}
                 updateCanvas={setCanvas}
             />
-            <p>現在{count}枚目</p>
-            <DownloadLink
-                canvas={canvas}
-                count={count}
-                updateCount={setCount}
-            />
-            <SizeChanger
-                size={canvasSize}
-                updateSize={setCanvasSize}
-                max={1000}
-                min={1}
-            />
-            <SizeChanger
-                size={lineWidth}
-                updateSize={setLineWidth}
-                max={1000}
-                min={1}
-            />
-            <Timer count={count} />
+            <div className="uk-container">
+                <h1>デジタル写経</h1>
+                <p>現在{count}枚目</p>
+                <DownloadLink
+                    canvas={canvas}
+                    count={count}
+                    updateCount={setCount}
+                />
+                <SizeChanger
+                    propertyName="サイズ"
+                    size={canvasSize}
+                    updateSize={setCanvasSize}
+                    max={1000}
+                    min={1}
+                />
+                <SizeChanger
+                    propertyName="線の太さ"
+                    size={lineWidth}
+                    updateSize={setLineWidth}
+                    max={1000}
+                    min={1}
+                />
+                <Timer count={count} />
+                <h2>説明</h2>
+                <p>
+                    キャンバスに書いた文字を保存ボタンでダウンロードすることができます．
+                    キャンバスのサイズ，線の太さはそれぞれ1~1000pxで調整可能．
+                    タイマー開始で文字を書くのにかかった時間をはかることもでき，タイマー終了でかかった時間の記録をcsv形式で保存できます．
+                    手書き文字認識用のデータセット作成にどうぞ．
+                </p>
+            </div>
         </React.Fragment>
     );
 };
