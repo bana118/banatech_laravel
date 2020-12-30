@@ -28,6 +28,7 @@ const App: React.FC = () => {
                 <p>現在{count}枚目</p>
                 <DownloadLink
                     canvas={canvas}
+                    hexCanvasColor={hexCanvasColor}
                     count={count}
                     updateCount={setCount}
                 />

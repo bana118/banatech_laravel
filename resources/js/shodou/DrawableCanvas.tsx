@@ -157,7 +157,6 @@ export const DrawableCanvas = (props: CanvasProps): ReactElement => {
 const canvasStyle = {
     display: "inline-block",
     border: "1px solid gray",
-    backgroundColor: "white",
 };
 
 const wrapperStyle = {

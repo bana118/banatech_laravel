@@ -3,6 +3,7 @@ import { useHotkeys } from "react-hotkeys-hook";
 
 interface DownloadButtonProps {
     canvas: HTMLCanvasElement | undefined;
+    hexCanvasColor: string;
     count: number;
     updateCount: (count: number) => void;
 }
@@ -34,7 +35,7 @@ export const DownloadLink = (props: DownloadButtonProps): ReactElement => {
                 if (context == null) {
                     console.log("context loading error");
                 } else {
-                    context.fillStyle = "rgb(255,255,255)";
+                    context.fillStyle = props.hexCanvasColor;
                     context.fillRect(
                         0,
                         0,
