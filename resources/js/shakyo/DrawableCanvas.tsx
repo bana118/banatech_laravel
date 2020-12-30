@@ -142,7 +142,6 @@ export const DrawableCanvas = (props: CanvasProps): ReactElement => {
                 style={canvasStyle}
                 onTouchStart={onTouchDrawStart}
                 onTouchEnd={onTouchDrawEnd}
-                // onTouchMove={onTouchDraw}
                 onMouseDown={onMouseDrawStart}
                 onMouseEnter={onMouseDrawStart}
                 onMouseUp={onMouseDrawEnd}
