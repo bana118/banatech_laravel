@@ -6,7 +6,7 @@ interface TimerProps {
 }
 
 // milliSeconds
-const INTERVAL = 50;
+const INTERVAL = 10;
 
 export const Timer = (props: TimerProps): ReactElement => {
     const anchorRef = useRef<HTMLAnchorElement | null>(null);
