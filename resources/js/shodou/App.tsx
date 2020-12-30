@@ -28,6 +28,7 @@ const App: React.FC = () => {
                 <p>現在{count}枚目</p>
                 <DownloadLink
                     canvas={canvas}
+                    hexCanvasColor={hexCanvasColor}
                     count={count}
                     updateCount={setCount}
                 />
@@ -67,7 +68,8 @@ const App: React.FC = () => {
                 <p>
                     タイマー開始で文字を書くのにかかった時間をはかることもでき，タイマー終了でかかった時間の記録をcsv形式で保存できます．
                 </p>
-                <p>手書き文字認識用のデータセット作成にどうぞ．</p>
+                <p>手書き文字認識用のデータセット作成などに．</p>
+                <p>※キャンバスサイズを画面サイズ以上にすると正常に書けません</p>
             </div>
         </React.Fragment>
     );
