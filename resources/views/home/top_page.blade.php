@@ -17,21 +17,21 @@
     <div class="uk-container uk-container-center uk-background-default">
         <h1>製作物</h1>
         <div class="uk-grid uk-flex-center">
-            {{-- <div class="uk-width-1-2@m uk-margin-top">
+            <div class="uk-width-1-2@m uk-margin-top">
                 <a href="/shakyo"
                     class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin uk-link-toggle" uk-grid>
                     <div class="uk-flex-last@s uk-card-media-right uk-cover-container">
-                        <img src="{{ asset('/img/sumnail/sabi_alarm.png') }}" alt="sabi_alarm" uk-cover>
+                        <img src="{{ asset('/img/sumnail/shakyo.png') }}" alt="shakyo" uk-cover>
                         <canvas width="250" height="250"></canvas>
                     </div>
                     <div>
                         <div class="uk-card-body">
-                            <h3 class="uk-card-title">手書き文字認識用写経</h3>
-                            <p>手書き文字認識のデータセット作成用写経アプリ</p>
+                            <h3 class="uk-card-title">デジタル写経</h3>
+                            <p>手書き文字認識のデータセット作成用デジタル写経アプリ</p>
                         </div>
                     </div>
                 </a>
-            </div> --}}
+            </div>
             <div class="uk-width-1-2@m uk-margin-top">
                 <a href="https://play.google.com/store/apps/details?id=net.banatech.app.android.sabi_alarm"
                     class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin uk-link-toggle" uk-grid>
@@ -138,7 +138,6 @@
                     </div>
                 </a>
             </div>
-            <div class="uk-width-1-2@m uk-margin"></div>
         </div>
     </div>
 @endsection
