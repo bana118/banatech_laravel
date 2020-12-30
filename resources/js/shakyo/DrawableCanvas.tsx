@@ -15,6 +15,28 @@ export const DrawableCanvas = (props: CanvasProps): ReactElement => {
     const [positionX, setPositionX] = useState(0);
     const [positionY, setPositionY] = useState(0);
 
+    // Because the latest state is not referenced in the event handlers
+    const canvasContextRef = useRef<
+        CanvasRenderingContext2D | undefined | null
+    >(null);
+    canvasContextRef.current = canvasContext;
+    const isDrawingRef = useRef(false);
+    isDrawingRef.current = isDrawing;
+    const positionXRef = useRef(0);
+    positionXRef.current = positionX;
+    const positionYRef = useRef(0);
+    positionYRef.current = positionY;
+
+    useEffect(() => {
+        const canvas = canvasRef?.current;
+        if (canvas == null) {
+            console.log("canvasRef loading error");
+        } else {
+            // Set passive to false to disable normal touch events in preventListner
+            canvas.addEventListener("touchmove", onTouchDraw, false);
+        }
+    }, []);
+
     useEffect(() => {
         const canvas = canvasRef?.current;
         if (canvas == null) {
@@ -44,13 +66,17 @@ export const DrawableCanvas = (props: CanvasProps): ReactElement => {
     }, [props.size, props.lineWidth]);
 
     const drawLine = (x: number, y: number) => {
-        if (canvasContext != null) {
-            canvasContext.beginPath();
-            canvasContext.moveTo(positionX, positionY);
-            canvasContext.lineTo(x, y);
-            canvasContext.stroke();
+        if (canvasContextRef.current != null) {
+            canvasContextRef.current.beginPath();
+            canvasContextRef.current.moveTo(
+                positionXRef.current,
+                positionYRef.current
+            );
+            canvasContextRef.current.lineTo(x, y);
+            canvasContextRef.current.stroke();
         }
     };
+
     const onTouchDrawStart = (event: React.TouchEvent<HTMLCanvasElement>) => {
         setIsDrawing(true);
         const eventTarget = event.touches[0].target as HTMLElement;
@@ -66,8 +92,8 @@ export const DrawableCanvas = (props: CanvasProps): ReactElement => {
         setIsDrawing(false);
         event.stopPropagation();
     };
-    const onTouchDraw = (event: React.TouchEvent<HTMLCanvasElement>) => {
-        if (isDrawing) {
+    const onTouchDraw = (event: TouchEvent) => {
+        if (isDrawingRef.current) {
             const eventTarget = event.touches[0].target as HTMLElement;
             const x =
                 event.touches[0].clientX -
@@ -116,7 +142,7 @@ export const DrawableCanvas = (props: CanvasProps): ReactElement => {
                 style={canvasStyle}
                 onTouchStart={onTouchDrawStart}
                 onTouchEnd={onTouchDrawEnd}
-                onTouchMove={onTouchDraw}
+                // onTouchMove={onTouchDraw}
                 onMouseDown={onMouseDrawStart}
                 onMouseEnter={onMouseDrawStart}
                 onMouseUp={onMouseDrawEnd}
