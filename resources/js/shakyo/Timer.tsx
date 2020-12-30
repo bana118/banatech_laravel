@@ -11,6 +11,16 @@ export const Timer = (props: TimerProps): ReactElement => {
         startTimer();
         event.preventDefault();
     });
+    useHotkeys("ctrl+d", (event: KeyboardEvent) => {
+        finish();
+        const anchor = anchorRef.current;
+        if (anchor == null) {
+            console.log("anchor loading error");
+        } else {
+            anchor.click();
+        }
+        event.preventDefault();
+    });
     const [isStarted, setIsStarted] = useState(false);
     const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | undefined>(
         undefined
@@ -41,13 +51,16 @@ export const Timer = (props: TimerProps): ReactElement => {
         setMilliSeconds(milliSeconds + milliInterval);
     };
     const startTimer = () => {
+        setMilliSeconds(0);
         setIsStarted(true);
     };
     const finish = () => {
+        setIsStarted(false);
         if (timeoutId != null) {
             clearTimeout(timeoutId);
         }
         const anchor = anchorRef.current;
+
         if (anchor == null) {
             console.log("anchor loading error");
         } else {
@@ -68,9 +81,10 @@ export const Timer = (props: TimerProps): ReactElement => {
         <React.Fragment>
             <p>{milliSeconds}ms</p>
             <p>{milliSecondsArray}</p>
-            <a onClick={startTimer}>開始</a>
+            <a onClick={startTimer}>タイマー開始(Ctrl+a)</a>
+            <br />
             <a ref={anchorRef} onClick={finish}>
-                終了
+                タイマー終了(Ctrl+d)
             </a>
         </React.Fragment>
     );

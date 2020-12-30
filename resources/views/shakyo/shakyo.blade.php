@@ -15,6 +15,6 @@
     <meta name="twitter:site" content="{{ Config::get('const.TWITTERID') }}" />
 @endsection
 @section('content')
-    <div id="app" style="display: flex;">
+    <div id="app">
     </div>
 @endsection

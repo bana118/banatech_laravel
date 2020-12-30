@@ -34,7 +34,7 @@ const App: React.FC = () => {
             <SizeChanger
                 size={lineWidth}
                 updateSize={setLineWidth}
-                max={50}
+                max={1000}
                 min={1}
             />
             <Timer count={count} />
