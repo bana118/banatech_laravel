@@ -136,7 +136,7 @@ export const DrawableCanvas = (props: CanvasProps): ReactElement => {
     };
 
     return (
-        <div className="uk-margin-top uk-margin-bottom" style={wrapperStyle}>
+        <div className="uk-padding" style={wrapperStyle}>
             <canvas
                 ref={canvasRef}
                 width={props.size}
