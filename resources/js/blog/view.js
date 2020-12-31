@@ -1,11 +1,19 @@
+/* eslint no-import-assign: 0 */
+/* eslint no-undef: 0 */
 import marked from "marked";
 import hljs from "highlightjs";
 import MathJax from "mathjax";
 
 MathJax = {
     tex: {
-        inlineMath: [["$", "$"], ["\\(", "\\)"]],
-        displayMath: [["$$", "$$"], ["\\[", "\\]"]],
+        inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+        ],
+        displayMath: [
+            ["$$", "$$"],
+            ["\\[", "\\]"],
+        ],
         processEscapes: true,
         macros: {
             ssqrt: ["\\sqrt{\\smash[b]{\\mathstrut #1}}", 1],
@@ -23,9 +31,9 @@ MathJax = {
         displayIndent: "2em",
     },
 };
-window.onload = function() {
+window.onload = function () {
     const renderer = new marked.Renderer();
-    renderer.code = function(code, language) {
+    renderer.code = function (code, language) {
         if (language.indexOf(":") != -1) {
             const lang = language.split(":")[0];
             const fileName = language.split(":")[1].trim();
@@ -47,7 +55,7 @@ window.onload = function() {
             );
         }
     };
-    renderer.image = function(href, title, text) {
+    renderer.image = function (href, title, text) {
         const fileName = href.split("/").pop();
         const articleIdElement = document.getElementById("article_id");
         const articleId = articleIdElement.dataset.name;
@@ -77,18 +85,18 @@ window.onload = function() {
     const target = document.getElementById("markdownContent");
     const url = target.getAttribute("src");
     fetch(url)
-        .then(response => {
+        .then((response) => {
             if (!response.ok) {
                 target.append("This content failed to load.");
                 throw new Error("Network response was not ok");
             }
             return response.text();
         })
-        .then(data => {
+        .then((data) => {
             target.insertAdjacentHTML("beforeend", marked(data));
             MathJax.typeset();
         })
-        .catch(error => {
+        .catch(() => {
             target.append("This content failed to load.");
         });
 };
