@@ -15,5 +15,5 @@
 npm-debug.log
 yarn-error.log
 # HTML article files
-resources/views/blog/articles/*
-!resources/views/blog/articles/.gitkeep
+resources/views/blog/article/*
+!resources/views/blog/article/.gitkeep

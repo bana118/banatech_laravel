@@ -6,7 +6,7 @@ const marked = require("marked");
 const hljs = require("highlightjs");
 const fs = require("fs");
 const mdArticlesDirPath = `${__dirname}/../public/uploaded/article`;
-const htmlArticlesDirPath = `${__dirname}/../resources/views/blog/articles`;
+const htmlArticlesDirPath = `${__dirname}/../resources/views/blog/article`;
 const hostname = process.env.APP_URL;
 
 const convertToHtml = (mdText, articleId) => {
