@@ -27,7 +27,7 @@ const convertToHtml = (mdText, articleId) => {
     renderer.image = function (href, title, text) {
         const fileName = href.split("/").pop();
         const imgPath = `${hostname}/uploaded/article/${articleId}/image`;
-        return `<img src="${imgPath}/${fileName}" alt="${text}">`;
+        return `<img data-src="${imgPath}/${fileName}" width="" height="" alt="${text}" uk-img>`;
     };
     marked.setOptions({
         renderer: renderer,
