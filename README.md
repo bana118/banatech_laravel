@@ -82,6 +82,7 @@ $ chmod -R 777 storage
 $ chmod -R 777 bootstrap/cache
 $ chmod -R 777 database
 $ chmod -R 777 public
+$ chmod -R 777 scripts
 $ sudo docker build -t banatech_laravel .
 $ sudo docker run --name banatech -d -p 80:80 -p 443:443 -v ~:/root -v /etc/letsencrypt:/etc/letsencrypt banatech_laravel
 $ sudo docker exec -i -t banatech bash
