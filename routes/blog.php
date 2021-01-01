@@ -219,7 +219,11 @@ Route::post('/blog/edited/{articleId}', function (Request $request, $articleId) 
         }
 
         $article->update();
-        $article->touch(); # update updated_at column
+        # update updated_at column
+        $article->touch();
+
+        # update html file
+        exec("node ../scripts/generate-article.js " . $article->id);
 
         return redirect('/blog');
     }
@@ -277,6 +281,10 @@ Route::post('/blog/posted', function (Request $request) {
                 $article->categories()->attach($categoryInDB->id);
             }
         }
+
+        # update html file
+        exec("node ../scripts/generate-article.js " . $article->id);
+
         return redirect('/blog');
     }
 });

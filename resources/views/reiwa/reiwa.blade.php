@@ -17,7 +17,7 @@
 @section('content')
     <div class="uk-container" style="touch-action: manipulation;">
         <div class="uk-frex start" style="position: relative;text-align:center;">
-            <img id="penguinImg" src="{{ asset('/img/reiwa/write1.png') }}">
+            <img id="penguinImg" data-src="{{ asset('/img/reiwa/write1.png') }}" width="" height="" uk-img>
             <div id="bgroup" class="uk-button-group"
                 style="display:none; position:absolute;top: 0;left: 0;right: 0;bottom: 0;margin: auto;width:100px;height:100px;">
                 <button type="button" class="uk-button uk-button-primary" onclick="location.href='reiwa/solo'">Play</button>

@@ -82,6 +82,7 @@ $ chmod -R 777 storage
 $ chmod -R 777 bootstrap/cache
 $ chmod -R 777 database
 $ chmod -R 777 public
+$ chmod -R 777 scripts
 $ sudo docker build -t banatech_laravel .
 $ sudo docker run --name banatech -d -p 80:80 -p 443:443 -v ~:/root -v /etc/letsencrypt:/etc/letsencrypt banatech_laravel
 $ sudo docker exec -i -t banatech bash
@@ -176,4 +177,11 @@ upload_max_filesize = 64M
 max_execution_time = 120
 max_input_time = 240
 memory_limit = 512M
+```
+
+# ブログ記事のHTMLファイル作成
+public/uploaded/article 以下にあるMarkdownファイルをHTMLファイルに変換
+
+```
+$ node scripts/generate-article.js
 ```
