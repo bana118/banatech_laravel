@@ -32,7 +32,7 @@ jobs:
         with:
           node-version: "12.x"
       - name: Install dependencies with npm
-        run: npm install
+        run: npm ci
       - name: Build with npm
         run: npm run prod
       - name: Execute tests (Unit and Feature tests) via PHPUnit
