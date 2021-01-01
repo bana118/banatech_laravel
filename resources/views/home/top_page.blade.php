@@ -21,7 +21,8 @@
                 <a href="/shodou"
                     class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin uk-link-toggle" uk-grid>
                     <div class="uk-flex-last@s uk-card-media-right uk-cover-container">
-                        <img src="{{ asset('/img/sumnail/shodou.png') }}" alt="shodou" uk-cover>
+                        <img data-src="{{ asset('/img/sumnail/shodou.png') }}" width="250" height="250" alt="shodou"
+                            uk-cover uk-img>
                         <canvas width="250" height="250"></canvas>
                     </div>
                     <div>
@@ -36,7 +37,8 @@
                 <a href="https://play.google.com/store/apps/details?id=net.banatech.app.android.sabi_alarm"
                     class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin uk-link-toggle" uk-grid>
                     <div class="uk-flex-last@s uk-card-media-right uk-cover-container">
-                        <img src="{{ asset('/img/sumnail/sabi_alarm.png') }}" alt="sabi_alarm" uk-cover>
+                        <img data-src="{{ asset('/img/sumnail/sabi_alarm.png') }}" width="250" height="250" alt="sabi_alarm"
+                            uk-cover uk-img>
                         <canvas width="250" height="250"></canvas>
                     </div>
                     <div>
@@ -51,8 +53,8 @@
                 <a href="https://chrome.google.com/webstore/detail/github-jupyter-diff-viewe/bhncfkebhcnjhjpagogngbcdbapjdiej?hl=ja"
                     class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin uk-link-toggle" uk-grid>
                     <div class="uk-flex-last@s uk-card-media-right uk-cover-container">
-                        <img src="{{ asset('/img/sumnail/github_jupyter_diff_viewer.png') }}"
-                            alt="Github Jupyter diff viewer" uk-cover>
+                        <img data-src="{{ asset('/img/sumnail/github_jupyter_diff_viewer.png') }}" width="250" height="250"
+                            alt="Github Jupyter diff viewer" uk-cover uk-img>
                         <canvas width="250" height="250"></canvas>
                     </div>
                     <div>
@@ -67,7 +69,8 @@
                 <a href="/vr_meiro"
                     class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin uk-link-toggle" uk-grid>
                     <div class="uk-flex-last@s uk-card-media-right uk-cover-container">
-                        <img src="{{ asset('/img/sumnail/vr_meiro.png') }}" alt="VR迷路" uk-cover>
+                        <img data-src="{{ asset('/img/sumnail/vr_meiro.png') }}" width="250" height="250" alt="VR迷路"
+                            uk-cover uk-img>
                         <canvas width="250" height="250"></canvas>
                     </div>
                     <div>
@@ -82,7 +85,8 @@
                 <a href="/reiwa"
                     class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin uk-link-toggle" uk-grid>
                     <div class="uk-flex-last@s uk-card-media-right uk-cover-container">
-                        <img src="{{ asset('/img/sumnail/reiwa.png') }}" width="250" height="250" alt="令和で書き初め" uk-cover>
+                        <img data-src="{{ asset('/img/sumnail/reiwa.png') }}" width="250" height="250" alt="令和で書き初め"
+                            uk-cover uk-img>
                         <canvas width="250" height="250"></canvas>
                     </div>
                     <div>
@@ -97,7 +101,8 @@
                 <a href="/hakogucha"
                     class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin uk-link-toggle" uk-grid>
                     <div class="uk-flex-last@s uk-card-media-right uk-cover-container">
-                        <img src="{{ asset('/img/sumnail/hakogucha.png') }}" alt="はこぐちゃ" uk-cover>
+                        <img data-src="{{ asset('/img/sumnail/hakogucha.png') }}" width="250" height="250" alt="はこぐちゃ"
+                            uk-cover uk-img>
                         <canvas width="250" height="250"></canvas>
                     </div>
                     <div>
@@ -112,7 +117,8 @@
                 <a href="/kurukuru"
                     class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin uk-link-toggle" uk-grid>
                     <div class="uk-flex-last@s uk-card-media-right uk-cover-container">
-                        <img src="{{ asset('/img/sumnail/kurukuru.png') }}" alt="くるくる" uk-cover>
+                        <img data-src="{{ asset('/img/sumnail/kurukuru.png') }}" width="250" height="250" alt="くるくる"
+                            uk-cover uk-img>
                         <canvas width="250" height="250"></canvas>
                     </div>
                     <div>
@@ -127,7 +133,8 @@
                 <a href="/latex_editor"
                     class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin uk-link-toggle" uk-grid>
                     <div class="uk-flex-last@s uk-card-media-right uk-cover-container">
-                        <img src="{{ asset('/img/sumnail/latex_editor.png') }}" alt="LaTeXEditor" uk-cover>
+                        <img data-src="{{ asset('/img/sumnail/latex_editor.png') }}" width="250" height="250"
+                            alt="LaTeXEditor" uk-cover uk-img>
                         <canvas width="250" height="250"></canvas>
                     </div>
                     <div>
