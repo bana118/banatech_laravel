@@ -178,3 +178,10 @@ max_execution_time = 120
 max_input_time = 240
 memory_limit = 512M
 ```
+
+# ブログ記事のHTMLファイル作成
+public/uploaded/article 以下にあるMarkdownファイルをHTMLファイルに変換
+
+```
+$ node scripts/generate-article.js
+```

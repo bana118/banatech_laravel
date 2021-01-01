@@ -42,16 +42,28 @@ const convertToHtml = (mdText, articleId) => {
     return marked(mdText);
 };
 
-fs.readdir(mdArticlesDirPath, function (err, articleDirs) {
-    if (err) throw err;
-    for (const articleDir of articleDirs) {
-        const articleId = Number(articleDir.toString());
-        const articlePath = `${mdArticlesDirPath}/${articleId}/${articleId}.md`;
-        const mdArticle = fs.readFileSync(articlePath, "utf-8");
-        const htmlArticle = convertToHtml(mdArticle, articleId);
-        fs.writeFileSync(
-            `${htmlArticlesDirPath}/${articleId}.html`,
-            htmlArticle
-        );
-    }
-});
+const argument = process.argv[2];
+
+if (argument == null) {
+    // update all articles
+    fs.readdir(mdArticlesDirPath, function (err, articleDirs) {
+        if (err) throw err;
+        for (const articleDir of articleDirs) {
+            const articleId = Number(articleDir.toString());
+            const articlePath = `${mdArticlesDirPath}/${articleId}/${articleId}.md`;
+            const mdArticle = fs.readFileSync(articlePath, "utf-8");
+            const htmlArticle = convertToHtml(mdArticle, articleId);
+            fs.writeFileSync(
+                `${htmlArticlesDirPath}/${articleId}.html`,
+                htmlArticle
+            );
+        }
+    });
+} else {
+    // update specified articles
+    const articleId = Number(argument);
+    const articlePath = `${mdArticlesDirPath}/${articleId}/${articleId}.md`;
+    const mdArticle = fs.readFileSync(articlePath, "utf-8");
+    const htmlArticle = convertToHtml(mdArticle, articleId);
+    fs.writeFileSync(`${htmlArticlesDirPath}/${articleId}.html`, htmlArticle);
+}
