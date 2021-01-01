@@ -35,7 +35,7 @@
             @endforeach
         </p>
         <div id="markdownContent" src="{{ asset('uploaded/' . $article->md_file) }}">
-            @include('blog.articles.' . $article->id)
+            @include('blog.article.' . $article->id)
         </div>
         <h2 class="related-articles-label">関連記事</h2>
         <p class="related-articles">
