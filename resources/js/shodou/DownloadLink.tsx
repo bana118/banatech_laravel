@@ -47,8 +47,10 @@ export const DownloadLink = (props: DownloadButtonProps): ReactElement => {
         }
     };
     return (
-        <a ref={anchorRef} onClick={downloadCanvas}>
-            保存(Ctrl+s)
-        </a>
+        <div className="uk-margin">
+            <a ref={anchorRef} onClick={downloadCanvas}>
+                保存(Ctrl+s)
+            </a>
+        </div>
     );
 };
