@@ -30,6 +30,7 @@ export const Timer = (props: TimerProps): ReactElement => {
     );
     const [milliSeconds, setMilliSeconds] = useState(0);
     const [milliSecondsArray, setMilliSecondsArray] = useState<number[]>([]);
+    const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
         if (isStarted) {
@@ -80,17 +81,38 @@ export const Timer = (props: TimerProps): ReactElement => {
     };
 
     return (
-        <React.Fragment>
-            <div className="uk-margin">
-                <a onClick={startTimer}>タイマー開始(Ctrl+a)</a>
+        <div>
+            {isVisible ? (
+                <div className="uk-margin">
+                    <a
+                        className="uk-link-muted"
+                        onClick={() => setIsVisible(false)}
+                    >
+                        タイマー非表示
+                    </a>
+                </div>
+            ) : (
+                <div className="uk-margin">
+                    <a
+                        className="uk-link-muted"
+                        onClick={() => setIsVisible(true)}
+                    >
+                        タイマー表示
+                    </a>
+                </div>
+            )}
+            <div style={{ display: isVisible ? "block" : "none" }}>
+                <div className="uk-margin">
+                    <a onClick={startTimer}>タイマー開始(Ctrl+a)</a>
+                </div>
+                <div className="uk-margin">
+                    <a ref={anchorRef} onClick={finish}>
+                        タイマー停止(Ctrl+d)
+                    </a>
+                </div>
+                <p>{milliSeconds}ms</p>
+                <p>{milliSecondsArray.join(",")}</p>
             </div>
-            <div className="uk-margin">
-                <a ref={anchorRef} onClick={finish}>
-                    タイマー停止(Ctrl+d)
-                </a>
-            </div>
-            <p>{milliSeconds}ms</p>
-            <p>{milliSecondsArray.join(",")}</p>
-        </React.Fragment>
+        </div>
     );
 };

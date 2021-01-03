@@ -16,8 +16,9 @@
         <div class="uk-card uk-card-default uk-background-default">
             <div class="uk-card-body">
                 すべてのカテゴリ
-                <br>
-                <a href="/blog">すべての記事</a>
+                <div>
+                    <a href="/blog">すべての記事</a>
+                </div>
             </div>
             {{ $categories->links('vendor.pagination.uikit-3') }}
             <ul class="uk-list uk-list-divider">

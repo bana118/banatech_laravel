@@ -38,13 +38,13 @@
             @include('blog.article.' . $article->id)
         </div>
         <h2 class="related-articles-label">関連記事</h2>
-        <p class="related-articles">
+        <div class="related-articles">
             @foreach ($relatedArticles as $relatedArticle)
-                <a class="uk-link" href="/blog/view/{{ $relatedArticle->id }}">{{ $relatedArticle->title }}</a>
-                <br>
+                <div class="uk-margin">
+                    <a class="uk-link" href="/blog/view/{{ $relatedArticle->id }}">{{ $relatedArticle->title }}</a>
+                </div>
             @endforeach
-            <br>
-        </p>
+        </div>
         <span id="article_id" data-name="{{ $article->id }}"></span>
     </div>
 @endsection
