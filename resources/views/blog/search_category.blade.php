@@ -7,5 +7,8 @@
 
     <div class="uk-card-body">
         「{{ $categoryName }}」のカテゴリ検索結果
+        <div>
+            <a href="/blog">すべての記事</a>
+        </div>
     </div>
 @endsection

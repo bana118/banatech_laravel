@@ -2,7 +2,6 @@
     <!-- Form Error List -->
     <div class="uk-alert-danger">
         <strong>おや？ 何かがおかしいようです！</strong>
-        <br><br>
         <ul>
             @foreach ($errors->all() as $error)
                 <li>{{ $error }}</li>
