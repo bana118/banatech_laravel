@@ -78,11 +78,12 @@ $ cd banatech_laravel
 $ touch database/database.sqlite3
 $ cp .env.production .env
 $ cp nginx-app.conf.temp nginx-app.conf
-$ chmod -R 777 storage
-$ chmod -R 777 bootstrap/cache
-$ chmod -R 777 database
-$ chmod -R 777 public
-$ chmod -R 777 scripts
+$ sudo chmod -R 777 storage
+$ sudo chmod -R 777 bootstrap/cache
+$ sudo chmod -R 777 database
+$ sudo chmod -R 777 public
+$ sudo chmod -R 777 resources
+$ sudo chmod -R 777 scripts
 $ sudo docker build -t banatech_laravel .
 $ sudo docker run --name banatech -d -p 80:80 -p 443:443 -v ~:/root -v /etc/letsencrypt:/etc/letsencrypt banatech_laravel
 $ sudo docker exec -i -t banatech bash
