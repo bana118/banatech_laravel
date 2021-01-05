@@ -325,7 +325,7 @@ Route::get('/blog/category/{categoryId}', function ($categoryId) {
         return App::abort(404);
     } else {
         $categoryName = $category->name;
-        $articles = $category->articles()->paginate(config('const.BLOG_SETTING.articles_per_page'));
+        $articles = $category->articles()->orderBy('updated_at', 'desc')->paginate(config('const.BLOG_SETTING.articles_per_page'));
         return view('blog.search_category', [
             'categoryName' => $categoryName,
             'articles' => $articles
