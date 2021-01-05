@@ -223,7 +223,7 @@ Route::post('/blog/edited/{articleId}', function (Request $request, $articleId) 
         $article->touch();
 
         # update html file
-        exec("node ../scripts/generate-article.js " . $article->id);
+        exec("../scripts/generate-article.js " . $article->id);
 
         return redirect('/blog');
     }
@@ -283,7 +283,7 @@ Route::post('/blog/posted', function (Request $request) {
         }
 
         # update html file
-        exec("node ../scripts/generate-article.js " . $article->id);
+        exec("../scripts/generate-article.js " . $article->id);
 
         return redirect('/blog');
     }
