@@ -58,6 +58,7 @@ if (fs.existsSync(mdArticlesDirPath)) {
                     `${htmlArticlesDirPath}/${articleId}.html`,
                     htmlArticle
                 );
+                fs.chmodSync(`${htmlArticlesDirPath}/${articleId}.html`, "666");
             }
         });
     } else {
@@ -70,5 +71,6 @@ if (fs.existsSync(mdArticlesDirPath)) {
             `${htmlArticlesDirPath}/${articleId}.html`,
             htmlArticle
         );
+        fs.chmodSync(`${htmlArticlesDirPath}/${articleId}.html`, "666");
     }
 }
