@@ -139,9 +139,12 @@ crontab に以下を追記
 
 ## 更新
 
+git でpermissionの変更を無視する
+
 ```
-$ git pull
-$ docker restart banatech
+$ git config core.filemode false
+$ sudo git pull
+$ sudo docker restart banatech
 ```
 
 必要に応じて
@@ -184,5 +187,6 @@ memory_limit = 512M
 public/uploaded/article 以下にあるMarkdownファイルをHTMLファイルに変換
 
 ```
-$ node scripts/generate-article.js
+$ sudo docker exec -i -t banatech bash
+# node scripts/generate-article.js
 ```
