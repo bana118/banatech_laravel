@@ -1,24 +1,24 @@
 @import "~highlightjs/styles/vs2015";
 
 .article-title {
-    padding: 0.5em;
+    padding: 1rem;
     /*文字周りの余白*/
     color: #010101;
     /*文字色*/
     background: #eaf3ff;
     /*背景色*/
-    border-bottom: solid 3px #516ab6;
+    border-bottom: solid 0.3rem #516ab6;
     /*下線*/
 }
 
 #markdownContent h1 {
-    font-size: 2em;
-    background: linear-gradient(transparent 70%, #a7d6ff 70%);
+    font-size: 2rem;
+    background: linear-gradient(to top, #a7d6ff 1rem, transparent 1rem);
 }
 
 #markdownContent h2 {
-    font-size: 1.75em;
-    background: linear-gradient(transparent 80%, #ffc778 70%);
+    font-size: 1.75rem;
+    background: linear-gradient(to top, #ffc778 0.7rem, transparent 0.7rem);
 }
 
 
@@ -27,7 +27,7 @@
 }
 
 .related-articles-label {
-    border-bottom: double 5px #ffc778;
+    border-bottom: double 0.5rem #ffc778;
 }
 
 p {
