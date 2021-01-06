@@ -12,7 +12,7 @@ const hostname = process.env.APP_URL;
 const convertToHtml = (mdText, articleId) => {
     const renderer = new marked.Renderer();
     renderer.code = function (code, language) {
-        if (language.indexOf(":") != -1) {
+        if (language.includes(":")) {
             const lang = language.split(":")[0];
             const fileName = language.split(":")[1].trim();
             return `<pre><div class="uk-badge" style="display: inline-block;">${fileName}</div><code class="hljs">${
@@ -20,7 +20,7 @@ const convertToHtml = (mdText, articleId) => {
             }</code></pre>`;
         } else {
             return `<pre><code class="hljs">${
-                hljs.highlightAuto(code).value
+                hljs.highlightAuto(code, [language]).value
             }</code></pre>`;
         }
     };
