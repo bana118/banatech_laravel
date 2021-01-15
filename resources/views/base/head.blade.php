@@ -31,4 +31,4 @@
 <link rel="stylesheet" href="{{ mix('/css/base/base.css') }}">
 <link rel="stylesheet" href="{{ mix('/css/base/fontawesome.css') }}">
 <link rel="stylesheet" href="{{ mix('/css/base/uikit.css') }}">
-<script async src="{{ mix('/js/base/base.js') }}"></script>
+<script src="{{ mix('/js/base/base.js') }}"></script>
