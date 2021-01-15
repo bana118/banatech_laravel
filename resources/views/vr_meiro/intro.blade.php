@@ -16,7 +16,7 @@
 @section('content')
     <div class="uk-container uk-container-center uk-background-default" style="touch-action: manipulation;">
         <div class="uk-frex start" style="position: relative;text-align:center;">
-            <img id="mazeImg" data-src="{{ asset('img/sumnail/vr_meiro.png') }}" width="400" height="" uk-img>
+            <img id="mazeImg" data-src="{{ asset('img/sumnail/vr_meiro.png') }}" width="400" height="300" uk-img>
             <div id="bgroup" class="uk-button-group"
                 style="display:none; position:absolute;top: 0;left: 0;right: 0;bottom: 0;margin: auto;width:100px;height:100px;">
                 <button type="button" class="uk-button uk-button-primary"
