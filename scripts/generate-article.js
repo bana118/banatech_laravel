@@ -5,6 +5,7 @@ require("dotenv").config();
 const marked = require("marked");
 const hljs = require("highlightjs");
 const fs = require("fs");
+const sizeOf = require("image-size");
 const mdArticlesDirPath = `${__dirname}/../public/uploaded/article`;
 const htmlArticlesDirPath = `${__dirname}/../resources/views/blog/article`;
 const hostname = process.env.APP_URL;
@@ -27,7 +28,10 @@ const convertToHtml = (mdText, articleId) => {
     renderer.image = function (href, title, text) {
         const fileName = href.split("/").pop();
         const imgPath = `${hostname}/uploaded/article/${articleId}/image`;
-        return `<img data-src="${imgPath}/${fileName}" width="" height="" alt="${text}" uk-img>`;
+        const imageSize = sizeOf(
+            `${mdArticlesDirPath}/${articleId}/image/${fileName}`
+        );
+        return `<img data-src="${imgPath}/${fileName}" width="${imageSize.width}" height="${imageSize.height}" alt="${text}" uk-img>`;
     };
     marked.setOptions({
         renderer: renderer,
@@ -47,7 +51,7 @@ const argument = process.argv[2];
 if (fs.existsSync(mdArticlesDirPath)) {
     if (argument == null) {
         // update all articles
-        fs.readdir(mdArticlesDirPath, function (err, articleDirs) {
+        fs.readdir(mdArticlesDirPath, async function (err, articleDirs) {
             if (err) throw err;
             for (const articleDir of articleDirs) {
                 const articleId = Number(articleDir.toString());
