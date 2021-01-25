@@ -28,10 +28,14 @@ const convertToHtml = (mdText, articleId) => {
     renderer.image = function (href, title, text) {
         const fileName = href.split("/").pop();
         const imgPath = `${hostname}/uploaded/article/${articleId}/image`;
-        const imageSize = sizeOf(
-            `${mdArticlesDirPath}/${articleId}/image/${fileName}`
-        );
-        return `<img data-src="${imgPath}/${fileName}" width="${imageSize.width}" height="${imageSize.height}" alt="${text}" uk-img>`;
+        if (fs.existsSync(imgPath)) {
+            const imageSize = sizeOf(
+                `${mdArticlesDirPath}/${articleId}/image/${fileName}`
+            );
+            return `<img data-src="${imgPath}/${fileName}" width="${imageSize.width}" height="${imageSize.height}" alt="${text}" uk-img>`;
+        } else {
+            return "<p>Not Found</p>";
+        }
     };
     marked.setOptions({
         renderer: renderer,
