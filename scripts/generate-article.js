@@ -27,12 +27,11 @@ const convertToHtml = (mdText, articleId) => {
     };
     renderer.image = function (href, title, text) {
         const fileName = href.split("/").pop();
-        const imgPath = `${hostname}/uploaded/article/${articleId}/image`;
-        if (fs.existsSync(imgPath)) {
-            const imageSize = sizeOf(
-                `${mdArticlesDirPath}/${articleId}/image/${fileName}`
-            );
-            return `<img data-src="${imgPath}/${fileName}" width="${imageSize.width}" height="${imageSize.height}" alt="${text}" uk-img>`;
+        const imageDirUrl = `${hostname}/uploaded/article/${articleId}/image`;
+        const imageFilePath = `${mdArticlesDirPath}/${articleId}/image/${fileName}`;
+        if (fs.existsSync(imageFilePath)) {
+            const imageSize = sizeOf(imageFilePath);
+            return `<img data-src="${imageDirUrl}/${fileName}" width="${imageSize.width}" height="${imageSize.height}" alt="${text}" uk-img>`;
         } else {
             return "<p>Not Found</p>";
         }
