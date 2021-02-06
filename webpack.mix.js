@@ -1,4 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const mix = require("laravel-mix");
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const CompressionPlugin = require("compression-webpack-plugin");
 
 /*
