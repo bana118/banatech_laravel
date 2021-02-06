@@ -183,10 +183,18 @@ max_input_time = 240
 memory_limit = 512M
 ```
 
-# ブログ記事のHTMLファイル作成
+## ブログ記事のHTMLファイル作成
 public/uploaded/article 以下にあるMarkdownファイルをHTMLファイルに変換
 
 ```
 $ sudo docker exec -i -t banatech bash
+# cd ~/banatech_laravel
 # node scripts/generate-article.js
+```
+
+## npm run prodがサーバーで実行できないとき
+サーバーの性能などの問題で`npm run prod`が実行できないときはローカルでビルドし，ビルド済みのファイルをサーバーにsshでアップロードする．
+
+```
+$ ./scripts/uploadjs.sh
 ```
