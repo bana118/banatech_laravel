@@ -151,7 +151,7 @@ $ sudo docker restart banatech
 
 ```
 $ sudo docker exec -i -t banatech bash
-# composer update
+# cd ~/banatech_laravel
 # composer install --optimize-autoloader --no-dev
 # php artisan migrate
 # npm ci
