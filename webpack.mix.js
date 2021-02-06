@@ -22,10 +22,7 @@ mix.js("resources/js/base/base.js", "public/js/base/")
     .less("resources/less/base/uikit.less", "public/css/base/uikit.css");
 
 // blog
-mix.js("resources/js/blog/view.js", "public/js/blog/").sass(
-    "resources/sass/blog/view.scss",
-    "public/css/blog/view.css"
-);
+mix.sass("resources/sass/blog/view.scss", "public/css/blog/view.css");
 
 //latex_editor
 mix.js("resources/js/latex_editor/editor.js", "public/js/latex_editor/");
