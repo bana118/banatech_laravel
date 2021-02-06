@@ -10,7 +10,7 @@ const mdArticlesDirPath = `${__dirname}/../public/uploaded/article`;
 const htmlArticlesDirPath = `${__dirname}/../resources/views/blog/article`;
 const hostname = process.env.APP_URL;
 
-const convertToHtml = (mdText, articleId) => {
+const mdToHtml = (mdText, articleId) => {
     const renderer = new marked.Renderer();
     renderer.code = function (code, language) {
         if (language.includes(":")) {
@@ -60,12 +60,37 @@ if (fs.existsSync(mdArticlesDirPath)) {
                 const articleId = Number(articleDir.toString());
                 const articlePath = `${mdArticlesDirPath}/${articleId}/${articleId}.md`;
                 const mdArticle = fs.readFileSync(articlePath, "utf-8");
-                const htmlArticle = convertToHtml(mdArticle, articleId);
-                fs.writeFileSync(
-                    `${htmlArticlesDirPath}/${articleId}.html`,
-                    htmlArticle
-                );
-                fs.chmodSync(`${htmlArticlesDirPath}/${articleId}.html`, "666");
+                const htmlArticle = mdToHtml(mdArticle, articleId);
+                require("mathjax")
+                    .init({
+                        loader: { load: ["input/tex", "output/chtml"] },
+                        chtml: {
+                            fontURL:
+                                "https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2",
+                        },
+                        startup: {
+                            document: htmlArticle,
+                        },
+                    })
+                    .then((MathJax) => {
+                        const adaptor = MathJax.startup.adaptor;
+                        const html = MathJax.startup.document;
+                        if (html.math.toArray().length === 0) {
+                            adaptor.remove(html.outputJax.chtmlStyles);
+                        }
+                        const outputHtml = adaptor.outerHTML(
+                            adaptor.root(html.document)
+                        );
+                        fs.writeFileSync(
+                            `${htmlArticlesDirPath}/${articleId}.html`,
+                            outputHtml
+                        );
+                        fs.chmodSync(
+                            `${htmlArticlesDirPath}/${articleId}.html`,
+                            "666"
+                        );
+                    })
+                    .catch((err) => console.log(err.message));
             }
         });
     } else {
@@ -73,11 +98,33 @@ if (fs.existsSync(mdArticlesDirPath)) {
         const articleId = Number(argument);
         const articlePath = `${mdArticlesDirPath}/${articleId}/${articleId}.md`;
         const mdArticle = fs.readFileSync(articlePath, "utf-8");
-        const htmlArticle = convertToHtml(mdArticle, articleId);
-        fs.writeFileSync(
-            `${htmlArticlesDirPath}/${articleId}.html`,
-            htmlArticle
-        );
-        fs.chmodSync(`${htmlArticlesDirPath}/${articleId}.html`, "666");
+        const htmlArticle = mdToHtml(mdArticle, articleId);
+        require("mathjax")
+            .init({
+                loader: { load: ["input/tex", "output/chtml"] },
+                chtml: {
+                    fontURL:
+                        "https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2",
+                },
+                startup: {
+                    document: htmlArticle,
+                },
+            })
+            .then((MathJax) => {
+                const adaptor = MathJax.startup.adaptor;
+                const html = MathJax.startup.document;
+                if (html.math.toArray().length === 0) {
+                    adaptor.remove(html.outputJax.chtmlStyles);
+                }
+                const outputHtml = adaptor.outerHTML(
+                    adaptor.root(html.document)
+                );
+                fs.writeFileSync(
+                    `${htmlArticlesDirPath}/${articleId}.html`,
+                    outputHtml
+                );
+                fs.chmodSync(`${htmlArticlesDirPath}/${articleId}.html`, "666");
+            })
+            .catch((err) => console.log(err.message));
     }
 }

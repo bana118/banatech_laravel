@@ -8,9 +8,6 @@
 @endsection
 @section('head')
     @include('base.head')
-    <script src="{{ mix('js/blog/view.js') }}" defer></script>
-    <script id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" defer>
-    </script>
     <link rel="stylesheet" href="{{ mix('/css/blog/view.css') }}">
     <meta property="og:type" content="article" />
     <meta property="og:url" content="{{ url()->current() }}" />
