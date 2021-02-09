@@ -9,15 +9,9 @@ export const ColorChangeableCanvas = (
 ): ReactElement => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const anchorRef = useRef<HTMLAnchorElement | null>(null);
-    const [canvasContext, setCanvasContext] = useState<
-        CanvasRenderingContext2D | undefined | null
-    >(null);
-
-    // Because the latest state is not referenced in the event handlers
-    const canvasContextRef = useRef<
-        CanvasRenderingContext2D | undefined | null
-    >(null);
-    canvasContextRef.current = canvasContext;
+    const [isInputFocused, setIsInputFocused] = useState(false);
+    const [bottomColor, setBottomColor] = useState("#3C5A78");
+    const [topColor, setTopColor] = useState("#F05A78");
 
     useEffect(() => {
         const canvas = canvasRef?.current;
@@ -43,17 +37,24 @@ export const ColorChangeableCanvas = (
                         const g = idata[i * 4 + 1];
                         const b = idata[i * 4 + 2];
                         const gray = (r + g + b) / 3;
-                        // (240, 90, 120) -> (60, 90, 120)
-                        idata[i * 4] = 60 + (180 * gray) / 255;
-                        idata[i * 4 + 1] = 90;
-                        idata[i * 4 + 2] = 120;
+                        const bottomRgb = hex2rgb(bottomColor);
+                        const topRgb = hex2rgb(topColor);
+                        idata[i * 4] =
+                            bottomRgb[0] +
+                            ((topRgb[0] - bottomRgb[0]) * gray) / 255;
+                        idata[i * 4 + 1] =
+                            bottomRgb[1] +
+                            ((topRgb[1] - bottomRgb[1]) * gray) / 255;
+                        idata[i * 4 + 2] =
+                            bottomRgb[2] +
+                            ((topRgb[2] - bottomRgb[2]) * gray) / 255;
                     }
                     context.putImageData(imageData, 0, 0);
                 }
             }
         };
         image.src = props.imageUrl;
-    }, [props.imageUrl]);
+    }, [props.imageUrl, isInputFocused]);
 
     const downloadCanvas = () => {
         const anchor = anchorRef.current;
@@ -69,11 +70,44 @@ export const ColorChangeableCanvas = (
         }
     };
 
+    const hex2rgb = (hex: string) => {
+        hex = hex.slice(1);
+        return [hex.slice(0, 2), hex.slice(2, 4), hex.slice(4, 6)].map(
+            function (str) {
+                return parseInt(str, 16);
+            }
+        );
+    };
+
     return (
         <div className="uk-padding" style={wrapperStyle}>
             <a ref={anchorRef} onClick={downloadCanvas}>
-                ダウンロード
+                画像ダウンロード
             </a>
+            <div>
+                <label htmlFor="bottomColor">黒</label>
+                <input
+                    id="bottomColor"
+                    className="uk-input uk-form-width-small uk-form-small"
+                    type="color"
+                    value={bottomColor}
+                    onChange={(event) => setBottomColor(event.target.value)}
+                    onFocus={() => setIsInputFocused(true)}
+                    onBlur={() => setIsInputFocused(false)}
+                />
+            </div>
+            <div>
+                <label htmlFor="topColor">白</label>
+                <input
+                    id="topColor"
+                    className="uk-input uk-form-width-small uk-form-small"
+                    type="color"
+                    value={topColor}
+                    onChange={(event) => setTopColor(event.target.value)}
+                    onFocus={() => setIsInputFocused(true)}
+                    onBlur={() => setIsInputFocused(false)}
+                />
+            </div>
             <canvas ref={canvasRef} style={canvasStyle} />
         </div>
     );

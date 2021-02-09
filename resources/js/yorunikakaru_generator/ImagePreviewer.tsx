@@ -16,20 +16,15 @@ export const ImagePreviewer = (props: ImagePreviewerProps): ReactElement => {
 
     return (
         <div className="uk-padding" style={wrapperStyle}>
-            <input
-                type="file"
-                id="input"
-                onChange={previewImage}
-                accept="image/*"
-            />
+            <div className="uk-form-custom">
+                <input type="file" accept="image/*" onChange={previewImage} />
+                <button className="uk-button uk-button-primary" type="button">
+                    画像選択
+                </button>
+            </div>
             <img src={props.imageUrl} />
         </div>
     );
-};
-
-const canvasStyle = {
-    display: "inline-block",
-    border: "1px solid gray",
 };
 
 const wrapperStyle = {
