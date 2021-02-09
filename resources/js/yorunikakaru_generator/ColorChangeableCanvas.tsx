@@ -64,7 +64,7 @@ export const ColorChangeableCanvas = (
         } else {
             if (canvas != null) {
                 const base64 = canvas.toDataURL("image/png");
-                anchor.download = `hoge.png`;
+                anchor.download = "download.png";
                 anchor.href = base64;
             }
         }
