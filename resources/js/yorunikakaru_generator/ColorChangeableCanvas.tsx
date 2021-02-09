@@ -59,9 +59,7 @@ export const ColorChangeableCanvas = (
     const downloadCanvas = () => {
         const anchor = anchorRef.current;
         const canvas = canvasRef?.current;
-        if (anchor == null) {
-            console.log("anchor loading error");
-        } else {
+        if (anchor != null) {
             if (canvas != null) {
                 const base64 = canvas.toDataURL("image/png");
                 anchor.download = "download.png";
