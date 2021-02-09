@@ -8,6 +8,7 @@ export const ColorChangeableCanvas = (
     props: ColorChangeableCanvasProps
 ): ReactElement => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
+    const anchorRef = useRef<HTMLAnchorElement | null>(null);
     const [canvasContext, setCanvasContext] = useState<
         CanvasRenderingContext2D | undefined | null
     >(null);
@@ -42,7 +43,7 @@ export const ColorChangeableCanvas = (
                         const g = idata[i * 4 + 1];
                         const b = idata[i * 4 + 2];
                         const gray = (r + g + b) / 3;
-                        // (240, 90, 120) -> (60, 80, 110)
+                        // (240, 90, 120) -> (60, 90, 120)
                         idata[i * 4] = 60 + (180 * gray) / 255;
                         idata[i * 4 + 1] = 90;
                         idata[i * 4 + 2] = 120;
@@ -54,8 +55,25 @@ export const ColorChangeableCanvas = (
         image.src = props.imageUrl;
     }, [props.imageUrl]);
 
+    const downloadCanvas = () => {
+        const anchor = anchorRef.current;
+        const canvas = canvasRef?.current;
+        if (anchor == null) {
+            console.log("anchor loading error");
+        } else {
+            if (canvas != null) {
+                const base64 = canvas.toDataURL("image/png");
+                anchor.download = `hoge.png`;
+                anchor.href = base64;
+            }
+        }
+    };
+
     return (
         <div className="uk-padding" style={wrapperStyle}>
+            <a ref={anchorRef} onClick={downloadCanvas}>
+                ダウンロード
+            </a>
             <canvas ref={canvasRef} style={canvasStyle} />
         </div>
     );
