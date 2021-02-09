@@ -16,11 +16,21 @@ export const ImagePreviewer = (props: ImagePreviewerProps): ReactElement => {
 
     return (
         <div className="uk-padding" style={wrapperStyle}>
-            <div className="uk-form-custom">
-                <input type="file" accept="image/*" onChange={previewImage} />
-                <button className="uk-button uk-button-primary" type="button">
-                    画像選択
-                </button>
+            <div className="uk-margin">
+                <div className="uk-form-custom">
+                    <input
+                        id="fileInput"
+                        type="file"
+                        accept="image/*"
+                        onChange={previewImage}
+                    />
+                    <button
+                        className="uk-button uk-button-primary"
+                        type="button"
+                    >
+                        画像選択
+                    </button>
+                </div>
             </div>
             <img src={props.imageUrl} />
         </div>
