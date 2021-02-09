@@ -41,10 +41,11 @@ export const ColorChangeableCanvas = (
                         const r = idata[i * 4];
                         const g = idata[i * 4 + 1];
                         const b = idata[i * 4 + 2];
-                        const gray = (r * 30 + g * 59 + b * 11) / 100;
-                        idata[i * 4] = gray;
-                        idata[i * 4 + 1] = gray;
-                        idata[i * 4 + 2] = gray;
+                        const gray = (r + g + b) / 3;
+                        // (240, 90, 120) -> (60, 80, 110)
+                        idata[i * 4] = 60 + (180 * gray) / 255;
+                        idata[i * 4 + 1] = 90;
+                        idata[i * 4 + 2] = 120;
                     }
                     context.putImageData(imageData, 0, 0);
                 }

@@ -16,7 +16,12 @@ export const ImagePreviewer = (props: ImagePreviewerProps): ReactElement => {
 
     return (
         <div className="uk-padding" style={wrapperStyle}>
-            <input type="file" id="input" onChange={previewImage} />
+            <input
+                type="file"
+                id="input"
+                onChange={previewImage}
+                accept="image/*"
+            />
             <img src={props.imageUrl} />
         </div>
     );
