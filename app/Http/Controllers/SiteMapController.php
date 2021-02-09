@@ -62,6 +62,9 @@ class siteMapController extends Controller
 
             //shodou
             $sitemap->add(URL::to('/shodou'), '2020-12-30T17:30:00+09:00', '0.9', 'yearly');
+
+            // yorunikakeru_generator
+            $sitemap->add(URL::to('/yorunikakeru-generator'), '2021-02-09T17:30:00+09:00', '0.9', 'yearly');
         }
 
         // show your sitemap (options: 'xml' (default), 'html', 'txt', 'ror-rss', 'ror-rdf')
