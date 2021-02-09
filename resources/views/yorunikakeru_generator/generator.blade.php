@@ -4,7 +4,7 @@
 @section('description', '好きな画像を夜に駆ける風に変換します')
 @section('head')
     @include('base.head')
-    <script src="{{ mix('js/yorunikakaru_generator/App.js') }}" defer></script>
+    <script src="{{ mix('js/yorunikakeru_generator/App.js') }}" defer></script>
     <meta property="og:type" content="article" />
     <meta property="og:url" content="{{ url()->current() }}" />
     <meta property="og:locale" content="ja_JP">

@@ -1,5 +1,5 @@
 <?php
 
-Route::get('/yorunikakaru-generator', function () {
-    return view('yorunikakaru_generator.generator');
+Route::get('/yorunikakeru-generator', function () {
+    return view('yorunikakeru_generator.generator');
 });
