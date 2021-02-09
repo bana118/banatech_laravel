@@ -56,6 +56,12 @@ mix.js("resources/js/vr_meiro/intro.js", "public/js/vr_meiro/").js(
 // shodou
 mix.ts("resources/js/shodou/App.tsx", "public/js/shodou");
 
+// yorunikakaru_generator
+mix.ts(
+    "resources/js/yorunikakaru_generator/App.tsx",
+    "public/js/yorunikakaru_generator"
+);
+
 if (mix.inProduction()) {
     mix.version();
     // gzip compression
