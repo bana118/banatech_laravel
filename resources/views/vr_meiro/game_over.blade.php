@@ -13,7 +13,7 @@
     <meta name="twitter:site" content="{{ Config::get('const.TWITTERID') }}" />
 @endsection
 @section('content')
-    <div class="uk-container uk-container-center uk-background-default" style="touch-action: manipulation;">
+    <div class="uk-container uk-background-default" style="touch-action: manipulation;">
         <h1 class="uk-flex uk-flex-center">ゲームオーバー</h1>
         <h2 class="uk-flex uk-flex-center">ゾンビに食べられた...</h2>
         <button type="button" class="uk-button uk-button-primary uk-align-center"

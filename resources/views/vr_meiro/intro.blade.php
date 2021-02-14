@@ -14,7 +14,7 @@
     <meta name="twitter:site" content="{{ Config::get('const.TWITTERID') }}" />
 @endsection
 @section('content')
-    <div class="uk-container uk-container-center uk-background-default" style="touch-action: manipulation;">
+    <div class="uk-container uk-background-default" style="touch-action: manipulation;">
         <div class="uk-frex start" style="position: relative;text-align:center;">
             <img id="mazeImg" data-src="{{ asset('img/sumnail/vr_meiro.png') }}" width="400" height="300" uk-img>
             <div id="bgroup" class="uk-button-group"

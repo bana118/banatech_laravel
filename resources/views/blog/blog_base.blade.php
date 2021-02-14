@@ -11,7 +11,7 @@
     <meta name="twitter:site" content="{{ Config::get('const.TWITTERID') }}" />
 @endsection
 @section('content')
-    <div class="uk-container uk-container-center uk-background-default">
+    <div class="uk-container uk-background-default">
         <div class="uk-card uk-card-default uk-background-default">
             @yield('card_body')
             <form class="uk-search uk-search-default" method="GET" name="search" action="/blog/search">

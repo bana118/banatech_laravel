@@ -16,7 +16,7 @@
     <meta name="twitter:site" content="{{ Config::get('const.TWITTERID') }}" />
 @endsection
 @section('content')
-    <div class="uk-container uk-container-center uk-background-default">
+    <div class="uk-container uk-background-default">
         <p>左にLaTeXを書くと右にプレビューが表示されます(laravel化のためエクスポート機能は停止中)</p>
         <div class="uk-grid uk-flex-center">
             <div class="uk-width-1-2@m uk-margin-top">

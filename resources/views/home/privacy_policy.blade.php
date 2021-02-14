@@ -14,7 +14,7 @@
     <meta name="twitter:site" content="{{ Config::get('const.TWITTERID') }}" />
 @endsection
 @section('content')
-    <div class="uk-container uk-container-center uk-background-default">
+    <div class="uk-container uk-background-default">
         <h1>プライバシーポリシー(個人情報保護方針)</h1>
         <p>「{{ config('app.url') }}」（以下、当サイト）を利用される方は、以下に記載する諸条件に同意したものとみなします。</p>
         <p>&nbsp;</p>

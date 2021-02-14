@@ -15,7 +15,7 @@
     <meta name="twitter:site" content="{{ Config::get('const.TWITTERID') }}" />
 @endsection
 @section('content')
-    <div class="uk-container uk-container-center uk-background-default" style="touch-action: manipulation;">
+    <div class="uk-container uk-background-default" style="touch-action: manipulation;">
         <div class="uk-container" style="width: 400px;">
             <div class="uk-card uk-card-default">
                 <div class="uk-card-body">
@@ -34,9 +34,8 @@
             </div>
             <div class="blockBox uk-flex uk-flex-center" style="position: relative;">
                 @for ($ladder = 0; $ladder < 90; $ladder++)
-                    @if ($ladder % 9 == 0)
-                        <div class="ladderColumn uk-flex uk-flex-column">
-                    @endif
+                    @if ($ladder % 9 == 0) <div class="ladderColumn uk-flex
+                    uk-flex-column"> @endif
                     <canvas id="l-{{ $ladder }}" width="40px" height="40px"></canvas>
                     @if ($ladder % 9 == 8)
             </div>
@@ -44,9 +43,8 @@
             @endfor
             <div class="blocks uk-flex uk-flex-center" style="position: absolute;">
                 @for ($ladder = 0; $ladder < 90; $ladder++)
-                    @if ($ladder % 9 == 0)
-                        <div class="blockColumn uk-flex uk-flex-column">
-                    @endif
+                    @if ($ladder % 9 == 0) <div class="blockColumn uk-flex
+                    uk-flex-column"> @endif
                     <canvas id="b-{{ $ladder }}" width="40px" height="40px"></canvas>
                     @if ($ladder % 9 == 8)
             </div>

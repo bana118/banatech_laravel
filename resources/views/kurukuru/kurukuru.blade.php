@@ -15,7 +15,7 @@
     <meta name="twitter:site" content="{{ Config::get('const.TWITTERID') }}" />
 @endsection
 @section('content')
-    <div class="uk-container uk-container-center uk-background-default" style="touch-action: manipulation;">
+    <div class="uk-container uk-background-default" style="touch-action: manipulation;">
         <div class="uk-container" style="width: 290px;">
             <audio src="" id="startSoundEffect"></audio>
             <audio src="" id="overSoundEffect"></audio>
@@ -39,10 +39,10 @@
             <div class="blockBox uk-flex uk-flex-center" style="position: relative;">
                 <canvas id="controller" width="96px" height="96px" style="position: absolute; top:0px; left: 0px;"></canvas>
                 @for ($block = 0; $block < 36; $block++)
-                    @if ($block % 6 == 0)
-                        <div class="blockColumn uk-flex uk-flex-column">
-                    @endif
-                    <canvas class="block" style="margin : 4px" id="b-{{ $block }}" width="40px" height="40px"></canvas>
+                    @if ($block % 6 == 0) <div class="blockColumn uk-flex
+                    uk-flex-column"> @endif
+                    <canvas class="block" style="margin : 4px" id="b-{{ $block }}" width="40px"
+                        height="40px"></canvas>
                     @if ($block % 6 == 5)
             </div>
             @endif
