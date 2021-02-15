@@ -72,18 +72,58 @@
                         </a>
                     </li>
                 </ul>
+                <div class="uk-grid">
+                    <div class="uk-width-1-2@m uk-margin-top uk-flex uk-flex-center">
+                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                        <!-- blog-display-300x250 -->
+                        <ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px"
+                            data-ad-client="ca-pub-3817107084963630" data-ad-slot="3482484202"></ins>
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+
+                        </script>
+                    </div>
+                    <div class="uk-width-1-2@m uk-margin-top uk-flex uk-flex-center">
+                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                        <!-- blog-display-300x250 -->
+                        <ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px"
+                            data-ad-client="ca-pub-3817107084963630" data-ad-slot="3482484202"></ins>
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+
+                        </script>
+                    </div>
+                </div>
                 <span id="article_id" data-name="{{ $article->id }}"></span>
             </div>
             <div class="bt-right-menu uk-visible@m uk-padding">
-                <div class="bt-toc" uk-sticky="offset: 120">
-                    <ul class="uk-list uk-list-hyphen uk-list-muted">
-                        @foreach ($headerIds as $headerId)
-                            <li class="bt-toc-li-{{ $headerId[0] }}">
-                                <a class="uk-link-muted uk-text-small" href="#{{ $headerId[2] }}"
-                                    uk-scroll>{{ $headerId[1] }}</a>
-                            </li>
-                        @endforeach
-                    </ul>
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <!-- blog-display-300x250 -->
+                <ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px"
+                    data-ad-client="ca-pub-3817107084963630" data-ad-slot="3482484202"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+
+                </script>
+                <div uk-sticky="offset: 16">
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <!-- blog-display-300x250 -->
+                    <ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px"
+                        data-ad-client="ca-pub-3817107084963630" data-ad-slot="3482484202"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+
+                    </script>
+                    <div class="bt-toc">
+                        <ul class="uk-list uk-list-hyphen uk-list-muted">
+                            @foreach ($headerIds as $headerId)
+                                <li class="bt-toc-li-{{ $headerId[0] }}">
+                                    <a class="uk-link-muted uk-text-small" href="#{{ $headerId[2] }}"
+                                        uk-scroll>{{ $headerId[1] }}</a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
