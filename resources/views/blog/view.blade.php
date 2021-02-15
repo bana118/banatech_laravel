@@ -130,10 +130,10 @@
                     </script>
                     <div class="bt-toc">
                         <ul class="uk-list uk-list-hyphen uk-list-muted">
-                            @foreach ($headerIds as $headerId)
-                                <li class="bt-toc-li-{{ $headerId[0] }}">
-                                    <a class="uk-link-muted uk-text-small" href="#{{ $headerId[2] }}"
-                                        uk-scroll>{{ $headerId[1] }}</a>
+                            @foreach ($headersInfo as $headerInfo)
+                                <li class="bt-toc-li-{{ $headerInfo[0] }}">
+                                    <a class="uk-link-muted uk-text-small" href="#{{ $headerInfo[2] }}"
+                                        uk-scroll>{{ $headerInfo[1] }}</a>
                                 </li>
                             @endforeach
                         </ul>
