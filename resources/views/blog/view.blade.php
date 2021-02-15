@@ -27,14 +27,14 @@
                         <a class="uk-link-muted"
                             href="https://twitter.com/share?url={{ url()->current() }}&text={{ $article->title }}"
                             rel="nofollow noopener" target="_blank">
-                            <i class="fab fa-2x fa-twitter"></i>
+                            <i class="fab fa-2x fa-twitter bt-twitter-link"></i>
                         </a>
                     </li>
                     <li class="uk-text-center uk-margin">
                         <a class="uk-link-muted"
                             href="https://www.facebook.com/sharer/sharer.php?u={{ url()->current() }}"
                             rel="nofollow noopener" target="_blank">
-                            <i class="fab fa-2x fa-facebook"></i>
+                            <i class="fab fa-2x fa-facebook bt-facebook-link"></i>
                         </a>
                     </li>
                 </ul>
@@ -66,13 +66,13 @@
                     <li class="uk-text-center uk-margin-top">
                         <a href="https://twitter.com/share?url={{ url()->current() }}&text={{ $article->title }}"
                             rel="nofollow noopener" target="_blank">
-                            <i class="fab fa-2x fa-twitter"></i>
+                            <i class="fab fa-2x fa-twitter bt-twitter-link"></i>
                         </a>
                     </li>
                     <li class="uk-text-center uk-margin-top">
                         <a href="https://www.facebook.com/sharer/sharer.php?u={{ url()->current() }}"
                             rel="nofollow noopener" target="_blank">
-                            <i class="fab fa-2x fa-facebook"></i>
+                            <i class="fab fa-2x fa-facebook bt-facebook-link"></i>
                         </a>
                     </li>
                 </ul>
