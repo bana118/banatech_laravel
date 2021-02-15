@@ -74,7 +74,15 @@
                 </ul>
                 <span id="article_id" data-name="{{ $article->id }}"></span>
             </div>
-            <div class="bt-right-menu uk-visible@m uk-padding">bsssssss</div>
+            <div class="bt-right-menu uk-visible@m uk-padding">
+                <ul class="uk-list">
+                    @foreach ($headerIds as $headerId)
+                        <li>
+                            <a class="uk-link" href="#{{ $headerId[2] }}" uk-scroll>{{ $headerId[1] }}</a>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
         </div>
     </div>
 @endsection

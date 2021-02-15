@@ -60,23 +60,36 @@ Route::get('/blog/all_categories', function () {
     ]);
 });
 
-// Return pair of header level and header text 
+// Return pair of header level and header text
 // e.g. [[1, "Level1"], [2, "Level2"], [3, "Level3"]]
-function get_index($content)
+function get_index($contentWithoutCode)
 {
+    $headerInfo = array();
     $headerIds = array();
-    $contentWithoutCode = preg_replace('/^```.*?\r?\n(.*?\r?\n)*?```/m', '', $content);
     preg_match_all('/^\s*#+\s+.*/m', $contentWithoutCode, $headers);
     foreach ($headers[0] as $header) {
+        $header = trim($header);
         preg_match('/^\s*#+/m', $header, $sharps);
         $sharps = preg_replace('/\s/', '', $sharps);
         $level = mb_strlen($sharps[0]);
-        $headerText = preg_replace('/^\s*#+\s+/', '', $header);
         if ($level < 7 && $level > 0) {
-            array_push($headerIds, array($level, $headerText));
+            $headerText = preg_replace('/^\s*#+\s+/', '', $header);
+            $headerId = mb_strtolower($headerText);
+            $headerId = preg_replace('/\s|　/', '-', $headerId);
+            $headerId = preg_replace('/[!@#\$%\^&\*\(\)\+\|~=`\[\]\{\};\':",\.\/<>?\\\]/', '', $headerId);
+            $headerId = preg_replace('/[！＠＃＄％＾＆＊（）＋｜〜＝￥｀「」｛｝；’：”、。・＜＞？【】『』《》〔〕［］‹›«»〘〙〚〛]/u', '', $headerId);
+            if (array_key_exists($headerId, $headerIds)) {
+                $suffix = $headerIds[$headerId];
+                $uniqueHeaderId = "{$headerId}-{$suffix}";
+                $headerIds[$headerId] += 1;
+                array_push($headerInfo, array($level, $headerText, $uniqueHeaderId));
+            } else {
+                $headerIds[$headerId] = 1;
+                array_push($headerInfo, array($level, $headerText, $headerId));
+            }
         }
     }
-    return $headerIds;
+    return $headerInfo;
 }
 
 
@@ -111,8 +124,9 @@ Route::get('/blog/view/{articleId}', function ($articleId) {
         $linkReg = '/\[(.*?)\]\((https?|ftp)(:\/\/[-_.!~*\\\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)\)/';
 
         $content = file_get_contents($mdFilePath);
-        get_index($content);
         $content = preg_replace($codeReg, '', $content);
+        $headerIds = get_index($content);
+
         $content = preg_replace($imgReg, '', $content);
         $content = preg_replace($htmlReg, '', $content);
         $content = preg_replace($headerReg, '', $content);
@@ -129,13 +143,15 @@ Route::get('/blog/view/{articleId}', function ($articleId) {
             return view('blog.view', [
                 'article' => $article,
                 'relatedArticles' => $relatedArticles,
-                'description' => $description
+                'description' => $description,
+                'headerIds' => $headerIds
             ]);
         } else {
             return view('blog.view', [
                 'article' => $article,
                 'relatedArticles' => $relatedArticles,
-                'description' => $content
+                'description' => $content,
+                'headerIds' => $headerIds
             ]);
         }
     }

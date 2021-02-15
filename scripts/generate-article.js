@@ -9,6 +9,7 @@ const sizeOf = require("image-size");
 const mdArticlesDirPath = `${__dirname}/../public/uploaded/article`;
 const htmlArticlesDirPath = `${__dirname}/../resources/views/blog/article`;
 const hostname = process.env.APP_URL;
+const headerIds = {};
 
 const mdToHtml = (mdText, articleId) => {
     const renderer = new marked.Renderer();
@@ -34,6 +35,19 @@ const mdToHtml = (mdText, articleId) => {
             return `<img data-src="${imageDirUrl}/${fileName}" width="${imageSize.width}" height="${imageSize.height}" alt="${text}" uk-img>`;
         } else {
             return "<p>Not Found</p>";
+        }
+    };
+    renderer.heading = function (text, level, raw, slugger) {
+        const regExp = /[！＠＃＄％＾＆＊（）＋｜〜＝￥｀「」｛｝；’：”、。・＜＞？【】『』《》〔〕［］‹›«»〘〙〚〛]/g;
+        const id = slugger.slug(raw).replace(regExp, "");
+        if (id in headerIds) {
+            const suffix = headerIds[id];
+            const uniqueId = `id-${suffix}`;
+            headerIds[id] += 1;
+            return `<h${level} id="${uniqueId}">${text}</h${level}>\n`;
+        } else {
+            headerIds[id] = 1;
+            return `<h${level} id="${id}">${text}</h${level}>\n`;
         }
     };
     marked.setOptions({
