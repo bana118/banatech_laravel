@@ -101,13 +101,15 @@
     <p>効果音：魔王魂様、効果音ラボ様</p>
     <p>BGM：魔王魂様</p>
     <p>イラスト：友人のkwb様</p>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <!-- app-width-responsive -->
-    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3817107084963630" data-ad-slot="2386407842"
-        data-ad-format="auto" data-full-width-responsive="true"></ins>
-    <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
+    <div class="uk-margin">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- app-width-responsive -->
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3817107084963630" data-ad-slot="2386407842"
+            data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
 
-    </script>
+        </script>
+    </div>
     </div>
 @endsection

@@ -47,13 +47,15 @@
         <p><a href="https://sketchfab.com/3d-models/zombi-model-8a6ba408df1c42ac8a3fc8d07989b2a0">Zombi Model</a>: <a
                 href="https://sketchfab.com/cafofo.game.studio">JonatanSantana</a>(<a
                 href="https://creativecommons.org/licenses/by/4.0/">Licensed under CC BY 4.0</a>)</p>
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <!-- app-width-responsive -->
-        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3817107084963630" data-ad-slot="2386407842"
-            data-ad-format="auto" data-full-width-responsive="true"></ins>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
+        <div class="uk-margin">
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <!-- app-width-responsive -->
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3817107084963630"
+                data-ad-slot="2386407842" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
 
-        </script>
+            </script>
+        </div>
     </div>
 @endsection
