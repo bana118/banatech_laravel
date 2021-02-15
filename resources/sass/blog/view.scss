@@ -26,6 +26,14 @@
     word-wrap: break-word;
 }
 
+code {
+    white-space: pre-wrap !important;
+}
+
+pre code {
+    white-space: pre !important;
+}
+
 .bt-related-articles-label {
     border-bottom: double 0.5rem #ffc778;
 }

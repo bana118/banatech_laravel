@@ -15,7 +15,7 @@
     <meta name="twitter:site" content="{{ Config::get('const.TWITTERID') }}" />
 @endsection
 @section('content')
-    <div class="uk-container uk-container-large">
+    <div class="uk-container uk-container-large uk-padding-remove">
         <div class="uk-flex-center" uk-grid>
             <div class="bt-left-menu uk-visible@l uk-padding">
                 <ul class="uk-list uk-margin" uk-sticky="offset: 120">
@@ -35,7 +35,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="bt-article uk-background-default uk-width-expand uk-padding uk-padding-remove-top">
+            <div class="bt-article uk-background-default uk-width-expand uk-padding uk-padding-remove-top uk-margin-left">
                 <h1 class="bt-article-title">{{ $article->title }}</h1>
                 <p>作成: {{ $article->created_at->format('Y年m月d日') }}</p>
                 <p>更新: {{ $article->updated_at->format('Y年m月d日') }}</p>
