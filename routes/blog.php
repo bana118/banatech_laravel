@@ -60,10 +60,6 @@ Route::get('/blog/all_categories', function () {
     ]);
 });
 
-// Return pair of header level, header text, id(with suffix)
-// e.g. [[1, "Level1", "Level1"], [2, "Level2", "Level2"], [3, "Level1", "Level1-1"]]
-
-
 Route::get('/blog/view/{articleId}', function ($articleId) {
     $articleCount = \App\Article::where('id', $articleId)->count();
     if ($articleCount == 0) {
@@ -116,6 +112,8 @@ Route::get('/blog/view/{articleId}', function ($articleId) {
         $content = file_get_contents($mdFilePath);
         $content = preg_replace($codeReg, '', $content);
 
+        // Get pair of header level, header text, id(with suffix)
+        // e.g. [[1, "Level1", "Level1"], [2, "Level2", "Level2"], [3, "Level1", "Level1-1"]]
         $headersInfo = array();
         $headerIds = array();
         preg_match_all('/^\s*#+\s+.*/m', $content, $headers);
