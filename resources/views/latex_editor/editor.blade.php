@@ -16,7 +16,7 @@
     <meta name="twitter:site" content="{{ Config::get('const.TWITTERID') }}" />
 @endsection
 @section('content')
-    <div class="uk-container uk-container-center uk-background-default">
+    <div class="uk-container uk-background-default">
         <p>左にLaTeXを書くと右にプレビューが表示されます(laravel化のためエクスポート機能は停止中)</p>
         <div class="uk-grid uk-flex-center">
             <div class="uk-width-1-2@m uk-margin-top">
@@ -35,6 +35,16 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="uk-margin">
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <!-- app-width-responsive -->
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3817107084963630"
+                data-ad-slot="2386407842" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+
+            </script>
         </div>
     </div>
 @endsection

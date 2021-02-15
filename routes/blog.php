@@ -60,12 +60,64 @@ Route::get('/blog/all_categories', function () {
     ]);
 });
 
+// Return pair of header level, header text, id(with suffix)
+// e.g. [[1, "Level1", "Level1"], [2, "Level2", "Level2"], [3, "Level1", "Level1-1"]]
+function get_index($contentWithoutCode)
+{
+    $headerInfo = array();
+    $headerIds = array();
+    preg_match_all('/^\s*#+\s+.*/m', $contentWithoutCode, $headers);
+    foreach ($headers[0] as $header) {
+        $header = trim($header);
+        preg_match('/^\s*#+/m', $header, $sharps);
+        $sharps = preg_replace('/\s/', '', $sharps);
+        $level = mb_strlen($sharps[0]);
+        if ($level < 7 && $level > 0) {
+            $headerText = preg_replace('/^\s*#+\s+/', '', $header);
+            $headerId = mb_strtolower($headerText);
+            $headerId = preg_replace('/\s|　/', '-', $headerId);
+            $headerId = preg_replace('/[!@#\$%\^&\*\(\)\+\|~=`\[\]\{\};\':",\.\/<>?\\\]/', '', $headerId);
+            $headerId = preg_replace('/[！＠＃＄％＾＆＊（）＋｜〜＝￥｀「」｛｝；’：”、。・＜＞？【】『』《》〔〕［］‹›«»〘〙〚〛]/u', '', $headerId);
+            if (array_key_exists($headerId, $headerIds)) {
+                $suffix = $headerIds[$headerId];
+                $uniqueHeaderId = "{$headerId}-{$suffix}";
+                $headerIds[$headerId] += 1;
+                array_push($headerInfo, array($level, $headerText, $uniqueHeaderId));
+            } else {
+                $headerIds[$headerId] = 1;
+                array_push($headerInfo, array($level, $headerText, $headerId));
+            }
+        }
+    }
+    return $headerInfo;
+}
+
+
 Route::get('/blog/view/{articleId}', function ($articleId) {
     $articleCount = \App\Article::where('id', $articleId)->count();
     if ($articleCount == 0) {
         return App::abort(404);
     } else {
-        $article = \App\Article::where('id', $articleId)->first();
+        $allArticles = App\Article::all();
+        $article = $allArticles->where('id', $articleId)->first();
+
+        $maxId = $allArticles->max('id');
+        $nextArticle = null;
+        for ($i = $articleId + 1; $i < $maxId; $i++) {
+            $nextArticle = $allArticles->where('id', $i)->first();
+            if ($nextArticle !== null) {
+                break;
+            }
+        }
+        $minId = $allArticles->min('id');
+        $previousArticle = null;
+        for ($i = $articleId - 1; $i > $minId; $i--) {
+            $previousArticle = $allArticles->where('id', $i)->first();
+            if ($previousArticle !== null) {
+                break;
+            }
+        }
+
         $relatedArticleIdList = array();
         $categories = $article->categories()->get();
         foreach ($categories as $category) {
@@ -78,12 +130,12 @@ Route::get('/blog/view/{articleId}', function ($articleId) {
         }
         $relatedArticles = Article::whereIn('id', $relatedArticleIdList)->orderBy('updated_at', 'desc')->take(3)->get();
 
-        $mdFilePath = public_path(("uploaded/" . $article->md_file));
+        $mdFilePath = public_path("uploaded/" . $article->md_file);
 
         $codeReg = '/^```.*?\r?\n(.*?\r?\n)*?```/m';
         $imgReg = '/!\[.*?\]\(.*?\)|!\[.*?\]\[.*?\]|\[.*?\]: .*?\"\".*?\"\"/';
         $htmlReg = '/<(\".*?\"|\'.*?\'|[^\'\"])*?>/';
-        $headerReg = '/^#+? /m';
+        $headerReg = '/^\s*#+/m';
         $brockquoteReg = '/^>.*$/m';
         $horizontalReg = '/^(\* ){3,}$|^\*{3,}$|^(- ){3,}|^-{3,}$|^(_ ){3,}$|^_{3,}$/m';
         $tableReg = '/^( *\|[^\n]+\| *\r?\n)((?: *\|:?[-]+:?)+\| *)(\r?\n(?: *\|[^\n]+\| *\r?\n?)*)?$/m';
@@ -92,6 +144,8 @@ Route::get('/blog/view/{articleId}', function ($articleId) {
 
         $content = file_get_contents($mdFilePath);
         $content = preg_replace($codeReg, '', $content);
+        $headerIds = get_index($content);
+
         $content = preg_replace($imgReg, '', $content);
         $content = preg_replace($htmlReg, '', $content);
         $content = preg_replace($headerReg, '', $content);
@@ -100,21 +154,27 @@ Route::get('/blog/view/{articleId}', function ($articleId) {
         $content = preg_replace($tableReg, '', $content);
         $content = preg_replace($emphasizeReg, '$1$2$3$4$5$6', $content);
         $content = preg_replace($linkReg, '$1', $content);
-        $content = preg_replace('/\r?\n/', '', $content);
+        $content = preg_replace('/\r?\n/', ' ', $content);
 
         $descriptionLength = 120;
         if (mb_strlen($content) > $descriptionLength) {
             $description = mb_substr($content, 0, $descriptionLength) . '...';
             return view('blog.view', [
                 'article' => $article,
+                'nextArticle' => $nextArticle,
+                'previousArticle' => $previousArticle,
                 'relatedArticles' => $relatedArticles,
-                'description' => $description
+                'description' => $description,
+                'headerIds' => $headerIds
             ]);
         } else {
             return view('blog.view', [
                 'article' => $article,
+                'nextArticle' => $nextArticle,
+                'previousArticle' => $previousArticle,
                 'relatedArticles' => $relatedArticles,
-                'description' => $content
+                'description' => $content,
+                'headerIds' => $headerIds
             ]);
         }
     }
