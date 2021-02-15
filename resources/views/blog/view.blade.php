@@ -21,8 +21,8 @@
 @section('content')
     <div class="uk-container uk-container-large">
         <div class="uk-flex-center" uk-grid>
-            <div class="bt-left-menu uk-visible@l uk-padding" style="width:80px;">
-                <ul class="uk-list uk-margin">
+            <div class="bt-left-menu uk-visible@l uk-padding">
+                <ul class="uk-list uk-margin" uk-sticky="offset: 120">
                     <li class="uk-text-center uk-margin">
                         <a class="uk-link-muted"
                             href="https://twitter.com/share?url={{ url()->current() }}&text={{ $article->title }}"
@@ -78,7 +78,7 @@
                 </ul>
                 <span id="article_id" data-name="{{ $article->id }}"></span>
             </div>
-            <div class="bt-right-menu uk-visible@m uk-padding" style="width:300px;">bsssssss</div>
+            <div class="bt-right-menu uk-visible@m uk-padding">bsssssss</div>
         </div>
     </div>
 @endsection
