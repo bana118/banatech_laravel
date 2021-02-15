@@ -74,7 +74,7 @@ Route::get('/blog/view/{articleId}', function ($articleId) {
 
         $maxId = $allArticles->max('id');
         $nextArticle = null;
-        for ($i = $articleId + 1; $i < $maxId; $i++) {
+        for ($i = $articleId + 1; $i <= $maxId; $i++) {
             $nextArticle = $allArticles->where('id', $i)->first();
             if ($nextArticle !== null) {
                 break;
@@ -82,7 +82,7 @@ Route::get('/blog/view/{articleId}', function ($articleId) {
         }
         $minId = $allArticles->min('id');
         $previousArticle = null;
-        for ($i = $articleId - 1; $i > $minId; $i--) {
+        for ($i = $articleId - 1; $i >= $minId; $i--) {
             $previousArticle = $allArticles->where('id', $i)->first();
             if ($previousArticle !== null) {
                 break;
