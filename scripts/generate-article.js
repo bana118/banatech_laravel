@@ -9,11 +9,12 @@ const sizeOf = require("image-size");
 const mdArticlesDirPath = `${__dirname}/../public/uploaded/article`;
 const htmlArticlesDirPath = `${__dirname}/../resources/views/blog/article`;
 const hostname = process.env.APP_URL;
+const headerIds = {};
 
-const convertToHtml = (mdText, articleId) => {
+const mdToHtml = (mdText, articleId) => {
     const renderer = new marked.Renderer();
     renderer.code = function (code, language) {
-        if (language.includes(":")) {
+        if (language != null && language.includes(":")) {
             const lang = language.split(":")[0];
             const fileName = language.split(":")[1].trim();
             return `<pre><div class="uk-badge" style="display: inline-block;">${fileName}</div><code class="hljs">${
@@ -27,14 +28,26 @@ const convertToHtml = (mdText, articleId) => {
     };
     renderer.image = function (href, title, text) {
         const fileName = href.split("/").pop();
-        const imgPath = `${hostname}/uploaded/article/${articleId}/image`;
-        if (fs.existsSync(imgPath)) {
-            const imageSize = sizeOf(
-                `${mdArticlesDirPath}/${articleId}/image/${fileName}`
-            );
-            return `<img data-src="${imgPath}/${fileName}" width="${imageSize.width}" height="${imageSize.height}" alt="${text}" uk-img>`;
+        const imageDirUrl = `${hostname}/uploaded/article/${articleId}/image`;
+        const imageFilePath = `${mdArticlesDirPath}/${articleId}/image/${fileName}`;
+        if (fs.existsSync(imageFilePath)) {
+            const imageSize = sizeOf(imageFilePath);
+            return `<img data-src="${imageDirUrl}/${fileName}" width="${imageSize.width}" height="${imageSize.height}" alt="${text}" uk-img>`;
         } else {
             return "<p>Not Found</p>";
+        }
+    };
+    renderer.heading = function (text, level, raw, slugger) {
+        const regExp = /[！＠＃＄％＾＆＊（）＋｜〜＝￥｀「」｛｝；’：”、。・＜＞？【】『』《》〔〕［］‹›«»〘〙〚〛]/g;
+        const id = slugger.slug(raw).replace(regExp, "");
+        if (id in headerIds) {
+            const suffix = headerIds[id];
+            const uniqueId = `id-${suffix}`;
+            headerIds[id] += 1;
+            return `<h${level} id="${uniqueId}">${text}</h${level}>\n`;
+        } else {
+            headerIds[id] = 1;
+            return `<h${level} id="${id}">${text}</h${level}>\n`;
         }
     };
     marked.setOptions({
@@ -49,24 +62,50 @@ const convertToHtml = (mdText, articleId) => {
     });
     return marked(mdText);
 };
+const renderMath = async (htmlText, articleId) => {
+    const MathJax = await require("mathjax").init({
+        loader: { load: ["input/tex", "output/chtml"] },
+        chtml: {
+            fontURL:
+                "https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2",
+        },
+        tex: {
+            inlineMath: [
+                ["$", "$"],
+                ["\\(", "\\)"],
+            ],
+            displayMath: [
+                ["$$", "$$"],
+                ["\\[", "\\]"],
+            ],
+        },
+        startup: {
+            document: htmlText,
+        },
+    });
+    const adaptor = MathJax.startup.adaptor;
+    const html = MathJax.startup.document;
+    if (html.math.toArray().length === 0) {
+        adaptor.remove(html.outputJax.chtmlStyles);
+    }
+    const outputHtml = adaptor.outerHTML(adaptor.root(html.document));
+    fs.writeFileSync(`${htmlArticlesDirPath}/${articleId}.html`, outputHtml);
+    fs.chmodSync(`${htmlArticlesDirPath}/${articleId}.html`, "666");
+};
 
 const argument = process.argv[2];
 
 if (fs.existsSync(mdArticlesDirPath)) {
     if (argument == null) {
         // update all articles
-        fs.readdir(mdArticlesDirPath, async function (err, articleDirs) {
+        fs.readdir(mdArticlesDirPath, async (err, articleDirs) => {
             if (err) throw err;
             for (const articleDir of articleDirs) {
                 const articleId = Number(articleDir.toString());
                 const articlePath = `${mdArticlesDirPath}/${articleId}/${articleId}.md`;
                 const mdArticle = fs.readFileSync(articlePath, "utf-8");
-                const htmlArticle = convertToHtml(mdArticle, articleId);
-                fs.writeFileSync(
-                    `${htmlArticlesDirPath}/${articleId}.html`,
-                    htmlArticle
-                );
-                fs.chmodSync(`${htmlArticlesDirPath}/${articleId}.html`, "666");
+                const htmlArticle = mdToHtml(mdArticle, articleId);
+                await renderMath(htmlArticle, articleId);
             }
         });
     } else {
@@ -74,11 +113,7 @@ if (fs.existsSync(mdArticlesDirPath)) {
         const articleId = Number(argument);
         const articlePath = `${mdArticlesDirPath}/${articleId}/${articleId}.md`;
         const mdArticle = fs.readFileSync(articlePath, "utf-8");
-        const htmlArticle = convertToHtml(mdArticle, articleId);
-        fs.writeFileSync(
-            `${htmlArticlesDirPath}/${articleId}.html`,
-            htmlArticle
-        );
-        fs.chmodSync(`${htmlArticlesDirPath}/${articleId}.html`, "666");
+        const htmlArticle = mdToHtml(mdArticle, articleId);
+        renderMath(htmlArticle, articleId);
     }
 }

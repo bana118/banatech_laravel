@@ -1,7 +1,10 @@
 import "uikit";
 
-window.onscroll = function() {
+// eslint-disable-next-line no-undef
+window.onscroll = function () {
+    // eslint-disable-next-line no-undef
     const scrollUpElement = document.getElementById("scrollUp");
+    // eslint-disable-next-line no-undef
     const scrollY = window.pageYOffset;
     if (scrollY > 100) {
         scrollUpElement.style.visibility = "visible";

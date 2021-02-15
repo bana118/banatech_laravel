@@ -47,6 +47,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapReiwaRoutes();
         $this->mapVrMeiroRoutes();
         $this->mapShakyoRoutes();
+        $this->mapYorunikakeruGeneratorRoutes();
     }
 
     protected function mapHomeRoutes()
@@ -103,6 +104,13 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/shodou.php'));
+    }
+
+    protected function mapYorunikakeruGeneratorRoutes()
+    {
+        Route::middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/yorunikakeru_generator.php'));
     }
 
     /**

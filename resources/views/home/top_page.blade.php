@@ -14,9 +14,25 @@
     <meta name="twitter:site" content="{{ Config::get('const.TWITTERID') }}" />
 @endsection
 @section('content')
-    <div class="uk-container uk-container-center uk-background-default">
+    <div class="uk-container uk-background-default">
         <h1>製作物</h1>
         <div class="uk-grid uk-flex-center">
+            <div class="uk-width-1-2@m uk-margin-top">
+                <a href="/yorunikakeru-generator"
+                    class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin uk-link-toggle" uk-grid>
+                    <div class="uk-flex-last@s uk-card-media-right uk-cover-container">
+                        <img data-src="{{ asset('/img/sumnail/yorunikakeru_generator.png') }}" width="250" height="250"
+                            alt="yorunikakeru_generator" uk-cover uk-img>
+                        <canvas width="250" height="250"></canvas>
+                    </div>
+                    <div>
+                        <div class="uk-card-body">
+                            <h3 class="uk-card-title">夜に駆ける風画像ジェネレーター</h3>
+                            <p>好きな画像を夜に駆ける風に変換します</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
             <div class="uk-width-1-2@m uk-margin-top">
                 <a href="/shodou"
                     class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin uk-link-toggle" uk-grid>
@@ -37,8 +53,8 @@
                 <a href="https://play.google.com/store/apps/details?id=net.banatech.app.android.sabi_alarm"
                     class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin uk-link-toggle" uk-grid>
                     <div class="uk-flex-last@s uk-card-media-right uk-cover-container">
-                        <img data-src="{{ asset('/img/sumnail/sabi_alarm.png') }}" width="250" height="250" alt="sabi_alarm"
-                            uk-cover uk-img>
+                        <img data-src="{{ asset('/img/sumnail/sabi_alarm.png') }}" width="250" height="250"
+                            alt="sabi_alarm" uk-cover uk-img>
                         <canvas width="250" height="250"></canvas>
                     </div>
                     <div>
@@ -53,8 +69,8 @@
                 <a href="https://chrome.google.com/webstore/detail/github-jupyter-diff-viewe/bhncfkebhcnjhjpagogngbcdbapjdiej?hl=ja"
                     class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin uk-link-toggle" uk-grid>
                     <div class="uk-flex-last@s uk-card-media-right uk-cover-container">
-                        <img data-src="{{ asset('/img/sumnail/github_jupyter_diff_viewer.png') }}" width="250" height="250"
-                            alt="Github Jupyter diff viewer" uk-cover uk-img>
+                        <img data-src="{{ asset('/img/sumnail/github_jupyter_diff_viewer.png') }}" width="250"
+                            height="250" alt="Github Jupyter diff viewer" uk-cover uk-img>
                         <canvas width="250" height="250"></canvas>
                     </div>
                     <div>
@@ -144,6 +160,8 @@
                         </div>
                     </div>
                 </a>
+            </div>
+            <div class="uk-width-1-2@m uk-margin-top">
             </div>
         </div>
     </div>

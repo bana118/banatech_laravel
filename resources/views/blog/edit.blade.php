@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-    <div class="uk-container uk-container-center uk-background-default">
+    <div class="uk-container uk-background-default">
         @include('common.errors')
         <form id="articleEdit" method="POST" action="/blog/edited/{{ $article->id }}" enctype="multipart/form-data">
             @csrf
