@@ -22,7 +22,19 @@
     <div class="uk-container uk-container-large">
         <div class="uk-flex-center" uk-grid>
             <div class="bt-left-menu uk-visible@l uk-padding" style="width:80px;">
-                <p>ssssssssssssssssssssssssssssss</p>
+                <ul class="uk-list uk-margin">
+                    <li class="uk-text-center uk-margin"><a id=" twitterLink"
+                            href="https://twitter.com/share?url={{ url()->current() }}&text={{ $article->title }}"
+                            rel="nofollow noopener" target="_blank">
+                            <i class="fab fa-2x fa-twitter"></i>
+                        </a>
+                    </li>
+                    <li class="uk-text-center uk-margin"><a id="twitterLink"
+                            href="https://www.facebook.com/sharer/sharer.php?u={{ url()->current() }}"
+                            rel="nofollow noopener" target="_blank">
+                            <i class="fab fa-2x fa-facebook"></i>
+                        </a></li>
+                </ul>
             </div>
             <div class="bt-article uk-background-default uk-width-expand uk-padding uk-padding-remove-top">
                 <h1 class="article-title">{{ $article->title }}</h1>

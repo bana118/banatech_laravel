@@ -50,7 +50,7 @@
                 <div id="finalScore" class="uk-modal-body">
                 </div>
                 <div class="uk-modal-footer uk-text-right">
-                    <a id="twitterLink" href="" rel="nofollow" target="_blank">ツイッターでシェア
+                    <a id="twitterLink" href="" rel="nofollow noopener" target="_blank">ツイッターでシェア
                         <i class="fab fa-lg fa-twitter"></i>
                     </a>
                 </div>
