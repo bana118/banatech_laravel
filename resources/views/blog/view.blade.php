@@ -75,14 +75,16 @@
                 <span id="article_id" data-name="{{ $article->id }}"></span>
             </div>
             <div class="bt-right-menu uk-visible@m uk-padding">
-                <ul class="uk-list uk-list-hyphen uk-list-muted" uk-sticky="offset: 120">
-                    @foreach ($headerIds as $headerId)
-                        <li class="bt-toc-li-{{ $headerId[0] }}">
-                            <a class="uk-link-muted uk-text-small" href="#{{ $headerId[2] }}"
-                                uk-scroll>{{ $headerId[1] }}</a>
-                        </li>
-                    @endforeach
-                </ul>
+                <div class="bt-toc" uk-sticky="offset: 120">
+                    <ul class="uk-list uk-list-hyphen uk-list-muted">
+                        @foreach ($headerIds as $headerId)
+                            <li class="bt-toc-li-{{ $headerId[0] }}">
+                                <a class="uk-link-muted uk-text-small" href="#{{ $headerId[2] }}"
+                                    uk-scroll>{{ $headerId[1] }}</a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
