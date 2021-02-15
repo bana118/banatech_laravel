@@ -15,16 +15,18 @@
     <meta name="twitter:site" content="{{ Config::get('const.TWITTERID') }}" />
 @endsection
 @section('content')
-    <div id="app" class="uk-background-default">
-    </div>
-    <div class="uk-margin">
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <!-- app-width-responsive -->
-        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3817107084963630" data-ad-slot="2386407842"
-            data-ad-format="auto" data-full-width-responsive="true"></ins>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
+    <div class="uk-container">
+        <div id="app" class="uk-background-default uk-padding">
+        </div>
+        <div class="uk-margin">
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <!-- app-width-responsive -->
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3817107084963630"
+                data-ad-slot="2386407842" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
 
-        </script>
+            </script>
+        </div>
     </div>
 @endsection
