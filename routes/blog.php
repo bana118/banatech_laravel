@@ -98,10 +98,25 @@ Route::get('/blog/view/{articleId}', function ($articleId) {
     if ($articleCount == 0) {
         return App::abort(404);
     } else {
-        $article = \App\Article::where('id', $articleId)->first();
+        $allArticles = App\Article::all();
+        $article = $allArticles->where('id', $articleId)->first();
 
-        $nextArticle = \App\Article::where('id', $articleId + 1)->first();
-        $previousArticle = \App\Article::where('id', $articleId - 1)->first();
+        $maxId = $allArticles->max('id');
+        $nextArticle = null;
+        for ($i = $articleId + 1; $i < $maxId; $i++) {
+            $nextArticle = $allArticles->where('id', $i)->first();
+            if ($nextArticle !== null) {
+                break;
+            }
+        }
+        $minId = $allArticles->min('id');
+        $previousArticle = null;
+        for ($i = $articleId - 1; $i > $minId; $i--) {
+            $previousArticle = $allArticles->where('id', $i)->first();
+            if ($previousArticle !== null) {
+                break;
+            }
+        }
 
         $relatedArticleIdList = array();
         $categories = $article->categories()->get();
