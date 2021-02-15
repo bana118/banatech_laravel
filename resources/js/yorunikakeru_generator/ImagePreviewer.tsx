@@ -9,7 +9,6 @@ export const ImagePreviewer = (props: ImagePreviewerProps): ReactElement => {
     const previewImage = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files != null) {
             const url = URL.createObjectURL(event.target.files[0]);
-            console.log(url);
             props.setImageUrl(url);
         }
     };
