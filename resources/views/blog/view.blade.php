@@ -23,17 +23,20 @@
         <div class="uk-flex-center" uk-grid>
             <div class="bt-left-menu uk-visible@l uk-padding" style="width:80px;">
                 <ul class="uk-list uk-margin">
-                    <li class="uk-text-center uk-margin"><a id=" twitterLink"
+                    <li class="uk-text-center uk-margin">
+                        <a class="uk-link-muted"
                             href="https://twitter.com/share?url={{ url()->current() }}&text={{ $article->title }}"
                             rel="nofollow noopener" target="_blank">
                             <i class="fab fa-2x fa-twitter"></i>
                         </a>
                     </li>
-                    <li class="uk-text-center uk-margin"><a id="twitterLink"
+                    <li class="uk-text-center uk-margin">
+                        <a class="uk-link-muted"
                             href="https://www.facebook.com/sharer/sharer.php?u={{ url()->current() }}"
                             rel="nofollow noopener" target="_blank">
                             <i class="fab fa-2x fa-facebook"></i>
-                        </a></li>
+                        </a>
+                    </li>
                 </ul>
             </div>
             <div class="bt-article uk-background-default uk-width-expand uk-padding uk-padding-remove-top">
@@ -59,6 +62,20 @@
                         </div>
                     @endforeach
                 </div>
+                <ul class="uk-subnav uk-flex uk-flex-right">
+                    <li class="uk-text-center uk-margin-top">
+                        <a href="https://twitter.com/share?url={{ url()->current() }}&text={{ $article->title }}"
+                            rel="nofollow noopener" target="_blank">
+                            <i class="fab fa-2x fa-twitter"></i>
+                        </a>
+                    </li>
+                    <li class="uk-text-center uk-margin-top">
+                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ url()->current() }}"
+                            rel="nofollow noopener" target="_blank">
+                            <i class="fab fa-2x fa-facebook"></i>
+                        </a>
+                    </li>
+                </ul>
                 <span id="article_id" data-name="{{ $article->id }}"></span>
             </div>
             <div class="bt-right-menu uk-visible@m uk-padding" style="width:300px;">bsssssss</div>
