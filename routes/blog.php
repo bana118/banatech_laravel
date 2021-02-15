@@ -60,6 +60,26 @@ Route::get('/blog/all_categories', function () {
     ]);
 });
 
+// Return pair of header level and header text 
+// e.g. [[1, "Level1"], [2, "Level2"], [3, "Level3"]]
+function get_index($content)
+{
+    $headerIds = array();
+    $contentWithoutCode = preg_replace('/^```.*?\r?\n(.*?\r?\n)*?```/m', '', $content);
+    preg_match_all('/^\s*#+\s+.*/m', $contentWithoutCode, $headers);
+    foreach ($headers[0] as $header) {
+        preg_match('/^\s*#+/m', $header, $sharps);
+        $sharps = preg_replace('/\s/', '', $sharps);
+        $level = mb_strlen($sharps[0]);
+        $headerText = preg_replace('/^\s*#+\s+/', '', $header);
+        if ($level < 7 && $level > 0) {
+            array_push($headerIds, array($level, $headerText));
+        }
+    }
+    return $headerIds;
+}
+
+
 Route::get('/blog/view/{articleId}', function ($articleId) {
     $articleCount = \App\Article::where('id', $articleId)->count();
     if ($articleCount == 0) {
@@ -78,12 +98,12 @@ Route::get('/blog/view/{articleId}', function ($articleId) {
         }
         $relatedArticles = Article::whereIn('id', $relatedArticleIdList)->orderBy('updated_at', 'desc')->take(3)->get();
 
-        $mdFilePath = public_path(("uploaded/" . $article->md_file));
+        $mdFilePath = public_path("uploaded/" . $article->md_file);
 
         $codeReg = '/^```.*?\r?\n(.*?\r?\n)*?```/m';
         $imgReg = '/!\[.*?\]\(.*?\)|!\[.*?\]\[.*?\]|\[.*?\]: .*?\"\".*?\"\"/';
         $htmlReg = '/<(\".*?\"|\'.*?\'|[^\'\"])*?>/';
-        $headerReg = '/^#+? /m';
+        $headerReg = '/^\s*#+/m';
         $brockquoteReg = '/^>.*$/m';
         $horizontalReg = '/^(\* ){3,}$|^\*{3,}$|^(- ){3,}|^-{3,}$|^(_ ){3,}$|^_{3,}$/m';
         $tableReg = '/^( *\|[^\n]+\| *\r?\n)((?: *\|:?[-]+:?)+\| *)(\r?\n(?: *\|[^\n]+\| *\r?\n?)*)?$/m';
@@ -91,6 +111,7 @@ Route::get('/blog/view/{articleId}', function ($articleId) {
         $linkReg = '/\[(.*?)\]\((https?|ftp)(:\/\/[-_.!~*\\\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)\)/';
 
         $content = file_get_contents($mdFilePath);
+        get_index($content);
         $content = preg_replace($codeReg, '', $content);
         $content = preg_replace($imgReg, '', $content);
         $content = preg_replace($htmlReg, '', $content);
@@ -100,7 +121,7 @@ Route::get('/blog/view/{articleId}', function ($articleId) {
         $content = preg_replace($tableReg, '', $content);
         $content = preg_replace($emphasizeReg, '$1$2$3$4$5$6', $content);
         $content = preg_replace($linkReg, '$1', $content);
-        $content = preg_replace('/\r?\n/', '', $content);
+        $content = preg_replace('/\r?\n/', ' ', $content);
 
         $descriptionLength = 120;
         if (mb_strlen($content) > $descriptionLength) {

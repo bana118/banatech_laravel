@@ -13,7 +13,7 @@ const hostname = process.env.APP_URL;
 const mdToHtml = (mdText, articleId) => {
     const renderer = new marked.Renderer();
     renderer.code = function (code, language) {
-        if (language.includes(":")) {
+        if (language != null && language.includes(":")) {
             const lang = language.split(":")[0];
             const fileName = language.split(":")[1].trim();
             return `<pre><div class="uk-badge" style="display: inline-block;">${fileName}</div><code class="hljs">${

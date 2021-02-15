@@ -1,11 +1,7 @@
 @extends('base.base')
 
-@section('title')
-    {{ $article->title }}
-@endsection
-@section('description')
-    {{ $description }}
-@endsection
+@section('title'){{ $article->title }}@endsection
+@section('description'){{ $description }}@endsection
 @section('head')
     @include('base.head')
     <link rel="stylesheet" href="{{ mix('/css/blog/view.css') }}">
