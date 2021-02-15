@@ -60,8 +60,8 @@ Route::get('/blog/all_categories', function () {
     ]);
 });
 
-// Return pair of header level and header text
-// e.g. [[1, "Level1"], [2, "Level2"], [3, "Level3"]]
+// Return pair of header level, header text, id(with suffix)
+// e.g. [[1, "Level1", "Level1"], [2, "Level2", "Level2"], [3, "Level1", "Level1-1"]]
 function get_index($contentWithoutCode)
 {
     $headerInfo = array();
@@ -99,6 +99,10 @@ Route::get('/blog/view/{articleId}', function ($articleId) {
         return App::abort(404);
     } else {
         $article = \App\Article::where('id', $articleId)->first();
+
+        $nextArticle = \App\Article::where('id', $articleId + 1)->first();
+        $previousArticle = \App\Article::where('id', $articleId - 1)->first();
+
         $relatedArticleIdList = array();
         $categories = $article->categories()->get();
         foreach ($categories as $category) {
@@ -142,6 +146,8 @@ Route::get('/blog/view/{articleId}', function ($articleId) {
             $description = mb_substr($content, 0, $descriptionLength) . '...';
             return view('blog.view', [
                 'article' => $article,
+                'nextArticle' => $nextArticle,
+                'previousArticle' => $previousArticle,
                 'relatedArticles' => $relatedArticles,
                 'description' => $description,
                 'headerIds' => $headerIds
@@ -149,6 +155,8 @@ Route::get('/blog/view/{articleId}', function ($articleId) {
         } else {
             return view('blog.view', [
                 'article' => $article,
+                'nextArticle' => $nextArticle,
+                'previousArticle' => $previousArticle,
                 'relatedArticles' => $relatedArticles,
                 'description' => $content,
                 'headerIds' => $headerIds

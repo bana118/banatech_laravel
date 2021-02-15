@@ -72,6 +72,20 @@
                         </a>
                     </li>
                 </ul>
+                <ul class="uk-subnav uk-flex">
+                    <li class="uk-margin-top uk-text-truncate bt-previous-article">
+                        @if (isset($previousArticle))
+                            <a class="uk-text-truncate"
+                                href="/blog/view/{{ $previousArticle->id }}">{{ $previousArticle->title }}</a>
+                        @endif
+                    </li>
+                    <li class="uk-margin-top bt-next-article">
+                        @if (isset($nextArticle))
+                            <a class="uk-text-truncate"
+                                href="/blog/view/{{ $nextArticle->id }}">{{ $nextArticle->title }}</a>
+                        @endif
+                    </li>
+                </ul>
                 <div class="uk-grid">
                     <div class="uk-width-1-2@m uk-margin-top uk-flex uk-flex-center">
                         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>

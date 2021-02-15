@@ -1,5 +1,17 @@
 @import "~highlightjs/styles/vs2015";
 
+p {
+    line-height: 1.5;
+}
+
+code {
+    white-space: pre-wrap !important;
+}
+
+pre code {
+    white-space: pre !important;
+}
+
 .bt-article-title {
     padding: 1rem;
     /*文字周りの余白*/
@@ -26,20 +38,18 @@
     word-wrap: break-word;
 }
 
-code {
-    white-space: pre-wrap !important;
-}
-
-pre code {
-    white-space: pre !important;
-}
-
 .bt-related-articles-label {
     border-bottom: double 0.5rem #ffc778;
 }
 
-p {
-    line-height: 1.5;
+.bt-previous-article {
+    margin-right: auto;
+    max-width: 40%;
+}
+
+.bt-next-article {
+    margin-left: auto;
+    max-width: 40%;
 }
 
 .bt-left-menu {
