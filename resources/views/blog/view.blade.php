@@ -40,7 +40,7 @@
                 </ul>
             </div>
             <div class="bt-article uk-background-default uk-width-expand uk-padding uk-padding-remove-top">
-                <h1 class="article-title">{{ $article->title }}</h1>
+                <h1 class="bt-article-title">{{ $article->title }}</h1>
                 <p>作成: {{ $article->created_at->format('Y年m月d日') }}</p>
                 <p>更新: {{ $article->updated_at->format('Y年m月d日') }}</p>
                 <p>
@@ -53,8 +53,8 @@
                 <div id="markdownContent" src="{{ asset('uploaded/' . $article->md_file) }}">
                     @include('blog.article.' . $article->id)
                 </div>
-                <h2 class="related-articles-label">関連記事</h2>
-                <div class="related-articles">
+                <h2 class="bt-related-articles-label">関連記事</h2>
+                <div>
                     @foreach ($relatedArticles as $relatedArticle)
                         <div class="uk-margin">
                             <a class="uk-link"
