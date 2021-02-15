@@ -119,7 +119,7 @@
                     (adsbygoogle = window.adsbygoogle || []).push({});
 
                 </script>
-                <div uk-sticky="offset: 16">
+                <div class="uk-margin" uk-sticky="offset: 20">
                     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                     <!-- blog-display-300x250 -->
                     <ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px"
