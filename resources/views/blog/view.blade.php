@@ -49,15 +49,6 @@
                 <div id="markdownContent" src="{{ asset('uploaded/' . $article->md_file) }}">
                     @include('blog.article.' . $article->id)
                 </div>
-                <h2 class="bt-related-articles-label">関連記事</h2>
-                <div>
-                    @foreach ($relatedArticles as $relatedArticle)
-                        <div class="uk-margin">
-                            <a class="uk-link"
-                                href="/blog/view/{{ $relatedArticle->id }}">{{ $relatedArticle->title }}</a>
-                        </div>
-                    @endforeach
-                </div>
                 <ul class="uk-subnav uk-flex uk-flex-right">
                     <li class="uk-text-center uk-margin-top">
                         <a href="https://twitter.com/share?url={{ url()->current() }}&text={{ $article->title }}"
@@ -70,20 +61,6 @@
                             rel="nofollow noopener" target="_blank">
                             <i class="fab fa-2x fa-facebook bt-facebook-link"></i>
                         </a>
-                    </li>
-                </ul>
-                <ul class="uk-subnav uk-flex">
-                    <li class="uk-margin-top uk-text-truncate bt-previous-article">
-                        @if (isset($previousArticle))
-                            <a class="uk-text-truncate"
-                                href="/blog/view/{{ $previousArticle->id }}">{{ $previousArticle->title }}</a>
-                        @endif
-                    </li>
-                    <li class="uk-margin-top bt-next-article">
-                        @if (isset($nextArticle))
-                            <a class="uk-text-truncate"
-                                href="/blog/view/{{ $nextArticle->id }}">{{ $nextArticle->title }}</a>
-                        @endif
                     </li>
                 </ul>
                 <div class="uk-grid">
@@ -108,6 +85,29 @@
                         </script>
                     </div>
                 </div>
+                <h2 class="bt-related-articles-label">関連記事</h2>
+                <div>
+                    @foreach ($relatedArticles as $relatedArticle)
+                        <div class="uk-margin">
+                            <a class="uk-link"
+                                href="/blog/view/{{ $relatedArticle->id }}">{{ $relatedArticle->title }}</a>
+                        </div>
+                    @endforeach
+                </div>
+                <ul class="uk-subnav uk-flex">
+                    <li class="uk-margin-top uk-text-truncate bt-previous-article">
+                        @if (isset($previousArticle))
+                            <a class="uk-text-truncate"
+                                href="/blog/view/{{ $previousArticle->id }}">{{ $previousArticle->title }}</a>
+                        @endif
+                    </li>
+                    <li class="uk-margin-top bt-next-article">
+                        @if (isset($nextArticle))
+                            <a class="uk-text-truncate"
+                                href="/blog/view/{{ $nextArticle->id }}">{{ $nextArticle->title }}</a>
+                        @endif
+                    </li>
+                </ul>
                 <span id="article_id" data-name="{{ $article->id }}"></span>
             </div>
             <div class="bt-right-menu uk-visible@m uk-padding">
