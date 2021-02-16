@@ -9,7 +9,7 @@ const sizeOf = require("image-size");
 const mdArticlesDirPath = `${__dirname}/../public/uploaded/article`;
 const htmlArticlesDirPath = `${__dirname}/../resources/views/blog/article`;
 const hostname = process.env.APP_URL;
-const headerIds = {};
+let headerIds = {};
 
 const mdToHtml = (mdText, articleId) => {
     const renderer = new marked.Renderer();
@@ -101,6 +101,7 @@ if (fs.existsSync(mdArticlesDirPath)) {
         fs.readdir(mdArticlesDirPath, async (err, articleDirs) => {
             if (err) throw err;
             for (const articleDir of articleDirs) {
+                headerIds = {};
                 const articleId = Number(articleDir.toString());
                 const articlePath = `${mdArticlesDirPath}/${articleId}/${articleId}.md`;
                 const mdArticle = fs.readFileSync(articlePath, "utf-8");
