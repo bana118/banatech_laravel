@@ -114,7 +114,7 @@
                 </ul>
                 <span id="article_id" data-name="{{ $article->id }}"></span>
             </div>
-            <div class="bt-right-menu uk-visible@m uk-padding">
+            <div class="bt-right-menu uk-padding">
                 <div class="bt-ads-block-300-250">
                     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                     <!-- blog-display-300x250 -->
