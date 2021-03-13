@@ -3,8 +3,8 @@
 @section('title'){{ $article->title }}@endsection
 @section('description'){{ $description }}@endsection
 @section('head')
-    @include('base.head')
     <link rel="stylesheet" href="{{ mix('/css/blog/view.css') }}">
+    @include('base.head')
     <meta property="og:type" content="article" />
     <meta property="og:url" content="{{ url()->current() }}" />
     <meta property="og:locale" content="ja_JP">
@@ -114,7 +114,7 @@
                 </ul>
                 <span id="article_id" data-name="{{ $article->id }}"></span>
             </div>
-            <div class="bt-right-menu uk-visible@s uk-padding">
+            <div class="bt-right-menu uk-visible@m uk-padding">
                 <div class="bt-ads-block-300-250">
                     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                     <!-- blog-display-300x250 -->
