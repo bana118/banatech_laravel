@@ -116,25 +116,9 @@
             </div>
             <div class="bt-right-menu uk-visible@l uk-padding">
                 <div class="bt-ads-block-300-250">
-                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                    <!-- blog-display-300x250 -->
-                    <ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px"
-                        data-ad-client="ca-pub-3817107084963630" data-ad-slot="3482484202"></ins>
-                    <script>
-                        (adsbygoogle = window.adsbygoogle || []).push({});
-
-                    </script>
                 </div>
                 <div class="uk-margin" uk-sticky="offset: 20">
                     <div class="bt-ads-block-300-250">
-                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                        <!-- blog-display-300x250 -->
-                        <ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px"
-                            data-ad-client="ca-pub-3817107084963630" data-ad-slot="3482484202"></ins>
-                        <script>
-                            (adsbygoogle = window.adsbygoogle || []).push({});
-
-                        </script>
                     </div>
                     <div class="bt-toc">
                         <ul class="uk-list uk-list-hyphen uk-list-muted">
