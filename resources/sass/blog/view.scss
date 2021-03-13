@@ -52,10 +52,12 @@ pre code {
     max-width: 40%;
 }
 
+// 左メニューはimportantがなくてもCLSは発生しないみたいだが念のため
 .bt-left-menu {
-    width:5rem;
+    width:5rem !important;
 }
 
+// important がないとロード中に一瞬消えてCLSが発生
 .bt-right-menu {
     width:18.75rem !important;
 }
