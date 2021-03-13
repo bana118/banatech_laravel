@@ -65,7 +65,7 @@
                 </ul>
                 <div class="uk-grid">
                     <div class="uk-width-1-2@m uk-margin-top uk-flex uk-flex-center">
-                        <div class="bt-ads-blocl-300-250">
+                        <div class="bt-ads-block-300-250">
                             <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                             <!-- blog-display-300x250 -->
                             <ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px"
@@ -77,7 +77,7 @@
                         </div>
                     </div>
                     <div class="uk-width-1-2@m uk-margin-top uk-flex uk-flex-center">
-                        <div class="bt-ads-blocl-300-250">
+                        <div class="bt-ads-block-300-250">
                             <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                             <!-- blog-display-300x250 -->
                             <ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px"
@@ -114,8 +114,8 @@
                 </ul>
                 <span id="article_id" data-name="{{ $article->id }}"></span>
             </div>
-            <div class="bt-right-menu uk-visible@m uk-padding">
-                <div class="bt-ads-blocl-300-250">
+            <div class="bt-right-menu uk-visible@l uk-padding">
+                <div class="bt-ads-block-300-250">
                     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                     <!-- blog-display-300x250 -->
                     <ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px"
@@ -126,7 +126,7 @@
                     </script>
                 </div>
                 <div class="uk-margin" uk-sticky="offset: 20">
-                    <div class="bt-ads-blocl-300-250">
+                    <div class="bt-ads-block-300-250">
                         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                         <!-- blog-display-300x250 -->
                         <ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px"
