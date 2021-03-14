@@ -3,8 +3,9 @@
 @section('title'){{ $article->title }}@endsection
 @section('description'){{ $description }}@endsection
 @section('head')
-    @include('base.head')
+    <!-- CLSを防止するためにview.cssを先に読み込む -->
     <link rel="stylesheet" href="{{ mix('/css/blog/view.css') }}">
+    @include('base.head')
     <meta property="og:type" content="article" />
     <meta property="og:url" content="{{ url()->current() }}" />
     <meta property="og:locale" content="ja_JP">
