@@ -100,7 +100,7 @@
                     @endforeach
                 </div>
                 <ul class="uk-subnav uk-flex">
-                    <li class="uk-margin-top uk-text-truncate bt-previous-article">
+                    <li class="uk-margin-top bt-previous-article">
                         @if (isset($previousArticle))
                             <a class="uk-text-truncate"
                                 href="/blog/view/{{ $previousArticle->id }}">{{ $previousArticle->title }}</a>
