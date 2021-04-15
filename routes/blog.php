@@ -53,7 +53,7 @@ Route::get('/blog/get-all-articles', function () {
     return response()->download(public_path() . '/article.zip');
 });
 
-Route::get('/blog/all_categories', function () {
+Route::get('/blog/categories', function () {
     $allCategories = Category::orderBy('name', 'asc')->paginate(config('const.BLOG_SETTING.categories_per_page'));
     return view('blog.category', [
         'categories' => $allCategories

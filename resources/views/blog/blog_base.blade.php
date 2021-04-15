@@ -34,6 +34,6 @@
                 @endforeach
             </ul>
         </div>
-        <a href="/blog/all_categories">すべてのカテゴリ</a>
+        <a href="/blog/categories">すべてのカテゴリ</a>
     </div>
 @endsection
