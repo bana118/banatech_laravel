@@ -19,8 +19,12 @@
                         <ul class="uk-navbar-nav uk-visible@s">
                             <li class="uk-active"><a href="/">製作物</a></li>
                             <li class="uk-active"><a href="/blog">ブログ</a></li>
-                            <!--<li class="uk-active"><a href="/profile">プロフィール</a></li>-->
                             <li class="uk-active"><a href="/privacy_policy">プライバシーポリシー</a></li>
+                            <li class="uk-active">
+                                <a href="https://github.com/bana118">
+                                    <i class="fab fa-2x fa-github"></i>
+                                </a>
+                            </li>
                         </ul>
                         <ul class="uk-navbar-nav uk-hidden@s">
                             <li><a class="uk-navbar-toggle" uk-navbar-toggle-icon
@@ -47,8 +51,8 @@
                         </li>
                         <li class="uk-active"><a href="/">製作物</a></li>
                         <li class="uk-active"><a href="/blog">ブログ</a></li>
-                        <!--<li class="uk-active"><a href="/profile">プロフィール</a></li>-->
                         <li class="uk-active"><a href="/privacy_policy">プライバシーポリシー</a></li>
+                        <li class="uk-active"><a href="https://github.com/bana118">Github</a></li>
                     </ul>
                 </div>
             </div>
@@ -60,6 +64,7 @@
                     <li><a href="/">製作物</a></li>
                     <li><a href="/blog">ブログ</a></li>
                     <li><a href="/privacy_policy">プライバシーポリシー</a></li>
+                    <li><a href="https://github.com/bana118">Github</a></li>
                 </ul>
                 <h3 id="copyright" class="uk-flex uk-flex-center uk-margin-remove">
                     <a class="uk-navbar-item uk-logo" href="/">
