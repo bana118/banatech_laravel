@@ -33,7 +33,6 @@ pre code {
     background: linear-gradient(to top, #ffc778 0.7rem, transparent 0.7rem);
 }
 
-
 #markdownContent {
     word-wrap: break-word;
 }
@@ -52,27 +51,25 @@ pre code {
     max-width: 40%;
 }
 
-// 左メニューはimportantがなくてもCLSは発生しないみたいだが念のため
 .bt-left-menu {
-    width:5rem !important;
+    width: 5rem;
 }
 
-// important がないとロード中に一瞬消えてCLSが発生
 .bt-right-menu {
-    width:18.75rem !important;
+    width: 18.75rem;
 }
 
 .bt-toc {
-    height:25rem;
+    height: 25rem;
     overflow-y: auto;
 }
 
 .bt-twitter-link:hover {
-    color : #00acee;
+    color: #00acee;
 }
 
 .bt-facebook-link:hover {
-    color : #3b5998;
+    color: #3b5998;
 }
 
 .bt-toc-li-1 {

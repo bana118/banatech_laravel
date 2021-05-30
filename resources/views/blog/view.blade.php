@@ -47,7 +47,7 @@
                             onclick="location.href='/blog/category/{{ $category->id }}'">{{ $category->name }}</button>
                     @endforeach
                 </p>
-                <div id="markdownContent" src="{{ asset('uploaded/' . $article->md_file) }}">
+                <div id="markdownContent">
                     @include('blog.article.' . $article->id)
                 </div>
                 <ul class="uk-subnav uk-flex uk-flex-right">
