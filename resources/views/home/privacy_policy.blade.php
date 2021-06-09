@@ -50,8 +50,32 @@
                 恐れ入りますが下記メールアドレスからご連絡くださるようよろしくお願い致します。
             </p>
             <h2>お問い合わせ</h2>
-            <p>当サイトの個人情報の取扱などに関するお問い合せは下記までご連絡ください([at]をアットマークに置き換えてください)<br />
-                ⇒bana.titech[at]gmail.com</p>
+            <p>当サイトの個人情報の取扱などに関するお問い合せは下記までご連絡ください。<br />
+                <!-- https://www.luft.co.jp/cgi/coding.php -->
+                ⇒<script type="text/javascript">
+                    function converter(M) {
+                        var str = "",
+                            str_as = "";
+                        for (var i = 0; i < M.length; i++) {
+                            str_as = M.charCodeAt(i);
+                            str += String.fromCharCode(str_as + 1);
+                        }
+                        return str;
+                    }
+
+                    function mail_to(k_1, k_2) {
+                        eval(String.fromCharCode(108, 111, 99, 97, 116, 105, 111, 110, 46, 104, 114, 101, 102, 32,
+                                61, 32, 39, 109, 97, 105, 108, 116, 111, 58) +
+                            escape(k_1) +
+                            converter(String.fromCharCode(97, 96, 109, 96, 45, 115, 104, 115, 100, 98, 103, 63, 102,
+                                108, 96, 104, 107, 45, 98, 110, 108,
+                                62, 114, 116, 97, 105, 100, 98, 115, 60)) +
+                            escape(k_2) + "'");
+                    }
+                    document.write('<a href=JavaScript:mail_to("","")>お問い合わせ<\/a>');
+
+                </script>
+            </p>
         </div>
     </div>
 @endsection
