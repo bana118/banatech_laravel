@@ -50,8 +50,8 @@
                 恐れ入りますが下記メールアドレスからご連絡くださるようよろしくお願い致します。
             </p>
             <h2>お問い合わせ</h2>
-            <p>当サイトの個人情報の取扱などに関するお問い合せは下記までご連絡ください。<br />
-                ⇒<a href="mailto:bana.titech@gmail.com">bana.titech@gmail.com</a></p>
+            <p>当サイトの個人情報の取扱などに関するお問い合せは下記までご連絡ください([at]をアットマークに置き換えてください)<br />
+                ⇒bana.titech[at]gmail.com</p>
         </div>
     </div>
 @endsection
