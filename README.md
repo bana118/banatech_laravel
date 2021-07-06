@@ -91,6 +91,7 @@ $ sudo docker exec -i -t banatech bash
 # composer install --optimize-autoloader --no-dev
 # npm ci
 # npm run prod
+# php artisan migrate
 # php artisan voyager:admin your@email.com --create
 ```
 
