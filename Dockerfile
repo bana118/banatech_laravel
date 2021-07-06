@@ -2,7 +2,7 @@ FROM php:7.4-fpm
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-COPY www.conf /usr/local/etc/php-fpm.d/zzz-www.conf
+COPY deploy/www.conf /usr/local/etc/php-fpm.d/zzz-www.conf
 
 #Author
 LABEL maintainer="banatech.net"
@@ -57,7 +57,7 @@ ENV PATH $PATH:/usr/local/bin/node
 
 # setup all the configfiles
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
-COPY supervisor-app.conf /etc/supervisor/conf.d/
+COPY deploy/supervisor-app.conf /etc/supervisor/conf.d/
 
 # create socket file for php-fpm
 RUN mkdir /var/run/php-fpm

@@ -77,7 +77,6 @@ $ git clone https://github.com/bana118/banatech_laravel.git
 $ cd banatech_laravel
 $ touch database/database.sqlite3
 $ cp .env.production .env
-$ cp nginx-app.conf.temp nginx-app.conf
 $ sudo chmod -R 777 storage
 $ sudo chmod -R 777 bootstrap/cache
 $ sudo chmod -R 777 database
@@ -93,7 +92,7 @@ $ sudo docker exec -i -t banatech bash
 # npm run prod
 # php artisan migrate
 # php artisan voyager:admin your@email.com --create
-# cp nginx-app.conf.temp /etc/nginx/sites-available/default
+# cp deploy/nginx-app.conf.temp /etc/nginx/sites-available/default
 # supervisorctl restart nginx
 ```
 
@@ -116,7 +115,7 @@ $ mkdir dhparam
 $ openssl dhparam -out ~/dhparam/dhparam4096.pem 4096
 $ sudo docker exec -i -t banatech bash
 # cd ~/banatech_laravel
-# cp nginx-app.conf.prod /etc/nginx/sites-available/default
+# cp deploy/nginx-app.conf.prod /etc/nginx/sites-available/default
 # supervisorctl restart nginx
 ```
 
