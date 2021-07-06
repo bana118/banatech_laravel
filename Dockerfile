@@ -1,5 +1,8 @@
 FROM php:7.4-fpm
+
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+COPY ./conf/www.conf /usr/local/etc/php-fpm.d/zzz-www.conf
 
 #Author
 LABEL maintainer="banatech.net"
@@ -57,9 +60,9 @@ RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 COPY supervisor-app.conf /etc/supervisor/conf.d/
 
 # create socket file for php-fpm
-RUN mkdir /var/run/php
-RUN touch /var/run/php/php-fpm.sock
-RUN chmod 777 /var/run/php/php-fpm.sock
+# RUN mkdir /var/run/php
+# RUN touch /var/run/php/php-fpm.sock
+# RUN chmod 777 /var/run/php/php-fpm.sock
 
 # run nginx
 EXPOSE 80
