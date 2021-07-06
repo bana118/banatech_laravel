@@ -5,9 +5,9 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 LABEL maintainer="banatech.net"
 
 # Install required packages and remove the apt packages cache when done.
-RUN apt update && \
-    apt upgrade -y && \
-    apt install -y \
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y --no-install-recommends \
     curl \
     git \
     ca-certificates \
@@ -20,6 +20,7 @@ RUN apt update && \
     npm \
     certbot \
     sqlite3 && \
+    apt-get -y clean && \
     rm -rf /var/lib/apt/lists/*
 
 # update node npm
