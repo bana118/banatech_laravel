@@ -2,7 +2,7 @@ FROM php:7.4-fpm
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-COPY ./conf/www.conf /usr/local/etc/php-fpm.d/zzz-www.conf
+COPY www.conf /usr/local/etc/php-fpm.d/zzz-www.conf
 
 #Author
 LABEL maintainer="banatech.net"
