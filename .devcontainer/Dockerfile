@@ -13,19 +13,9 @@ RUN apt update && \
     ca-certificates \
     procps \
     nodejs \
-    npm 
-# composer \
-# php \
-# php-zip \
-# php-xml \
-# php-json \
-# php-mbstring \
-# php-mysql \
-# php-sqlite3 \
-# php-bcmath \
-# php-fpm \
-# sqlite3 && \
-# rm -rf /var/lib/apt/lists/*
+    npm \
+    sqlite3 && \
+    rm -rf /var/lib/apt/lists/*
 
 # update node npm
 RUN npm install n -g

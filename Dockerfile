@@ -1,8 +1,5 @@
-#imagename: banatech_laravel
-FROM ubuntu:18.04
-
-# avoid freeze while configuring tzdata
-ENV DEBIAN_FRONTEND=noninteractive
+FROM php:7.4-fpm
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 #Author
 LABEL maintainer="banatech.net"
@@ -13,22 +10,14 @@ RUN apt update && \
     apt install -y \
     curl \
     git \
+    ca-certificates \
+    procps \
     nano \
     vim-nox \
     nginx \
     supervisor \
     nodejs \
     npm \
-    composer \
-    php \
-    php-zip \
-    php-xml \
-    php-json \
-    php-mbstring \
-    php-mysql \
-    php-sqlite3 \
-    php-bcmath \
-    php-fpm \
     certbot \
     sqlite3 && \
     rm -rf /var/lib/apt/lists/*
@@ -67,9 +56,9 @@ RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 COPY supervisor-app.conf /etc/supervisor/conf.d/
 
 # create socket file for php-fpm
-RUN mkdir /var/run/php
-RUN touch /var/run/php/php7.2-fpm.sock
-RUN chmod 777 /var/run/php/php7.2-fpm.sock
+# RUN mkdir /var/run/php
+# RUN touch /var/run/php/php7.2-fpm.sock
+# RUN chmod 777 /var/run/php/php7.2-fpm.sock
 
 # run nginx
 EXPOSE 80
