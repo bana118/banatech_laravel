@@ -89,6 +89,7 @@ $ sudo docker run --name banatech -d -p 80:80 -p 443:443 -v ~:/root -v /etc/lets
 $ sudo docker exec -i -t banatech bash
 # cd ~/banatech_laravel
 # composer install --optimize-autoloader --no-dev
+# cp nginx-app.conf.temp /etc/nginx/sites-available/default
 # npm ci
 # npm run prod
 # php artisan migrate
@@ -114,9 +115,7 @@ $ mkdir dhparam
 $ openssl dhparam -out ~/dhparam/dhparam4096.pem 4096
 $ sudo docker exec -i -t banatech bash
 # cd ~/banatech_laravel
-# mv nginx-app.conf nginx-app.conf.temp
-# cp nginx-app.conf.prod nginx-app.conf
-# cp nginx-app.conf /etc/nginx/sites-available/default
+# cp nginx-app.conf.prod /etc/nginx/sites-available/default
 # supervisorctl restart nginx
 ```
 
