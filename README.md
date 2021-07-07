@@ -77,7 +77,6 @@ $ git clone https://github.com/bana118/banatech_laravel.git
 $ cd banatech_laravel
 $ touch database/database.sqlite3
 $ cp .env.production .env
-$ cp nginx-app.conf.temp nginx-app.conf
 $ sudo chmod -R 777 storage
 $ sudo chmod -R 777 bootstrap/cache
 $ sudo chmod -R 777 database
@@ -91,7 +90,10 @@ $ sudo docker exec -i -t banatech bash
 # composer install --optimize-autoloader --no-dev
 # npm ci
 # npm run prod
+# php artisan migrate
 # php artisan voyager:admin your@email.com --create
+# cp deploy/nginx-app.conf.temp /etc/nginx/sites-available/default
+# supervisorctl restart nginx
 ```
 
 ## letsencrypt で証明書取得
@@ -113,9 +115,7 @@ $ mkdir dhparam
 $ openssl dhparam -out ~/dhparam/dhparam4096.pem 4096
 $ sudo docker exec -i -t banatech bash
 # cd ~/banatech_laravel
-# mv nginx-app.conf nginx-app.conf.temp
-# cp nginx-app.conf.prod nginx-app.conf
-# cp nginx-app.conf /etc/nginx/sites-available/default
+# cp deploy/nginx-app.conf.prod /etc/nginx/sites-available/default
 # supervisorctl restart nginx
 ```
 
@@ -162,25 +162,6 @@ $ sudo docker exec -i -t banatech bash
 
 ```
 $ sudo docker exec -i -t banatech bash
-```
-
-## アップロードサイズ，ポストのサイズの上限解放
-
-php.ini を編集
-
-```
-$ sudo docker exec -i -t banatech bash
-# vim /etc/php/7.2/fpm/php.ini
-```
-
-以下のように変更する
-
-```
-post_max_size = 128M
-upload_max_filesize = 64M
-max_execution_time = 120
-max_input_time = 240
-memory_limit = 512M
 ```
 
 ## ブログ記事のHTMLファイル作成

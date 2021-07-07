@@ -1,31 +1,21 @@
-#imagename: banatech_laravel
-FROM ubuntu:18.04
-
-# avoid freeze while configuring tzdata 
-ENV DEBIAN_FRONTEND=noninteractive
+FROM php:7.4-fpm
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 #Author
 LABEL maintainer="banatech.net"
 
 # Install required packages and remove the apt packages cache when done.
-RUN apt update && \
-    apt upgrade -y && \
-    apt install -y \
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y --no-install-recommends \
     curl \
     git \
+    ca-certificates \
+    procps \
     nodejs \
     npm \
-    composer \
-    php \
-    php-zip \
-    php-xml \
-    php-json \
-    php-mbstring \
-    php-mysql \
-    php-sqlite3 \
-    php-bcmath \
-    php-fpm \
     sqlite3 && \
+    apt-get -y clean && \
     rm -rf /var/lib/apt/lists/*
 
 # update node npm

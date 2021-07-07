@@ -2,9 +2,6 @@
     "name": "banatech_laravel",
     "dockerFile": "Dockerfile",
     "forwardPorts": [8000],
-    "settings": {
-        "terminal.integrated.shell.linux": "/bin/bash"
-    },
     "extensions": [
         "onecentlin.laravel-blade",
         "shufo.vscode-blade-formatter",
