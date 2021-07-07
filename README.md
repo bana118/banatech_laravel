@@ -164,25 +164,6 @@ $ sudo docker exec -i -t banatech bash
 $ sudo docker exec -i -t banatech bash
 ```
 
-## アップロードサイズ，ポストのサイズの上限解放
-
-php.ini を編集
-
-```
-$ sudo docker exec -i -t banatech bash
-# vim /etc/php/7.2/fpm/php.ini
-```
-
-以下のように変更する
-
-```
-post_max_size = 128M
-upload_max_filesize = 64M
-max_execution_time = 120
-max_input_time = 240
-memory_limit = 512M
-```
-
 ## ブログ記事のHTMLファイル作成
 public/uploaded/article 以下にあるMarkdownファイルをHTMLファイルに変換
 
