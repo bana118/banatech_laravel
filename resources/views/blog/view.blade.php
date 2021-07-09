@@ -73,7 +73,6 @@
                                 data-ad-client="ca-pub-3817107084963630" data-ad-slot="3482484202"></ins>
                             <script>
                                 (adsbygoogle = window.adsbygoogle || []).push({});
-
                             </script>
                         </div>
                     </div>
@@ -85,7 +84,6 @@
                                 data-ad-client="ca-pub-3817107084963630" data-ad-slot="3482484202"></ins>
                             <script>
                                 (adsbygoogle = window.adsbygoogle || []).push({});
-
                             </script>
                         </div>
                     </div>
@@ -123,7 +121,6 @@
                         data-ad-client="ca-pub-3817107084963630" data-ad-slot="3482484202"></ins>
                     <script>
                         (adsbygoogle = window.adsbygoogle || []).push({});
-
                     </script>
                 </div>
                 <div class="uk-margin" uk-sticky="offset: 20">
@@ -134,7 +131,6 @@
                             data-ad-client="ca-pub-3817107084963630" data-ad-slot="3482484202"></ins>
                         <script>
                             (adsbygoogle = window.adsbygoogle || []).push({});
-
                         </script>
                     </div>
                     <div class="bt-toc">
