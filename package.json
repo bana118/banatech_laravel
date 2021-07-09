@@ -1,4 +1,5 @@
 {
+    "name": "banatech_laravel",
     "private": true,
     "scripts": {
         "dev": "npm run development",
