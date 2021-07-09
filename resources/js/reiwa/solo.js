@@ -1,5 +1,8 @@
 import UIkit from "uikit";
+
 import * as tf from "@tensorflow/tfjs";
+
+tf.setBackend("webgl");
 
 var can;
 var ct;
@@ -17,7 +20,7 @@ var canW, canH;
 var gameStartSE, correctSE, wrongSE, bgm; //BGM,SE
 var write1Img, write2Img, correctImg, wrongImg;
 var writeImgState = 1; //書いている画像のどっちを出すか
-onload = function() {
+onload = function () {
     write1Img = document.getElementById("write1");
     write2Img = document.getElementById("write2");
     correctImg = document.getElementById("correct");
@@ -134,7 +137,7 @@ function gameOver() {
 
 //ゲームの制限時間をはかる
 function correctCountDown() {
-    var timer = setInterval(function() {
+    var timer = setInterval(function () {
         time--;
         document.getElementById("time").innerHTML = time;
         if (time < 1) {
@@ -270,7 +273,7 @@ function clearCan() {
     }
 }
 
-window.gameClearCan = function() {
+window.gameClearCan = function () {
     if (gameState == 1) {
         clearCan();
     }
@@ -317,7 +320,7 @@ function strokeCross(num) {
     ct.fill();
 }
 
-window.submit = function() {
+window.submit = function () {
     if (sub == false && gameState == 1) {
         sub = true;
         var temp = document.createElement("canvas");
@@ -379,7 +382,7 @@ window.submit = function() {
                     strokeCross(1);
                 }
             }
-            setTimeout(function() {
+            setTimeout(function () {
                 sub = false;
                 clearCan();
             }, 2000);
