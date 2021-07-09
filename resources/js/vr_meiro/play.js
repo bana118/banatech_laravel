@@ -5,7 +5,7 @@ require("./rotation-controls");
 let vrMode = false;
 
 window.onload = function () {
-    const SIZE = 15; //maze size must be odd;
+    const SIZE = 7; //maze size must be odd;
     const MAZE_ARRAY = createMaze(SIZE);
     const SCENE_ELEMENT = document.getElementById("scene");
     const MAZE_ELEMENT = document.getElementById("maze");
@@ -451,7 +451,7 @@ function postForm(url, data) {
     const csrfToken = document
         .querySelector("meta[name=csrf-token]")
         .getAttribute("content");
-    formEl.appendChild(csrfToken);
+    formEl.insertAdjacentHTML("beforeend", csrfToken);
     document.body.appendChild(formEl);
     formEl.submit();
     formEl.remove();
