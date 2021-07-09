@@ -2,20 +2,18 @@ require("aframe");
 require("aframe-extras");
 require("./rotation-controls");
 
-window.$ = window.jQuery = require("jquery");
-
 let vrMode = false;
 
-window.onload = function() {
+window.onload = function () {
     const SIZE = 15; //maze size must be odd;
     const MAZE_ARRAY = createMaze(SIZE);
     const SCENE_ELEMENT = document.getElementById("scene");
     const MAZE_ELEMENT = document.getElementById("maze");
     const RIG_ELEMENT = document.getElementById("rig");
-    SCENE_ELEMENT.addEventListener("enter-vr", function() {
+    SCENE_ELEMENT.addEventListener("enter-vr", function () {
         vrMode = true;
     });
-    SCENE_ELEMENT.addEventListener("exit-vr", function() {
+    SCENE_ELEMENT.addEventListener("exit-vr", function () {
         vrMode = false;
     });
     const CAMERA_ELEMENT = document.getElementById("camera");
@@ -71,14 +69,15 @@ function gameStart(
     cameraElement.appendChild(warnTextElement);
 
     ZOMBI_ELEMENT.setAttribute("animation-mixer", "timeScale: 6");
-    ZOMBI_ELEMENT.addEventListener("animation-loop", function() {
+    ZOMBI_ELEMENT.addEventListener("animation-loop", function () {
         if (!isGameOver) {
             zombiPosition = ZOMBI_ELEMENT.object3D.position;
             if (ZOMBI_ELEMENT.getAttribute("rotation").y == 0) {
                 ZOMBI_ELEMENT.setAttribute(
                     "position",
-                    `${zombiPosition.x} ${zombiPosition.y} ${zombiPosition.z +
-                        ZOMBI_SPEED}`
+                    `${zombiPosition.x} ${zombiPosition.y} ${
+                        zombiPosition.z + ZOMBI_SPEED
+                    }`
                 );
             } else if (ZOMBI_ELEMENT.getAttribute("rotation").y == 90) {
                 ZOMBI_ELEMENT.setAttribute(
@@ -90,8 +89,9 @@ function gameStart(
             } else if (ZOMBI_ELEMENT.getAttribute("rotation").y == 180) {
                 ZOMBI_ELEMENT.setAttribute(
                     "position",
-                    `${zombiPosition.x} ${zombiPosition.y} ${zombiPosition.z -
-                        ZOMBI_SPEED}`
+                    `${zombiPosition.x} ${zombiPosition.y} ${
+                        zombiPosition.z - ZOMBI_SPEED
+                    }`
                 );
             } else {
                 //ZOMBI_ELEMENT.getAttribute("rotation").y == 270
@@ -206,7 +206,7 @@ function gameStart(
         }
     });
     AFRAME.registerComponent("position-reader", {
-        tick: function(time, deltaTime) {
+        tick: function (time, deltaTime) {
             // `this.el` is the element.
             // `object3D` is the three.js object.
             // `position` is a three.js Vector3.
@@ -310,7 +310,8 @@ function gameStart(
             if (
                 !isGameClear &&
                 !isGameOver &&
-                (hasRedKey && hasBlueKey) &&
+                hasRedKey &&
+                hasBlueKey &&
                 Math.pow(cameraPosition.x - GOAL_POSITION.x, 2) +
                     Math.pow(cameraPosition.z - GOAL_POSITION.z, 2) <
                     1
@@ -399,12 +400,16 @@ function gameOver(rigElement, cameraElement, zombiElement) {
     zombiElement.removeAttribute("animation-mixer");
     zombiElement.setAttribute(
         "position",
-        `${rigPosition.x -
+        `${
+            rigPosition.x -
             zombiDistance *
-                Math.sin((cameraRotationY + rigRotationY) * (Math.PI / 180))}
-         0.2 ${rigPosition.z -
+                Math.sin((cameraRotationY + rigRotationY) * (Math.PI / 180))
+        }
+         0.2 ${
+             rigPosition.z -
              zombiDistance *
-                 Math.cos((cameraRotationY + rigRotationY) * (Math.PI / 180))}`
+                 Math.cos((cameraRotationY + rigRotationY) * (Math.PI / 180))
+         }`
     );
     zombiElement.setAttribute(
         "rotation",
@@ -433,25 +438,23 @@ function gameOver(rigElement, cameraElement, zombiElement) {
 }
 
 function postForm(url, data) {
-    var $form = $("<form/>", {
-        action: url,
-        method: "post",
-        id: "tempForm",
-    });
-    for (var key in data) {
-        $form.append(
-            $("<input/>", {
-                type: "hidden",
-                name: key,
-                value: data[key],
-            })
-        );
+    const formEl = document.createElement("form");
+    formEl.setAttribute("method", "post");
+    formEl.setAttribute("action", url);
+    for (const key in data) {
+        const inputEl = document.createElement("input");
+        inputEl.setAttribute("type", "hidden");
+        inputEl.setAttribute("name", key);
+        inputEl.setAttribute("value", data[key]);
+        formEl.appendChild(inputEl);
     }
-    var csrfToken = $('meta[name="csrf-token"]').attr("content");
-    $form.append(csrfToken);
-    $form.appendTo(document.body);
-    $form.submit();
-    $("#tempForm").remove();
+    const csrfToken = document
+        .querySelector("meta[name=csrf-token]")
+        .getAttribute("content");
+    formEl.appendChild(csrfToken);
+    document.body.appendChild(formEl);
+    formEl.submit();
+    formEl.remove();
 }
 
 function createPath(mazeArray, sceneElement) {
@@ -459,7 +462,7 @@ function createPath(mazeArray, sceneElement) {
         /**
          * Initial creation and setting of the mesh.
          */
-        init: function() {
+        init: function () {
             let points = [];
             const meshSize = 1;
             let path = [1, 1];
@@ -573,7 +576,7 @@ function createMaze(size) {
                 if (
                     BINARY_ARRAY[x - 1][y] == 0 &&
                     currentCreatingWallEvenPoints.filter(
-                        arr => arr[0] == x - 2 && arr[1] == y
+                        (arr) => arr[0] == x - 2 && arr[1] == y
                     ).length == 0
                 ) {
                     extendDirection.push("left");
@@ -581,7 +584,7 @@ function createMaze(size) {
                 if (
                     BINARY_ARRAY[x + 1][y] == 0 &&
                     currentCreatingWallEvenPoints.filter(
-                        arr => arr[0] == x + 2 && arr[1] == y
+                        (arr) => arr[0] == x + 2 && arr[1] == y
                     ).length == 0
                 ) {
                     extendDirection.push("right");
@@ -589,7 +592,7 @@ function createMaze(size) {
                 if (
                     BINARY_ARRAY[x][y - 1] == 0 &&
                     currentCreatingWallEvenPoints.filter(
-                        arr => arr[0] == x && arr[1] == y - 2
+                        (arr) => arr[0] == x && arr[1] == y - 2
                     ).length == 0
                 ) {
                     extendDirection.push("down");
@@ -597,7 +600,7 @@ function createMaze(size) {
                 if (
                     BINARY_ARRAY[x][y + 1] == 0 &&
                     currentCreatingWallEvenPoints.filter(
-                        arr => arr[0] == x && arr[1] == y + 2
+                        (arr) => arr[0] == x && arr[1] == y + 2
                     ).length == 0
                 ) {
                     extendDirection.push("up");
@@ -702,7 +705,11 @@ function setObjects(sceneElement, rigElement, mazeArray, size) {
             }
         }
     }
-    const GOAL_POSITIONS = [[size - 1, size - 2], [1, size - 1], [size - 2, 0]];
+    const GOAL_POSITIONS = [
+        [size - 1, size - 2],
+        [1, size - 1],
+        [size - 2, 0],
+    ];
     const GOAL_POSITION_INDEX = Math.floor(
         Math.random() * GOAL_POSITIONS.length
     );
