@@ -65,7 +65,7 @@ function postForm(url, data) {
     const csrfToken = document
         .querySelector("meta[name=csrf-token]")
         .getAttribute("content");
-    formEl.appendChild(csrfToken);
+    formEl.insertAdjacentHTML("beforeend", csrfToken);
     document.body.appendChild(formEl);
     formEl.submit();
     formEl.remove();
