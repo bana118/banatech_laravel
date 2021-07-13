@@ -17,7 +17,7 @@ const mdToHtml = (mdText, articleId) => {
         if (language != null && language.includes(":")) {
             const lang = language.split(":")[0];
             const fileName = language.split(":")[1].trim();
-            return `<pre><div class="uk-badge" style="display: inline-block;">${fileName}</div><code class="hljs">${
+            return `<pre><span class="uk-badge" style="font-size: 14px;">${fileName}</span><code class="hljs">${
                 hljs.highlightAuto(code, [lang]).value
             }</code></pre>`;
         } else {
@@ -38,7 +38,8 @@ const mdToHtml = (mdText, articleId) => {
         }
     };
     renderer.heading = function (text, level, raw, slugger) {
-        const regExp = /[！＠＃＄％＾＆＊（）＋｜〜＝￥｀「」｛｝；’：”、。・＜＞？【】『』《》〔〕［］‹›«»〘〙〚〛]/g;
+        const regExp =
+            /[！＠＃＄％＾＆＊（）＋｜〜＝￥｀「」｛｝；’：”、。・＜＞？【】『』《》〔〕［］‹›«»〘〙〚〛]/g;
         const id = slugger.slug(raw).replace(regExp, "");
         if (id in headerIds) {
             const suffix = headerIds[id];
